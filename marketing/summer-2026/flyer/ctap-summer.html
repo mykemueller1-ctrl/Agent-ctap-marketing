@@ -1,0 +1,122 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+@page{size:Letter;margin:0}
+html,body{width:8.5in;height:11in}
+body{font-family:'Inter',system-ui,sans-serif;background:#141210;color:#f4ede2;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page{width:8.5in;height:11in;padding:.5in .55in;display:flex;flex-direction:column;background:
+  radial-gradient(120% 60% at 100% 0%, rgba(226,138,42,.14), transparent 60%),
+  radial-gradient(90% 50% at 0% 100%, rgba(193,42,42,.12), transparent 55%),
+  #141210;}
+.osw{font-family:'Oswald',sans-serif}
+.amber{color:#e8a13a}.red{color:#e05a3d}.cream{color:#f4ede2}.mut{color:#b7a891}
+.script{font-family:'Caveat',cursive}
+/* header */
+.head{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #3a3128;padding-bottom:12px}
+.brand{display:flex;align-items:center;gap:12px}
+.mono{width:52px;height:52px;border-radius:12px;background:linear-gradient(160deg,#e8a13a,#c1601f);display:grid;place-items:center;font-family:'Oswald',sans-serif;font-weight:700;font-size:24px;color:#141210}
+.brand .n{font-family:'Oswald',sans-serif;font-weight:700;font-size:23px;letter-spacing:.02em;line-height:1}
+.brand .s{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:#b7a891;margin-top:4px}
+.phone{text-align:right}
+.phone .p{font-family:'Oswald',sans-serif;font-weight:700;font-size:22px;color:#e8a13a;letter-spacing:.01em}
+.phone .l{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#b7a891;margin-top:3px}
+/* hero */
+.hero{text-align:center;padding:16px 0 12px}
+.hero .kick{font-family:'Caveat',cursive;font-size:26px;color:#e05a3d;line-height:1}
+.hero h1{font-family:'Oswald',sans-serif;font-weight:700;font-size:52px;line-height:.98;letter-spacing:.01em;margin:2px 0 6px;text-transform:uppercase}
+.hero h1 .amber{color:#e8a13a}
+.hero p{font-size:12.5px;color:#b7a891;max-width:5.6in;margin:0 auto}
+/* columns */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px;flex:1}
+.sec{border:1px solid #3a3128;border-radius:12px;padding:14px 15px;background:rgba(255,255,255,.015)}
+.sec.hot{border-color:#e8a13a;background:linear-gradient(180deg,rgba(232,161,58,.07),transparent)}
+.sec h2{font-family:'Oswald',sans-serif;font-weight:600;font-size:16px;text-transform:uppercase;letter-spacing:.05em;color:#e8a13a;display:flex;align-items:center;gap:8px;margin-bottom:3px}
+.sec .tag{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#141210;background:#e05a3d;padding:2px 6px;border-radius:5px;font-weight:700}
+.sub{font-size:10px;color:#8f8270;margin-bottom:9px;letter-spacing:.02em}
+.item{display:flex;justify-content:space-between;gap:8px;padding:5px 0;border-bottom:1px dotted #342c22}
+.item:last-child{border-bottom:none}
+.item .nm{font-weight:600;font-size:12.5px;color:#f4ede2}
+.item .nm small{display:block;font-weight:400;font-size:10px;color:#9c8f7c;margin-top:1px}
+.item .pr{font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;color:#e8a13a;white-space:nowrap;text-align:right}
+.fire{font-size:11px}
+/* catering wide */
+.cater{margin-top:16px;border:1px solid #3a3128;border-radius:12px;padding:15px 16px}
+.cater h2{font-family:'Oswald',sans-serif;font-weight:700;font-size:18px;text-transform:uppercase;letter-spacing:.04em;color:#f4ede2;margin-bottom:2px}
+.cater h2 .amber{color:#e8a13a}
+.cgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px 18px;margin-top:10px}
+.citem .nm{font-weight:700;font-size:12px;color:#f4ede2}
+.citem .ds{font-size:10px;color:#9c8f7c;margin:2px 0 3px}
+.citem .pr{font-family:'Oswald',sans-serif;font-weight:600;font-size:12.5px;color:#e8a13a}
+/* monday strip + footer */
+.strip{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:14px;background:linear-gradient(90deg,#e8a13a,#c1601f);color:#141210;border-radius:12px;padding:12px 18px}
+.strip .b{font-family:'Oswald',sans-serif;font-weight:700;font-size:17px;text-transform:uppercase;letter-spacing:.02em}
+.strip .t{font-size:11px;font-weight:600;max-width:4.2in}
+.foot{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:2px solid #3a3128}
+.foot .cta{font-family:'Oswald',sans-serif;font-weight:700;font-size:19px;text-transform:uppercase}
+.foot .cta .amber{color:#e8a13a}
+.foot .meta{font-size:10px;color:#b7a891;text-align:right;line-height:1.5}
+</style></head><body><div class="page">
+
+  <div class="head">
+    <div class="brand">
+      <div class="mono">C</div>
+      <div><div class="n">COMMUNITY TAP <span class="amber">&amp;</span> PIZZA</div><div class="s">Fort Dodge, Iowa · Est. on the corner</div></div>
+    </div>
+    <div class="phone"><div class="p">(515) 955-8202</div><div class="l">Call or text to book</div></div>
+  </div>
+
+  <div class="hero">
+    <div class="kick">summer's here —</div>
+    <h1>Let us <span class="amber">cater it.</span></h1>
+    <p>Grad parties · team feeds · weddings · company picnics · office lunches. Wood-fired pizza, wings off the smoker, and a full tap to go with it. New summer drops all season.</p>
+  </div>
+
+  <div class="cols">
+    <div class="sec hot">
+      <h2>🔥 Summer Drops <span class="tag">New</span></h2>
+      <div class="sub">Limited-time — while the sun's out</div>
+      <div class="item"><div class="nm">Hot Honey Pepperoni <span class="fire">🍯</span><small>Sweet-heat drizzle over crispy pepperoni</small></div><div class="pr">MKT</div></div>
+      <div class="item"><div class="nm">Smash-Burger Pizza<small>Smashed beef, pickles, cheddar, burger sauce</small></div><div class="pr">MKT</div></div>
+      <div class="item"><div class="nm">Dill Pickle Pizza<small>The one you saw online — yes, really</small></div><div class="pr">MKT</div></div>
+      <div class="item"><div class="nm">Smoked Wings<small>Off our smoker · classic or swicy hot-honey</small></div><div class="pr">MKT</div></div>
+      <div class="item"><div class="nm">Broccoli Bites &amp; Smokey Mac<small>The house favorites, still here</small></div><div class="pr">MKT</div></div>
+    </div>
+
+    <div class="sec">
+      <h2>🍹 Summer Tap &amp; Bar</h2>
+      <div class="sub">On the patio · frozen &amp; fruit-forward</div>
+      <div class="item"><div class="nm">Frozen Spiked Lemonade<small>Slushie-style · the summer sipper</small></div><div class="pr">MKT</div></div>
+      <div class="item"><div class="nm">Frosé &amp; Frozen Margarita<small>Cold, pink, and made for the deck</small></div><div class="pr">MKT</div></div>
+      <div class="item"><div class="nm">Tap Flight<small>Four rotating pours · try before you commit</small></div><div class="pr">MKT</div></div>
+      <div class="item"><div class="nm">Beer Buckets<small>Grab five for the table</small></div><div class="pr">MKT</div></div>
+      <div class="item"><div class="nm">Zero-Proof Coolers<small>Mocktails for the whole crew &amp; the drivers</small></div><div class="pr">MKT</div></div>
+    </div>
+  </div>
+
+  <div class="cater">
+    <h2>Catering <span class="amber">Packages</span> — feed the whole crew</h2>
+    <div class="cgrid">
+      <div class="citem"><div class="nm">Meeting Monday Boxed Lunch</div><div class="ds">2 slices or a sub + salad + cookie, delivered</div><div class="pr">$9.99 / head</div></div>
+      <div class="citem"><div class="nm">Feed 10 for $99</div><div class="ds">2 sheet pizzas + big salad + breadsticks</div><div class="pr">$99 flat</div></div>
+      <div class="citem"><div class="nm">Sheet Pizza Party Pack</div><div class="ds">Feeds 20 / 40 / 60</div><div class="pr">$89 / $169 / $239</div></div>
+      <div class="citem"><div class="nm">Pasta Feed Tray</div><div class="ds">Feeds ~18 · +salad &amp; garlic bread $25</div><div class="pr">$65</div></div>
+      <div class="citem"><div class="nm">Wing Bar</div><div class="ds">50 or 100 wings + sauces</div><div class="pr">$49 / $89</div></div>
+      <div class="citem"><div class="nm">Grad Open-House</div><div class="ds">Pizza + wings + sides · book May–June</div><div class="pr">from $12 / head</div></div>
+      <div class="citem"><div class="nm">Team &amp; Tournament Feed</div><div class="ds">Pasta or pizza packs for the whole roster</div><div class="pr">from $8 / head</div></div>
+      <div class="citem"><div class="nm">Wedding Late-Night Slice + Tap</div><div class="ds">Pizza + kegs — nobody else does both</div><div class="pr">custom</div></div>
+      <div class="citem"><div class="nm">Company Picnic &amp; Golf Outing</div><div class="ds">Smoked meats + sides + beer package</div><div class="pr">custom</div></div>
+    </div>
+  </div>
+
+  <div class="strip">
+    <div class="b">📅 Monday = Catering Day</div>
+    <div class="t">Best rate of the week. Standing weekly orders get <b>10% off, priority delivery &amp; free setup.</b> Free delivery in town on orders over $75.</div>
+  </div>
+
+  <div class="foot">
+    <div class="cta">Book it: <span class="amber">(515) 955-8202</span></div>
+    <div class="meta">Community Tap &amp; Pizza · Fort Dodge, IA<br>Call or text · 48-hr notice on big orders · Follow us for the next Summer Drop</div>
+  </div>
+
+</div></body></html>
