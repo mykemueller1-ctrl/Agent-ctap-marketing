@@ -54,3 +54,11 @@ export {
   syntheticInvoicePlainText,
 } from "./synthetic-pdf";
 export { REVIEW_CONFIDENCE_FLOOR, buildTruth } from "./truth-engine";
+export {
+  CTAP_WEEK_2026_08_16,
+  applyWeekWindow,
+  parseTicketDate,
+  sumBooked,
+  ticketInWindow,
+} from "./week-window";
+export type { DateWindow } from "./week-window";

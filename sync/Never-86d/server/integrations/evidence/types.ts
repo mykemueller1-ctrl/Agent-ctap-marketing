@@ -131,6 +131,8 @@ export type TruthDocument = {
   needsReview: boolean;
   warnings: string[];
   confidence: number;
+  inWeekWindow?: boolean;
+  excludeFromBook?: boolean;
   extraction: Pick<ExtractionResult, "method" | "ocrVendor" | "confidence">;
 };
 
