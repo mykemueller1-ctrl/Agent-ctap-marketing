@@ -38,10 +38,15 @@ describe("CTAP intake routing", () => {
   it("drafts the Humes mailbox switch email", () => {
     const draft = humesRoutingSwitchEmail();
     expect(draft.to).toBe("accountspayable@humesdist.com");
-    expect(draft.body).toContain("STOP sending invoices to: myke@n86.app");
-    expect(draft.body).toContain(
-      "START sending all invoices / statements to: communitypizza2026@gmail.com"
-    );
+    expect(draft.body).toContain("Please start sending invoices here instead:");
+    expect(draft.body).toContain("communitypizza2026@gmail.com");
+    expect(draft.body).toContain("myke@n86.app");
+  });
+
+  it("includes Hy-Vee Wine Sun/Mon liquor order cadence", () => {
+    const hyvee = CTAP_VENDOR_CADENCE.find(v => v.vendorKey === "hyvee_wine");
+    expect(hyvee?.intakeMode).toBe("outbound_email_order");
+    expect(hyvee?.orderWindow).toMatch(/Sunday or Monday/i);
   });
 
   it("lists PDQ live and MarginEdge / R365 / labor silos as next targets", () => {

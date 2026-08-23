@@ -16,10 +16,14 @@ export type CtapVendorCadence = {
   /** Typical deliveries / invoices per week at CTAP. */
   timesPerWeek: { min: number; max: number };
   /** How documents usually arrive. */
-  intakeMode: "email_pdf" | "photo_ocr" | "email_or_photo";
+  intakeMode: "email_pdf" | "photo_ocr" | "email_or_photo" | "outbound_email_order";
   notes?: string;
   /** Current known sender if email-based. */
   senderEmail?: string;
+  /** Outbound order recipient when we place the order. */
+  orderToEmail?: string;
+  /** Cadence for outbound orders (Sun/Mon morning liquor run). */
+  orderWindow?: string;
   mailbox: typeof CTAP_OPS_MAILBOX;
 };
 
@@ -70,6 +74,16 @@ export const CTAP_VENDOR_CADENCE: CtapVendorCadence[] = [
     senderEmail: "accountspayable@humesdist.com",
     notes:
       "Was routing to myke@n86.app — must switch delivery + parser mailbox to CTAP_OPS_MAILBOX.",
+    mailbox: CTAP_OPS_MAILBOX,
+  },
+  {
+    vendorKey: "hyvee_wine",
+    displayName: "Hy-Vee Wine & Spirits",
+    timesPerWeek: { min: 1, max: 1 },
+    intakeMode: "outbound_email_order",
+    orderWindow: "Sunday or Monday morning",
+    notes:
+      "Myke emails the weekly liquor order Sun/Mon morning from the CTAP liquor/beer ordering sheet (Drive). Beer often rides separate distributors (Humes etc.). Confirm Hy-Vee Wine order-to address when Gmail is live.",
     mailbox: CTAP_OPS_MAILBOX,
   },
 ];
@@ -187,26 +201,51 @@ export function humesRoutingSwitchEmail(options?: {
   accountName?: string;
 }): { to: string; subject: string; body: string } {
   const to = options?.to ?? "accountspayable@humesdist.com";
-  const account = options?.accountName ?? "Community Tap & Pizza / Community Pizza";
   return {
     to,
-    subject: `Please update invoice email delivery — ${account}`,
+    subject: "Please start sending invoices here instead — Community Tap & Pizza",
     body: [
-      "Hello Humes Accounts Payable,",
+      "Hello,",
       "",
-      `Please update the invoice email delivery address for ${account}.`,
+      "Please start sending invoices here instead:",
       "",
-      "STOP sending invoices to: myke@n86.app",
-      "START sending all invoices / statements to: communitypizza2026@gmail.com",
+      "communitypizza2026@gmail.com",
       "",
-      "This is our store operations mailbox. Going forward, all Humes invoices should land only at communitypizza2026@gmail.com so they flow into our daily intake.",
+      "(Stop using myke@n86.app for Community Tap & Pizza / Community Pizza invoices.)",
       "",
-      "Please confirm when the change is complete.",
-      "",
-      "Thank you,",
+      "Thanks,",
       "Myke Mueller",
       "Community Tap & Pizza",
-      "communitypizza2026@gmail.com",
     ].join("\n"),
+  };
+}
+
+/** Live liquor ordering sheet Myke emails to Hy-Vee Wine Sun/Mon morning. */
+export const CTAP_LIQUOR_ORDER_SHEET_ID =
+  "1_gAesi5ufLOHsQ_uan3PEfzcOaVg4gxP8P7F_YHMHbU";
+
+export function hyveeWineOrderEmail(options: {
+  to: string;
+  orderLines: string;
+  total?: string;
+}): { to: string; subject: string; body: string } {
+  return {
+    to: options.to,
+    subject: "Community Tap & Pizza — weekly liquor order",
+    body: [
+      "Hi Hy-Vee Wine,",
+      "",
+      "Please fill this liquor order for Community Tap & Pizza (Fort Dodge):",
+      "",
+      options.orderLines,
+      "",
+      options.total ? `Order total (guide): ${options.total}` : "",
+      "",
+      "Thanks,",
+      "Myke Mueller",
+      "communitypizza2026@gmail.com",
+    ]
+      .filter(line => line !== undefined)
+      .join("\n"),
   };
 }
