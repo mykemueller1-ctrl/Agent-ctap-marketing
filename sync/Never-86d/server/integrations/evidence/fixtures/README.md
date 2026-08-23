@@ -2,5 +2,5 @@
 
 Synthetic only.
 
-Allowed: ACME Test Produce, `INV-1001`, generated 1x1 PNG, generated minimal PDFs.
-Forbidden: real CTAP invoices, PDQ Z-report PDFs, POS exports, mailbox copies, vendor photos.
+Allowed: ACME / DEMO layouts in `layouts.ts`, `INV-1001`, generated 1x1 PNG, generated minimal PDFs.
+Forbidden: real CTAP invoices, photographed tickets, POS exports, mailbox copies, store addresses, account numbers.

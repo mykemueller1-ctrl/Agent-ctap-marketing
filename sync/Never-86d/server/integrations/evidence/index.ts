@@ -37,6 +37,8 @@ export {
   parserFactory,
   zReportStubParser,
 } from "./parser-factory";
+export { detectVendorKey } from "./vendor-detect";
+export { VENDOR_PARSERS } from "./vendor-parsers";
 export {
   createDefaultDeps,
   extractEvidence,
