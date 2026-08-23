@@ -57,8 +57,13 @@ Public product name is **Never 86'd**. Action Shift is the mechanic. Do not inve
 
 Install Grok (and the other three) against MCP first: https://www.never86.ai/mcp
 
+**Tomorrow morning (Iowa):** follow `monday-morning-runbook.md`. Paste `grok-first-hunt.md` into Grok after the MCP connector. That is go-live. Cursor X MCP is not required for the first hunt.
+
 ## Files
 
+- `monday-morning-runbook.md` — 6 a.m. go-live (Grok connector + hunt + Humes/Hy-Vee)
+- `grok-first-hunt.md` — one paste into Gronk
+- `verticals.md` — pizza / bar / QSR / SaaS-refugee / Iowa
 - `system-prompts.md` — paste into Grok / ChatGPT / Claude / Gemini custom GPTs
 - `daily-scan-queries.json` — search strings per network
 - `lead-desk.mjs` — score + classify (`node --test docs/gtm/hunter-bots/lead-desk.test.mjs`)
