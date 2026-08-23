@@ -2,7 +2,9 @@
 
 One brain. Four LLM faces (Grok, ChatGPT, Claude, Gemini). Calculations and claim gates stay on `https://www.never86.ai/api/mcp` → `get_operator_system`. Do not fork math per model.
 
-**Job:** every day, find 1–3 unit operators publicly bitching about margins, 3P fees, labor, invoices, or SaaS they already paid for — then hand a human a scored lead with one hook, not a spray of DMs.
+**Job:** every day, find **1–3 unit independent owner-operators** (floor + books, burnt on SaaS) publicly bitching about 3P, margins, labor, invoices — then hand a human a scored lead with one hook.
+
+Study the person first: `icp-1-to-3-unit.md`. Pizza vs bar vs QSR are costumes. The ICP is one job.
 
 ## Bots (roles, not brands)
 
@@ -61,6 +63,7 @@ Install Grok (and the other three) against MCP first: https://www.never86.ai/mcp
 
 ## Files
 
+- `icp-1-to-3-unit.md` — **the ICP study** (read this before hunting)
 - `monday-morning-runbook.md` — 6 a.m. go-live (Grok connector + hunt + Humes/Hy-Vee)
 - `grok-first-hunt.md` — one paste into Gronk
 - `verticals.md` — pizza / bar / QSR / SaaS-refugee / Iowa
