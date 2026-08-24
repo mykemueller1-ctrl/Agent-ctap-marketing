@@ -1,12 +1,13 @@
 # CTAP intake — PDQ dial-in + mailbox routing (Aug 23 2026)
 
-## Weekly alcohol order / delivery calendar (Myke + bar managers)
+## Weekly alcohol order / delivery calendar (Kenzy + bar)
 - **Sun or Mon morning:** email **liquor order → Hy-Vee Wine** (from CTAP liquor/beer ordering sheet)
 - **Monday:** Hy-Vee wine/liquor delivery lands
 - **Sunday night:** beer order for Budweiser path → **Tuesday** Humes / Fort Dodge Distributing drop
 - **Tuesday night:** beer order for **Friday** Humes drop
 - **Friday:** Humes delivery
-- Ashley Holding owns weekly liquor/beer Google Sheet workflow; Karlee/Ashley bar managers
+- **Kenzy Thompson** (Myke’s wife) owns the liquor/beer Google Sheet + Hy-Vee/Humes order emails
+- Karlee Sturtz / Ashley Holding — bar floor. Mon 8/24 Hy-Vee liquor **already sent — do not duplicate**
 
 ## Ops mailbox (single intake)
 All CTAP POS + vendor mail → **`communitypizza2026@gmail.com`**
@@ -38,9 +39,9 @@ Cloud agent can push **Agent-ctap-marketing** only. Full patch lives under `sync
 ## Monday Aug 24 6am Iowa go-live
 - Hunter files confirmed: `docs/gtm/hunter-bots/monday-morning-runbook.md` + `grok-first-hunt.md`
 - Live path: grok.com/connectors → Custom → `https://www.never86.ai/api/mcp` → paste `grok-first-hunt.md`
-- Hy-Vee liquor draft rebuilt from live Drive sheet (`hyvee-liquor-order-draft.txt`) — liquor $1,167.31, mixers 0
-- Humes invoice switch still unsent (`humes-mailbox-switch-email.txt`) — cloud Gmail MCP still `needsAuth`
-- Tuesday beer draft from same sheet (`humes-beer-order-draft.txt`) — skip if Ashley already placed Sunday night
+- Hy-Vee liquor **sent 8/24** (Ashley). Do not re-send. Sheet owner going forward: **Kenzy Thompson**
+- Humes invoice switch still unsent (`humes-mailbox-switch-email.txt`) unless Kenzy already sent it — cloud Gmail MCP still `needsAuth`
+- Tuesday beer draft (`humes-beer-order-draft.txt`) — skip; this week’s alcohol orders are done
 
 ## Blocked this run
 - **Gmail MCP** still `needsAuth` on the cloud agent — cannot send Humes switch or Hy-Vee liquor order until Gmail connects on *this* agent (desktop auth alone is not enough). Phone-send from `communitypizza2026@gmail.com` is the live path.

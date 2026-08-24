@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   CTAP_OPS_MAILBOX,
+  CTAP_PEOPLE,
   CTAP_VENDOR_CADENCE,
   humesRoutingSwitchEmail,
   INTAKE_STACK_TARGETS,
@@ -47,6 +48,13 @@ describe("CTAP intake routing", () => {
     const hyvee = CTAP_VENDOR_CADENCE.find(v => v.vendorKey === "hyvee_wine");
     expect(hyvee?.intakeMode).toBe("outbound_email_order");
     expect(hyvee?.orderWindow).toMatch(/Sunday or Monday/i);
+    expect(hyvee?.notes).toMatch(/Kenzy Thompson/);
+  });
+
+  it("names Kenzy Thompson as wife and alcohol-sheet owner", () => {
+    expect(CTAP_PEOPLE.spouse.name).toBe("Kenzy Thompson");
+    expect(CTAP_PEOPLE.spouse.role).toMatch(/wife/i);
+    expect(CTAP_PEOPLE.spouse.role).toMatch(/Hy-Vee/);
   });
 
   it("lists PDQ live and MarginEdge / R365 / labor silos as next targets", () => {

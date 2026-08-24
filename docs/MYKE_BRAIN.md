@@ -6,7 +6,8 @@ This is the operating loop. Agents execute it. Humans only approve sends.
 
 **Mailbox:** `communitypizza2026@gmail.com`  
 **MCP brain:** `https://www.never86.ai/api/mcp` → `get_operator_system`  
-**Public wedge:** https://www.never86.ai/audit
+**Public wedge:** https://www.never86.ai/audit  
+**People:** Kenzy Thompson (wife — liquor/beer sheet, Hy-Vee Monday, Humes beer) · Karlee Sturtz (bar) · Ashley Holding (bar; 8/24 Hy-Vee already sent) · Tom Dorothy (kitchen)
 
 ---
 
@@ -16,10 +17,10 @@ This is the operating loop. Agents execute it. Humans only approve sends.
 3. One Action Shift for the **prior complete business day** (not today).
 
 ## Every Monday morning (Iowa)
-1. **Hy-Vee Wine** — email liquor qty>0 from the CTAP liquor sheet. Draft: `docs/ctap-intake/hyvee-liquor-order-draft.txt`
+1. **Hy-Vee Wine** — Kenzy owns the sheet. Email liquor qty>0. **Mon 8/24 already sent — do not re-send.** Draft only if next week’s qty changes: `docs/ctap-intake/hyvee-liquor-order-draft.txt`
 2. **Humes AP** — if still on `myke@n86.app`, send switch: `docs/ctap-intake/humes-mailbox-switch-email.txt`
 3. **Gronk Hunter** — grok.com/connectors → Never86 MCP → paste `docs/gtm/hunter-bots/grok-first-hunt.md`. Keep score ≥ 60. Max 3 human-approved replies. No auto-post.
-4. Beer order path: Sunday night for **Tuesday** Humes / Fort Dodge Distributing.
+4. Beer order path: Sunday night for **Tuesday** Humes / Fort Dodge Distributing (Kenzy).
 
 ## Vendor book (photo + email)
 Window this week: **Sun 8/16 – Sat 8/22** (see `week-window.ts`).

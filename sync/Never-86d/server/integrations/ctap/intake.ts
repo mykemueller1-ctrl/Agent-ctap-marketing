@@ -10,6 +10,26 @@ export const CTAP_OPS_MAILBOX = "communitypizza2026@gmail.com";
 /** Legacy founder inbox — do not route new vendor/POS mail here. */
 export const CTAP_LEGACY_FOUNDER_MAILBOX = "myke@n86.app";
 
+/**
+ * Living-lab people. Kenzy owns the alcohol sheet. Do not nag Hy-Vee after
+ * a Monday send is confirmed.
+ */
+export const CTAP_PEOPLE = {
+  owner: "Mychael \"Myke\" Mueller",
+  spouse: {
+    name: "Kenzy Thompson",
+    role: "wife; liquor/beer Google Sheet + Hy-Vee Monday + Humes beer orders",
+  },
+  bar: [
+    { name: "Karlee Sturtz", role: "bar manager" },
+    {
+      name: "Ashley Holding",
+      role: "bar; Hy-Vee liquor 2026-08-24 already sent — do not re-send",
+    },
+  ],
+  kitchen: { name: "Tom Dorothy", role: "kitchen; Northern Lights / Sawyer" },
+} as const;
+
 export type CtapVendorCadence = {
   vendorKey: string;
   displayName: string;
@@ -83,7 +103,7 @@ export const CTAP_VENDOR_CADENCE: CtapVendorCadence[] = [
     intakeMode: "outbound_email_order",
     orderWindow: "Sunday or Monday morning",
     notes:
-      "Myke emails the weekly liquor order Sun/Mon morning from the CTAP liquor/beer ordering sheet (Drive). Beer often rides separate distributors (Humes etc.). Confirm Hy-Vee Wine order-to address when Gmail is live.",
+      "Kenzy Thompson (Myke's wife) owns the liquor/beer Google Sheet. Hy-Vee liquor email Sun/Mon morning; Mon 2026-08-24 already sent — do not duplicate. Beer rides Humes / Fort Dodge Dist.",
     mailbox: CTAP_OPS_MAILBOX,
   },
 ];
