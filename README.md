@@ -16,14 +16,15 @@ npm run portal   # owner seat at http://localhost:5173
 npm run demo     # PDQ Z-report fixture (7/16)
 ```
 
-## Owner portal (four seats)
+## Owner portal (five seats)
 
 | Seat | Status |
 |---|---|
-| Shift | Live — bar week 8/30–9/5 |
-| Sales | Live — 7/15–7/16 Zs + Sept 2025 week. Aug 16–22 Z hole |
-| Buy | Live — liquor/beer qty from Drive. No unit prices in git |
-| Invoices | Live — 32 HEIC photos, not OCR'd |
+| Shift | Bar week 8/30–9/5 live. Kitchen + drivers = Feb templates, no times |
+| Sales | 7/15–7/16 Zs + Sept 2025 week. Aug 16–22 Z hole (mail, not Drive) |
+| Buy | I took the call: send volume + kegs, hold qty-1 premium. No unit prices in git |
+| Invoices | 32 HEICs *are* the food list. Not OCR'd |
+| Calendar | September DRAFT. Tom food missing. Football planning-only. Humes unsent |
 
 ## Code map
 
