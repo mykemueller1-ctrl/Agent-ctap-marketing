@@ -32,6 +32,7 @@ npm run demo     # PDQ Z-report fixture (7/16)
 | Owner portal | `portal/` |
 | PDQ Z-report (Large Pizza → Food) | `sync/Never-86d/server/integrations/pdq/` |
 | Photo invoices + week book + vendor parsers | `sync/Never-86d/server/integrations/evidence/` |
+| Humes / PFG parsers | `sync/Never-86d/server/integrations/vendors/` |
 | Vendor cadence / mailbox | `sync/Never-86d/server/integrations/ctap/intake.ts` |
 | Monthly specials calendar | `sync/Never-86d/server/calendar/` |
 | Alcohol rails | `docs/agent-memory/CTAP_Alcohol_Buying_Baseline.md` |
