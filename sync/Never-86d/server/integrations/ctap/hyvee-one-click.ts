@@ -43,6 +43,7 @@ export function kenzyHyveeEmail(options: {
       "",
       "Thanks,",
       "Kenzy Thompson",
+      "Bar FOH Manager",
       "Community Tap & Pizza",
       "communitypizza2026@gmail.com",
     ].join("\n"),

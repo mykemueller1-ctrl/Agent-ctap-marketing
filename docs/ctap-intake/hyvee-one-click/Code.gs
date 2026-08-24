@@ -51,6 +51,7 @@ function sendHyveeLiquorOrder() {
     "",
     "Thanks,",
     "Kenzy Thompson",
+    "Bar FOH Manager",
     "Community Tap & Pizza",
     OPS_MAIL,
   ].join("\n");

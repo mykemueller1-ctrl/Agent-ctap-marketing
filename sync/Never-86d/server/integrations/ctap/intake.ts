@@ -19,20 +19,23 @@ export const CTAP_HUMES_MAILBOX_SWITCH = {
 } as const;
 
 /**
- * Living-lab people. Kenzy owns the alcohol sheet. Do not nag Hy-Vee after
- * a Monday send is confirmed.
+ * Living-lab people. Karlee Sturtz and Ashley Holding are not on the floor.
+ * Kenzy = bar FOH manager. Tom = BOH manager.
  */
 export const CTAP_PEOPLE = {
   owner: "Mychael \"Myke\" Mueller",
   spouse: {
     name: "Kenzy Thompson",
-    role: "wife; one-tap Hy-Vee send on the liquor Google Sheet — Myke is not in this loop",
+    role: "wife; bar FOH manager; liquor/beer sheet + one-tap Hy-Vee — Myke is not in this loop",
   },
-  bar: [
-    { name: "Karlee Sturtz", role: "bar manager" },
-    { name: "Ashley Holding", role: "bar" },
-  ],
-  kitchen: { name: "Tom Dorothy", role: "kitchen; Northern Lights / Sawyer" },
+  foh: {
+    name: "Kenzy Thompson",
+    role: "bar FOH manager",
+  },
+  boh: {
+    name: "Tom Dorothy",
+    role: "BOH manager; kitchen; Northern Lights / Sawyer",
+  },
 } as const;
 
 export type CtapVendorCadence = {

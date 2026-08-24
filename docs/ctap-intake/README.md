@@ -8,7 +8,9 @@
 - **Sunday night:** beer order for Budweiser path → **Tuesday** Humes / Fort Dodge Distributing drop
 - **Tuesday night:** beer order for **Friday** Humes drop
 - **Friday:** Humes delivery
-- Karlee Sturtz / Ashley Holding — bar floor
+- **Kenzy Thompson** — wife, **bar FOH manager**. One-tap Hy-Vee / beer orders. Myke out of the Hy-Vee email loop.
+- **Tom Dorothy** — **BOH manager**. Kitchen. Northern Lights / Sawyer photos.
+- Karlee Sturtz / Ashley Holding — **not on the floor**
 
 ## Canonical logic (Drive + git)
 Full Community operator logic: `docs/ctap-intake/CTAP_OPERATOR_LOGIC.md`  
@@ -24,7 +26,7 @@ All CTAP POS + vendor mail → **`communitypizza2026@gmail.com`**
 | Sawyer Meats | 2–3×/wk | Photo OCR | Always pictures |
 | Humes Distributing | ~2×/wk (Tue + Fri) | Email PDF | Switch **sent 8/24** from communitypizza. Watch Tue/Fri PDFs land here, not `myke@n86.app` |
 | Hy-Vee Wine & Spirits | 1×/wk | Outbound email order | Sun/Mon morning liquor order email |
-| Fort Dodge Distributing | with Tue beer run | TBD | Named in bar-manager workflow doc |
+| Fort Dodge Distributing | with Tue beer run | TBD | With Kenzy’s Tuesday beer path |
 
 ## PDQ parse rules (`pdq-z-report-v2`)
 - Real PDQ PDF text is **multiline** (label, then `$` on the next line).

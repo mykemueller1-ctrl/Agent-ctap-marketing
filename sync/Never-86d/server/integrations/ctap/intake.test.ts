@@ -90,10 +90,13 @@ describe("CTAP intake routing", () => {
     expect(hyvee?.notes).toMatch(/Myke is out/);
   });
 
-  it("names Kenzy Thompson as wife and alcohol-sheet owner", () => {
+  it("names Kenzy as bar FOH manager and Tom as BOH manager", () => {
     expect(CTAP_PEOPLE.spouse.name).toBe("Kenzy Thompson");
-    expect(CTAP_PEOPLE.spouse.role).toMatch(/wife/i);
-    expect(CTAP_PEOPLE.spouse.role).toMatch(/Hy-Vee/);
+    expect(CTAP_PEOPLE.foh.name).toBe("Kenzy Thompson");
+    expect(CTAP_PEOPLE.foh.role).toMatch(/FOH/i);
+    expect(CTAP_PEOPLE.boh.name).toBe("Tom Dorothy");
+    expect(CTAP_PEOPLE.boh.role).toMatch(/BOH/i);
+    expect(JSON.stringify(CTAP_PEOPLE)).not.toMatch(/Karlee|Ashley/);
   });
 
   it("lists PDQ live and MarginEdge / R365 / labor silos as next targets", () => {

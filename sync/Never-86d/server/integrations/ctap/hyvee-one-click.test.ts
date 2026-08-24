@@ -29,6 +29,7 @@ describe("Kenzy one-tap Hy-Vee", () => {
     });
     expect(email.body).toContain("*Captain - 7");
     expect(email.body).toContain("Kenzy Thompson");
+    expect(email.body).toContain("Bar FOH Manager");
     expect(email.body).not.toMatch(/Myke/);
     expect(email.subject).toMatch(/Community Tap & Pizza/);
   });

@@ -12,10 +12,9 @@ This is how Community runs. Agents and humans follow it. Do not invent a second 
 
 ## People
 - Myke Mueller — owner. Not in the weekly Hy-Vee email loop.
-- Kenzy Thompson — wife. Liquor/beer par. Fills the Google liquor sheet. One-tap SEND to Hy-Vee. Myke out.
-- Karlee Sturtz — bar manager (floor, schedule, inventory input)
-- Ashley Holding — bar floor
-- Tom Dorothy — kitchen. Northern Lights / Sawyer photos.
+- **Kenzy Thompson** — wife, **bar FOH manager**. Liquor/beer par. One-tap SEND to Hy-Vee. Myke out.
+- **Tom Dorothy** — **BOH manager**. Kitchen. Northern Lights / Sawyer photos.
+- Karlee Sturtz and Ashley Holding — **not on the floor.**
 
 ## Rails (do not blend beer + liquor)
 - Food cost under 30% of food sales
