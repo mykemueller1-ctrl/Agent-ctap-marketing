@@ -8,5 +8,10 @@
     "esModuleInterop": true,
     "types": ["node"]
   },
-  "include": ["sync/Never-86d/server/integrations/evidence/**/*.ts"]
+  "include": [
+    "sync/Never-86d/server/integrations/evidence/**/*.ts",
+    "portal/src/**/*.ts",
+    "portal/vite.config.ts",
+    "vitest.config.ts"
+  ]
 }
