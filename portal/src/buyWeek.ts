@@ -1,9 +1,44 @@
+export type BuyAction = "send" | "hold";
+
 export type BuyLine = {
   name: string;
   qty: number;
   par?: number;
   category: "liquor" | "wine" | "cordial" | "beer" | "keg";
 };
+
+/** Volume movers + well brands. Qty-1 premium / one-offs get held. */
+const SEND_NEEDLES = [
+  "titos",
+  "captain",
+  "hawkeye vodka",
+  "crown apple",
+  "crown peach",
+  "pinot grigio",
+  "black velvet",
+  "peppermint schnapps",
+  "cherry mcguillicuddys",
+  "ultra bottles",
+  "busch light",
+  "coors light",
+  "miller light",
+  "miller high life",
+  "bud light bottles",
+  "budweiser bottles",
+];
+
+export function decideBuyAction(line: BuyLine): BuyAction {
+  if (line.qty <= 0) return "hold";
+  if (line.category === "keg") return "send";
+  const name = line.name.toLowerCase().replace(/\./g, "");
+  if (SEND_NEEDLES.some(needle => name.includes(needle))) return "send";
+  if (line.qty >= 3) return "send";
+  return "hold";
+}
+
+export function withActions(lines: BuyLine[]): Array<BuyLine & { action: BuyAction }> {
+  return lines.map(line => ({ ...line, action: decideBuyAction(line) }));
+}
 
 export type BuySection = {
   total: number;
@@ -24,7 +59,7 @@ export type BuySeed = {
 };
 
 export type BuyInsight = {
-  kind: "par-fill" | "liquor" | "beer" | "mixers" | "prices";
+  kind: "par-fill" | "send" | "hold" | "liquor" | "beer" | "mixers" | "prices";
   title: string;
   detail: string;
 };
@@ -58,6 +93,11 @@ export function assertNoPrices(seed: BuySeed): string[] {
 
 export function buildBuyInsights(seed: BuySeed): BuyInsight[] {
   const combined = combinedTotal(seed);
+  const tagged = withActions([...seed.liquor.lines, ...seed.beer.lines]).filter(
+    line => line.qty > 0
+  );
+  const send = tagged.filter(line => line.action === "send");
+  const hold = tagged.filter(line => line.action === "hold");
   const liquorTop = formatNames(biggest(qtyLines(seed.liquor.lines)));
   const beerTop = formatNames(biggest(qtyLines(seed.beer.lines)));
   const liquorUnder = seed.liquor.overUnder < 0;
@@ -65,9 +105,14 @@ export function buildBuyInsights(seed: BuySeed): BuyInsight[] {
 
   return [
     {
+      kind: "send",
+      title: `Send ${send.length} volume + keg lines. Hold ${hold.length} qty-1 premium / one-offs`,
+      detail: `I took the Buy call. Par-fill is $${combined.toFixed(2)} vs a ~$${seed.baselineWeeklySpend.toLocaleString()} replacement buy. Send: ${formatNames(biggest(send, 4))}. Hold the rest until POS mix says otherwise.`,
+    },
+    {
       kind: "par-fill",
-      title: `This sheet is a $${combined.toFixed(0)} par-fill, not a $${seed.baselineWeeklySpend.toLocaleString()} replacement buy`,
-      detail: `May baseline: ~$${seed.baselineWeeklySpend.toLocaleString()}/wk spend was fine against ~$13k alcohol sales. Full-guide par-fill risk was ~$${seed.parFillRisk.toLocaleString()}. Combined qty-to-order is $${combined.toFixed(2)}. Do not send until POS movement matches the holes.`,
+      title: `Sheet total $${combined.toFixed(0)} is a par-fill, not the send`,
+      detail: `May baseline: ~$${seed.baselineWeeklySpend.toLocaleString()}/wk was fine against ~$13k alcohol sales. Full-guide risk ~$${seed.parFillRisk.toLocaleString()}. Do not email Hy-Vee / Humes this whole list.`,
     },
     {
       kind: "liquor",

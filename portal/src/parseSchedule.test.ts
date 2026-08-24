@@ -74,3 +74,20 @@ describe("parseWideScheduleCsv — CTAP bar week from Drive", () => {
     ).toBe(true);
   });
 });
+
+describe("kitchen / driver Drive templates", () => {
+  it("treats the Feb kitchen sheet as names with no times", () => {
+    const csv = readFileSync(
+      join(
+        dirname(fileURLToPath(import.meta.url)),
+        "../public/data/ctap-kitchen-schedule.csv"
+      ),
+      "utf8"
+    );
+    const parsed = parseWideScheduleCsv(csv, "Kitchen");
+    expect(parsed.employees).toContain("Thomas Dorothy");
+    expect(parsed.assignments).toHaveLength(0);
+    const insights = buildInsights(parsed);
+    expect(insights[0]?.title).toMatch(/no times posted/);
+  });
+});

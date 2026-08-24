@@ -257,12 +257,27 @@ const CORE_STATIONS = ["BAR SIDE", "PIZZA SIDE"];
 export function buildInsights(parsed: ParsedSchedule): ShiftInsight[] {
   const insights: ShiftInsight[] = [];
 
+  if (parsed.assignments.length === 0 && parsed.employees.length) {
+    insights.push({
+      kind: "incomplete",
+      date: parsed.dates[0] ?? "",
+      title: `${parsed.department} week has no times posted`,
+      detail: `${parsed.employees.length} names on a ${parsed.weekStart ?? "blank"} template. Not a live week.`,
+    });
+    return insights;
+  }
+
+  const coreStations =
+    parsed.department === "Kitchen" || parsed.department === "Drivers"
+      ? []
+      : CORE_STATIONS;
+
   for (const date of parsed.dates) {
     const day = parsed.assignments.filter(a => a.date === date);
     const working = day.filter(a => !a.flags.requestedOff && (a.start || a.end || a.station));
     const names = new Set(working.map(a => a.employee));
 
-    for (const station of CORE_STATIONS) {
+    for (const station of coreStations) {
       const covered = working.some(a => a.station === station && !a.incomplete);
       if (!covered) {
         insights.push({

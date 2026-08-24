@@ -18,10 +18,16 @@ import {
 import {
   buildBuyInsights,
   combinedTotal,
+  withActions,
   type BuyInsight,
   type BuyLine,
   type BuySeed,
 } from "./buyWeek";
+import {
+  buildCalendarInsights,
+  type CalendarInsight,
+  type CalendarSeed,
+} from "./calendarMonth";
 import {
   buildSalesInsights,
   money,
@@ -32,7 +38,34 @@ import {
   type ZDay,
 } from "./salesWeek";
 
-const STATION_ORDER = ["BAR SIDE", "BAR SERVER", "WAITRESS", "PIZZA SIDE"];
+type DeptId = "bar" | "kitchen" | "drivers";
+type SeatId = "shift" | "sales" | "buy" | "invoices" | "calendar";
+
+const STATION_ORDER: Record<DeptId, string[]> = {
+  bar: ["BAR SIDE", "BAR SERVER", "WAITRESS", "PIZZA SIDE"],
+  kitchen: ["FRY LINE", "PIZZA MAKER", "DISH", "PREP"],
+  drivers: ["DRIVER"],
+};
+
+const DEPT_LABEL: Record<DeptId, string> = {
+  bar: "Bar Crew",
+  kitchen: "Kitchen",
+  drivers: "Drivers",
+};
+
+let barWeek: ParsedSchedule;
+let kitchenWeek: ParsedSchedule;
+let driverWeek: ParsedSchedule;
+let invoiceWeek: InvoiceWeekSeed;
+let sales: SalesSeed;
+let buy: BuySeed;
+let calendar: CalendarSeed;
+let selectedDate = "";
+let selectedZ = "";
+let extra: Assignment[] = [];
+let toast = "";
+let seat: SeatId = "buy";
+let dept: DeptId = "bar";
 
 const TIMES = [
   "Open",
@@ -52,20 +85,16 @@ const TIMES = [
   "RO",
 ];
 
-type SeatId = "shift" | "sales" | "buy" | "invoices";
-
-let parsed: ParsedSchedule;
-let invoiceWeek: InvoiceWeekSeed;
-let sales: SalesSeed;
-let buy: BuySeed;
-let selectedDate = "";
-let selectedZ = "";
-let extra: Assignment[] = [];
-let toast = "";
-let seat: SeatId = "invoices";
+function currentWeek(): ParsedSchedule {
+  if (dept === "kitchen") return kitchenWeek;
+  if (dept === "drivers") return driverWeek;
+  return barWeek;
+}
 
 function allAssignments(): Assignment[] {
-  return [...parsed.assignments, ...extra];
+  const week = currentWeek();
+  if (dept !== "bar") return week.assignments;
+  return [...week.assignments, ...extra];
 }
 
 function currentDay(): Assignment[] {
@@ -84,17 +113,19 @@ function render(): void {
   if (!app) return;
 
   const shiftInsights = buildInsights({
-    ...parsed,
+    ...currentWeek(),
     assignments: allAssignments(),
   });
   const invoiceInsights = buildInvoiceInsights(invoiceWeek, sales.invoiceWeekHasZ);
   const salesInsights = buildSalesInsights(sales);
   const buyInsights = buildBuyInsights(buy);
+  const calendarInsights = buildCalendarInsights(calendar);
   const hero = heroCopy(
     shiftInsights[0],
     invoiceInsights[0],
     salesInsights[0],
-    buyInsights[0]
+    buyInsights[0],
+    calendarInsights[0]
   );
 
   app.innerHTML = `
@@ -113,16 +144,18 @@ function render(): void {
     </section>
 
     <nav class="seats">
-      ${seatButton("shift", "Seat 01", "Shift", "Live")}
+      ${seatButton("shift", "Seat 01", "Shift", dept === "bar" ? "Live" : "Stale template")}
       ${seatButton("sales", "Seat 02", "Sales", sales.invoiceWeekHasZ ? "Live" : "Live — Z hole")}
-      ${seatButton("buy", "Seat 03", "Buy", "Live — par-fill")}
+      ${seatButton("buy", "Seat 03", "Buy", "Live — send/hold")}
       ${seatButton("invoices", "Seat 04", "Invoices", "Live — 32 photos")}
+      ${seatButton("calendar", "Seat 05", "Calendar", "Draft — Sep")}
     </nav>
 
     ${seat === "shift" ? shiftLayout(shiftInsights) : ""}
     ${seat === "sales" ? salesLayout(salesInsights) : ""}
     ${seat === "buy" ? buyLayout(buyInsights) : ""}
     ${seat === "invoices" ? invoicesLayout(invoiceInsights) : ""}
+    ${seat === "calendar" ? calendarLayout(calendarInsights) : ""}
   `;
 
   bindNav();
@@ -134,14 +167,23 @@ function heroCopy(
   shiftNext: ShiftInsight | undefined,
   invoiceNext: ReturnType<typeof buildInvoiceInsights>[0] | undefined,
   salesNext: SalesInsight | undefined,
-  buyNext: BuyInsight | undefined
+  buyNext: BuyInsight | undefined,
+  calendarNext: CalendarInsight | undefined
 ) {
   if (seat === "buy") {
     return {
-      kicker: "Remembered from Drive — Buy",
-      title: buyNext?.title ?? "Liquor/beer qty-to-order is on the sheet.",
+      kicker: "I took the Buy call",
+      title: buyNext?.title ?? "Send volume. Hold the par-fill.",
       detail:
-        "Bar liquor/beer sheet in Drive, modified 8/23. Portal shows name, par, and qty. Unit costs stay in Drive. Do not buy from par alone.",
+        "8/23 Drive sheet. Names, par, qty only. Unit costs stay in Drive. I am not emailing Hy-Vee/Humes the whole list.",
+    };
+  }
+  if (seat === "calendar") {
+    return {
+      kicker: "September 2026 — Calendar",
+      title: calendarNext?.title ?? "Draft month. Humes stays unsent.",
+      detail:
+        "Kenzy owns drink. Tom owns food. Football is planning-only. Only Myke can release the Humes email.",
     };
   }
   if (seat === "invoices") {
@@ -149,7 +191,7 @@ function heroCopy(
       kicker: "Remembered from last week — Invoices",
       title: invoiceNext?.title ?? "Last week's invoice photos are in Drive.",
       detail:
-        "32 HEICs in folder 8-16 thru 8-22, from the OCR course. Invoice sheet SOP lives in Drive. Photos stay photo_ocr — Document AI is not live in this repo.",
+        "Food order list is the 32 HEICs. No Sysco/NL standing guide in Drive. Photos stay photo_ocr — Document AI is not live.",
     };
   }
   if (seat === "sales") {
@@ -157,16 +199,16 @@ function heroCopy(
       kicker: "Remembered from last week — Sales",
       title: salesNext?.title ?? "Sales denominator is the Z-report.",
       detail:
-        "No Aug 16–22 Z-reports in Drive yet. Showing the last two Z nights (7/15–7/16/2026) and the last complete weekly folder (9/14–9/20/2025).",
+        "Drive still has no Aug 16–22 Z-reports. Mail is where PDQ dailies live. Showing 7/15–7/16/2026 and the Sept 2025 week.",
     };
   }
+  const week = currentWeek();
   return {
-    kicker: "First seat in action — Shift",
+    kicker: `Shift — ${DEPT_LABEL[dept]}`,
     title: shiftNext ? shiftNext.title : "This week's floor is posted.",
     detail: shiftNext
-      ? shiftNext.detail +
-        " Pulled from the live CTAP BAR SCHEDULE sheet in Drive — no 7shifts, no HotSchedules."
-      : "Bar crew week is loaded from Google Drive.",
+      ? shiftNext.detail
+      : `${week.employees.length} people loaded from Google Drive.`,
   };
 }
 
@@ -192,7 +234,13 @@ function bindNav(): void {
     if (btn.disabled) return;
     btn.addEventListener("click", () => {
       const next = btn.dataset.seat as SeatId;
-      if (next === "shift" || next === "sales" || next === "buy" || next === "invoices") {
+      if (
+        next === "shift" ||
+        next === "sales" ||
+        next === "buy" ||
+        next === "invoices" ||
+        next === "calendar"
+      ) {
         seat = next;
         toast = "";
         render();
@@ -202,8 +250,10 @@ function bindNav(): void {
 }
 
 function shiftLayout(insights: ShiftInsight[]): string {
+  const week = currentWeek();
   const dayAssignments = currentDay();
   const dayInsights = insights.filter(i => i.date === selectedDate);
+  const stations = STATION_ORDER[dept];
   return `<div class="layout">
       <aside class="panel">
         <h2>Next action</h2>
@@ -213,13 +263,21 @@ function shiftLayout(insights: ShiftInsight[]): string {
             : `<div class="insight"><b>Floor looks covered</b><span>No holes on ${formatPrettyDate(selectedDate)}.</span></div>`
         }
         <h2 style="margin-top:18px">This week</h2>
-        <div class="meta">${parsed.weekStart} → ${parsed.weekEnd} · ${parsed.employees.length} people · Bar Crew</div>
+        <div class="meta">${week.weekStart} → ${week.weekEnd} · ${week.employees.length} people · ${DEPT_LABEL[dept]}</div>
         ${insights.slice(0, 6).map(insightCard).join("")}
       </aside>
       <section class="panel">
         <h2>Posted week</h2>
         <div class="days">
-          ${parsed.dates
+          ${(["bar", "kitchen", "drivers"] as DeptId[])
+            .map(
+              id =>
+                `<button class="day-btn ${id === dept ? "active" : ""}" data-dept="${id}">${DEPT_LABEL[id]}</button>`
+            )
+            .join("")}
+        </div>
+        <div class="days">
+          ${week.dates
             .map(
               date =>
                 `<button class="day-btn ${date === selectedDate ? "active" : ""}" data-date="${date}">${formatPrettyDate(date)}</button>`
@@ -227,8 +285,15 @@ function shiftLayout(insights: ShiftInsight[]): string {
             .join("")}
         </div>
         <div class="board">
-          ${STATION_ORDER.map(stationCol).join("")}
+          ${stations.map(stationCol).join("")}
           ${unassignedCol(dayAssignments)}
+          ${
+            dayAssignments.length === 0
+              ? `<div class="station"><h3>ROSTER</h3>${week.employees
+                  .map(e => `<article class="card"><div class="who">${e}</div><div class="when">No times posted</div></article>`)
+                  .join("")}</div>`
+              : ""
+          }
         </div>
         <div class="actions">
           <label class="file-btn">Upload week CSV
@@ -238,8 +303,8 @@ function shiftLayout(insights: ShiftInsight[]): string {
         </div>
         <h2>Quick assign</h2>
         <div class="quick">
-          <select id="qa-name">${parsed.employees.map(e => `<option>${e}</option>`).join("")}</select>
-          <select id="qa-station">${STATION_ORDER.map(s => `<option>${s}</option>`).join("")}</select>
+          <select id="qa-name">${week.employees.map(e => `<option>${e}</option>`).join("")}</select>
+          <select id="qa-station">${stations.map(s => `<option>${s}</option>`).join("")}</select>
           <select id="qa-start">${TIMES.map(t => `<option>${t}</option>`).join("")}</select>
           <select id="qa-end">${TIMES.map(t => `<option ${t === "Close" ? "selected" : ""}>${t}</option>`).join("")}</select>
           <button class="primary" id="qa-save">Save</button>
@@ -338,25 +403,57 @@ function buyLayout(insights: BuyInsight[]): string {
           <div class="metric"><span>Vs $1,400 replacement</span><b>${money(combined - buy.baselineWeeklySpend)} over</b></div>
         </div>
         <div class="order-grid">
-          ${orderCol("Liquor / wine / cordial", buy.liquor.lines)}
-          ${orderCol("Beer / kegs", buy.beer.lines)}
+          ${orderCol("Send", withActions([...buy.liquor.lines, ...buy.beer.lines]).filter(l => l.action === "send"))}
+          ${orderCol("Hold", withActions([...buy.liquor.lines, ...buy.beer.lines]).filter(l => l.action === "hold"))}
         </div>
         <p class="fine">Mixers ordered: ${buy.mixersOrdered}. Sheet over/under: liquor ${money(buy.liquor.overUnder)}, beer ${money(buy.beer.overUnder)}.</p>
       </section>
     </div>`;
 }
 
-function orderCol(title: string, lines: BuyLine[]): string {
+function orderCol(title: string, lines: Array<BuyLine & { action?: string }>): string {
   return `<div class="order-col">
       <h3>${title}</h3>
       ${lines
         .map(
-          line => `<div class="order-row">
+          line => `<div class="order-row ${line.action ?? ""}">
             <span>${line.name}${line.par != null ? ` · par ${line.par}` : ""}</span>
-            <b>×${line.qty}</b>
+            <b>${line.action === "hold" ? "HOLD" : "SEND"} ×${line.qty}</b>
           </div>`
         )
         .join("")}
+    </div>`;
+}
+
+function calendarLayout(insights: CalendarInsight[]): string {
+  return `<div class="layout">
+      <aside class="panel">
+        <h2>Next action</h2>
+        ${insights.map(i => `<div class="insight ${i.kind}"><b>${i.title}</b><span>${i.detail}</span></div>`).join("")}
+      </aside>
+      <section class="panel">
+        <h2>${calendar.monthLabel} · ${calendar.status}</h2>
+        <div class="meta">${calendar.humesRule}</div>
+        <div class="metrics">
+          <div class="metric"><span>Drink · Kenzy</span><b>${calendar.drink.name}</b></div>
+          <div class="metric"><span>Food · Tom</span><b>${calendar.food.name ?? "Missing"}</b></div>
+          <div class="metric"><span>Humes</span><b>Not sent</b></div>
+          <div class="metric"><span>Football promos</span><b>Not created</b></div>
+        </div>
+        <h2>Events</h2>
+        ${calendar.events
+          .map(
+            e => `<article class="card"><div class="who">${e.name}</div><div class="when">${e.date} · ${e.status}</div></article>`
+          )
+          .join("")}
+        <h2>Football on the planning screen</h2>
+        <p class="fine">Games may show. They are not promotions.</p>
+        ${calendar.football.games
+          .map(
+            g => `<article class="card"><div class="who">${g.label}</div><div class="when">${g.date}</div></article>`
+          )
+          .join("")}
+      </section>
     </div>`;
 }
 
@@ -431,7 +528,17 @@ function shiftCard(a: Assignment): string {
 }
 
 function bindShift(): void {
-  document.querySelectorAll<HTMLButtonElement>(".day-btn").forEach(btn => {
+  document.querySelectorAll<HTMLButtonElement>("[data-dept]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      dept = (btn.dataset.dept as DeptId) ?? dept;
+      extra = [];
+      selectedDate = currentWeek().dates[0] ?? "";
+      toast = "";
+      render();
+    });
+  });
+
+  document.querySelectorAll<HTMLButtonElement>("[data-date]").forEach(btn => {
     btn.addEventListener("click", () => {
       selectedDate = btn.dataset.date ?? selectedDate;
       toast = "";
@@ -444,16 +551,20 @@ function bindShift(): void {
     const picked = file.files?.[0];
     if (!picked) return;
     const text = await picked.text();
-    parsed = parseWideScheduleCsv(text, "Bar Crew");
+    const loaded = parseWideScheduleCsv(text, DEPT_LABEL[dept]);
+    if (dept === "kitchen") kitchenWeek = loaded;
+    else if (dept === "drivers") driverWeek = loaded;
+    else barWeek = loaded;
     extra = [];
-    selectedDate = parsed.dates[0] ?? selectedDate;
-    toast = `Loaded ${picked.name} · ${parsed.assignments.length} assignments`;
+    selectedDate = loaded.dates[0] ?? selectedDate;
+    toast = `Loaded ${picked.name} · ${loaded.assignments.length} assignments`;
     render();
   });
 
   document.querySelector("#copy-sun")?.addEventListener("click", () => {
-    const source = parsed.dates[0];
-    const target = parsed.dates[1];
+    const week = currentWeek();
+    const source = week.dates[0];
+    const target = week.dates[1];
     if (!source || !target) return;
     const copies = allAssignments()
       .filter(
@@ -471,13 +582,14 @@ function bindShift(): void {
   });
 
   document.querySelector("#qa-save")?.addEventListener("click", () => {
+    const week = currentWeek();
     const employee = value("#qa-name");
     const station = value("#qa-station");
     const startRaw = value("#qa-start");
     const endRaw = value("#qa-end");
     const row = `${employee},${isoToSlash(selectedDate)},${startRaw},${endRaw},${station}`;
     const header = "employee,date,start time,end time,station";
-    const oneDay = parseWideScheduleCsv(`${header}\n${row}`, parsed.department);
+    const oneDay = parseWideScheduleCsv(`${header}\n${row}`, week.department);
     extra = extra.concat(oneDay.assignments);
     toast = `Posted ${firstName(employee)} ${startRaw}–${endRaw} on ${station}.`;
     render();
@@ -503,17 +615,24 @@ function isoToSlash(iso: string): string {
 }
 
 async function boot(): Promise<void> {
-  const [csv, invoiceJson, salesJson, buyJson] = await Promise.all([
-    fetch("/data/ctap-bar-schedule.csv").then(r => r.text()),
-    fetch("/data/ctap-invoice-week.json").then(r => r.json() as Promise<InvoiceWeekSeed>),
-    fetch("/data/ctap-sales.json").then(r => r.json() as Promise<SalesSeed>),
-    fetch("/data/ctap-buy.json").then(r => r.json() as Promise<BuySeed>),
-  ]);
-  parsed = parseWideScheduleCsv(csv, "Bar Crew");
+  const [barCsv, kitchenCsv, driverCsv, invoiceJson, salesJson, buyJson, calendarJson] =
+    await Promise.all([
+      fetch("/data/ctap-bar-schedule.csv").then(r => r.text()),
+      fetch("/data/ctap-kitchen-schedule.csv").then(r => r.text()),
+      fetch("/data/ctap-driver-schedule.csv").then(r => r.text()),
+      fetch("/data/ctap-invoice-week.json").then(r => r.json() as Promise<InvoiceWeekSeed>),
+      fetch("/data/ctap-sales.json").then(r => r.json() as Promise<SalesSeed>),
+      fetch("/data/ctap-buy.json").then(r => r.json() as Promise<BuySeed>),
+      fetch("/data/ctap-calendar.json").then(r => r.json() as Promise<CalendarSeed>),
+    ]);
+  barWeek = parseWideScheduleCsv(barCsv, "Bar Crew");
+  kitchenWeek = parseWideScheduleCsv(kitchenCsv, "Kitchen");
+  driverWeek = parseWideScheduleCsv(driverCsv, "Drivers");
   invoiceWeek = invoiceJson;
   sales = salesJson;
   buy = buyJson;
-  selectedDate = parsed.dates[0] ?? "";
+  calendar = calendarJson;
+  selectedDate = barWeek.dates[0] ?? "";
   selectedZ = sales.recentZ[0]?.date ?? "";
   render();
 }

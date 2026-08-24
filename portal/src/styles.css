@@ -105,7 +105,7 @@ body {
 
 .seats {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 10px;
   margin: 22px 0;
 }
@@ -217,8 +217,20 @@ body {
   border-left: 3px solid var(--green);
 }
 
-.insight.par-fill {
-  border-left: 3px solid var(--red);
+.insight.send {
+  border-left: 3px solid var(--green);
+}
+
+.insight.hold {
+  border-left: 3px solid var(--amber);
+}
+
+.order-row.hold b {
+  color: var(--muted);
+}
+
+.order-row.send b {
+  color: var(--green);
 }
 
 .insight.liquor,

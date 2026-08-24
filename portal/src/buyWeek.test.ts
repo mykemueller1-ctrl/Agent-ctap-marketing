@@ -7,7 +7,10 @@ import {
   biggest,
   buildBuyInsights,
   combinedTotal,
+  decideBuyAction,
   qtyLines,
+  withActions,
+  type BuyLine,
   type BuySeed,
 } from "./buyWeek";
 
@@ -31,7 +34,7 @@ describe("Buy seat — Drive liquor/beer sheet without dumping prices", () => {
     expect(seed.mixersOrdered).toBe(0);
   });
 
-  it("lists qty-to-order names + par, and flags the par-fill", () => {
+  it("lists qty-to-order names + par, and takes the send/hold call", () => {
     expect(qtyLines(seed.liquor.lines)).toHaveLength(32);
     expect(qtyLines(seed.beer.lines)).toHaveLength(25);
     const titos = seed.liquor.lines.find(line => line.name === "Titos");
@@ -40,9 +43,30 @@ describe("Buy seat — Drive liquor/beer sheet without dumping prices", () => {
     expect(biggest(seed.beer.lines, 1)[0]?.name).toBe("Busch Light Cans");
 
     const insights = buildBuyInsights(seed);
-    expect(insights[0]?.kind).toBe("par-fill");
-    expect(insights[0]?.title).toMatch(/par-fill/);
-    expect(insights[0]?.detail).toMatch(/POS movement/);
-    expect(insights.some(i => i.kind === "prices")).toBe(true);
+    expect(insights[0]?.kind).toBe("send");
+    expect(insights[0]?.title).toMatch(/Send /);
+    expect(insights.some(i => i.kind === "par-fill")).toBe(true);
+  });
+});
+
+describe("Buy takeover — send volume, hold qty-1 premium", () => {
+  it("sends Titos / Captain / kegs and holds Patron / Heineken", () => {
+    const lines: BuyLine[] = [
+      { name: "Titos", qty: 10, par: 12, category: "liquor" },
+      { name: "Patron Silver", qty: 1, par: 2, category: "liquor" },
+      { name: "Busch Keg", qty: 1, category: "keg" },
+      { name: "Heineken Bottles", qty: 1, category: "beer" },
+      { name: "Pinot Grigio (Beringer) (750ml)", qty: 3, par: 5, category: "wine" },
+    ];
+    expect(decideBuyAction(lines[0]!)).toBe("send");
+    expect(decideBuyAction(lines[1]!)).toBe("hold");
+    expect(decideBuyAction(lines[2]!)).toBe("send");
+    expect(decideBuyAction(lines[3]!)).toBe("hold");
+    expect(decideBuyAction(lines[4]!)).toBe("send");
+    expect(withActions(lines).filter(l => l.action === "send").map(l => l.name)).toEqual([
+      "Titos",
+      "Busch Keg",
+      "Pinot Grigio (Beringer) (750ml)",
+    ]);
   });
 });
