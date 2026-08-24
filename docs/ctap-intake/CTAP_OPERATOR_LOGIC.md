@@ -11,7 +11,7 @@ This is how Community runs. Agents and humans follow it. Do not invent a second 
 - Do not send vendor/POS mail to myke@n86.app
 
 ## People
-Same manager job, two houses. Do not mix.
+Same manager job, two houses. Locked — operator confirmed Mon Aug 24, 2026. Do not mix. Do not reopen.
 - Myke Mueller — owner. Not in the weekly Hy-Vee email loop.
 - **Kenzy Thompson** — wife, **bar FOH manager**. Front of house: **bar orders** (beer + liquor), **drink specials**, **staffing out front**. One-tap Hy-Vee. Myke out of the liquor email loop.
 - **Tom Dorothy** — **BOH manager**. Same job in back: **food vendor orders** (Sysco, PFG, Northern Lights, Sawyer), **kitchen specials**, **staffing BOH**.
