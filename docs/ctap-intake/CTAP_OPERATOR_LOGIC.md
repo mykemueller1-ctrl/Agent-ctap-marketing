@@ -11,9 +11,10 @@ This is how Community runs. Agents and humans follow it. Do not invent a second 
 - Do not send vendor/POS mail to myke@n86.app
 
 ## People
+Same manager job, two houses. Do not mix.
 - Myke Mueller — owner. Not in the weekly Hy-Vee email loop.
-- **Kenzy Thompson** — wife, **bar FOH manager**. Beer orders, liquor orders, drink specials, staffing out front. One-tap Hy-Vee. Myke out of the liquor email loop.
-- **Tom Dorothy** — **BOH manager**. Same job in back: food vendor orders (Sysco, PFG, Northern Lights, Sawyer), kitchen specials, staffing BOH.
+- **Kenzy Thompson** — wife, **bar FOH manager**. Front of house: **bar orders** (beer + liquor), **drink specials**, **staffing out front**. One-tap Hy-Vee. Myke out of the liquor email loop.
+- **Tom Dorothy** — **BOH manager**. Same job in back: **food vendor orders** (Sysco, PFG, Northern Lights, Sawyer), **kitchen specials**, **staffing BOH**.
 - Karlee Sturtz and Ashley Holding — **not on the floor.**
 
 ## Rails (do not blend beer + liquor)
@@ -46,16 +47,16 @@ Add a row for Licor 43 Crème Brûlée so the sheet matches what Kenzy actually 
 One-tap setup (once, logged into communitypizza): Extensions → Apps Script → paste Code.gs → allow → trigger onEditInstallable → Config B1 = Hy-Vee Wine email you already use.
 
 ## Vendors
-| Vendor | Cadence | How it arrives | Mailbox |
-|---|---|---|---|
-| PDQ | nightly | email PDF | already communitypizza |
-| Sysco | ~1×/week | photo | switch sent 8/24 |
-| Performance Foods / PFG | ~2× (Mon/Thu) | email PDF from NoReply@pfgc.com | switch sent 8/24 to Scott Selim scott.selim@pfgc.com — never email NoReply |
-| Northern Lights | 2–8× | photo + PDF | already communitypizza |
-| Sawyer Meats | 2–3× (Mon/Wed/Fri) | photo | photos to communitypizza |
-| Humes | Tue + Fri | email PDF | switch sent 8/24 to accountspayable@humesdist.com |
-| Hy-Vee Wine | Sun/Mon order, Mon delivery | Kenzy one-tap outbound | from communitypizza |
-| Fort Dodge Distributing | with Tuesday beer | TBD | with Humes Tuesday path |
+| Vendor | Cadence | How it arrives | Who orders | Mailbox |
+|---|---|---|---|---|
+| PDQ | nightly | email PDF | — | already communitypizza |
+| Sysco | ~1×/week | photo | Tom / BOH | switch sent 8/24 |
+| Performance Foods / PFG | ~2× (Mon/Thu) | email PDF from NoReply@pfgc.com | Tom / BOH | switch sent 8/24 to Scott Selim scott.selim@pfgc.com — never email NoReply |
+| Northern Lights | 2–8× | photo + PDF | Tom / BOH | already communitypizza |
+| Sawyer Meats | 2–3× (Mon/Wed/Fri) | photo | Tom / BOH | photos to communitypizza |
+| Humes | Tue + Fri | email PDF | Kenzy / FOH beer | switch sent 8/24 to accountspayable@humesdist.com |
+| Hy-Vee Wine | Sun/Mon order, Mon delivery | Kenzy one-tap outbound | Kenzy / FOH liquor | from communitypizza |
+| Fort Dodge Distributing | with Tuesday beer | photo | Kenzy / FOH beer | with Humes Tuesday path |
 
 ## Invoice truth
 Photo vendors (Sysco, Northern Lights, Sawyer) always need a picture. Email vendors must land in communitypizza. Next proof for Humes: Tuesday PDF in this inbox, not myke@n86.app.

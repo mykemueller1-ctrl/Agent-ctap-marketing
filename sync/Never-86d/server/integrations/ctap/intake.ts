@@ -20,31 +20,32 @@ export const CTAP_HUMES_MAILBOX_SWITCH = {
 
 /**
  * Living-lab people. Karlee Sturtz and Ashley Holding are not on the floor.
- * Kenzy = bar FOH manager. Tom = BOH manager.
+ * Kenzy and Tom run the same manager job on opposite houses.
+ * Kenzy = bar / FOH. Tom = kitchen / BOH.
  */
 export const CTAP_PEOPLE = {
   owner: "Mychael \"Myke\" Mueller",
   spouse: {
     name: "Kenzy Thompson",
-    role: "wife; bar FOH manager — beer + liquor orders, drink specials, FOH staffing. Myke is not in the Hy-Vee loop.",
+    role: "wife; bar FOH manager — bar orders (beer + liquor), drink specials, FOH staffing. Myke is not in the Hy-Vee loop.",
   },
   foh: {
     name: "Kenzy Thompson",
+    house: "front",
     role: "bar FOH manager",
-    owns: ["beer orders", "liquor orders", "drink specials", "FOH staffing"],
+    owns: [
+      "bar orders",
+      "beer orders",
+      "liquor orders",
+      "drink specials",
+      "FOH staffing",
+    ],
   },
   boh: {
     name: "Tom Dorothy",
+    house: "back",
     role: "BOH manager",
-    owns: [
-      "food vendor orders",
-      "kitchen specials",
-      "BOH staffing",
-      "Northern Lights",
-      "Sawyer",
-      "Sysco",
-      "PFG",
-    ],
+    owns: ["food vendor orders", "kitchen specials", "BOH staffing"],
   },
 } as const;
 
@@ -62,6 +63,8 @@ export type CtapVendorCadence = {
   orderToEmail?: string;
   /** Cadence for outbound orders (Sun/Mon morning liquor run). */
   orderWindow?: string;
+  /** Who places the order. Same job, opposite house. */
+  orderOwner?: "kenzy" | "tom";
   mailbox: typeof CTAP_OPS_MAILBOX;
 };
 
@@ -76,7 +79,8 @@ export const CTAP_VENDOR_CADENCE: CtapVendorCadence[] = [
     timesPerWeek: { min: 1, max: 1 },
     intakeMode: "photo_ocr",
     notes:
-      "Once weekly; typically photographed invoices. Mailbox switch SENT 2026-08-24 from communitypizza (operator confirmed). Do not re-send.",
+      "Once weekly; typically photographed invoices. Mailbox switch SENT 2026-08-24 from communitypizza (operator confirmed). Do not re-send. Tom / BOH.",
+    orderOwner: "tom",
     mailbox: CTAP_OPS_MAILBOX,
   },
   {
@@ -87,7 +91,8 @@ export const CTAP_VENDOR_CADENCE: CtapVendorCadence[] = [
     senderEmail: "NoReply@pfgc.com",
     orderToEmail: "scott.selim@pfgc.com",
     notes:
-      "About twice weekly (Mon/Thu). Invoice mailer is NoReply@pfgc.com — do not send to that. Mailbox switch SENT 2026-08-24 from communitypizza to Scott Selim (operator confirmed). Do not re-send.",
+      "About twice weekly (Mon/Thu). Invoice mailer is NoReply@pfgc.com — do not send to that. Mailbox switch SENT 2026-08-24 from communitypizza to Scott Selim (operator confirmed). Do not re-send. Tom / BOH.",
+    orderOwner: "tom",
     mailbox: CTAP_OPS_MAILBOX,
   },
   {
@@ -96,7 +101,8 @@ export const CTAP_VENDOR_CADENCE: CtapVendorCadence[] = [
     timesPerWeek: { min: 2, max: 8 },
     intakeMode: "photo_ocr",
     notes:
-      "Usually 2x/week; can spike to 5–8 when they are in town. Photos + PDFs already land on communitypizza2026@gmail.com (Drive invoice Inv684607_2.pdf 2026-06-08). Do not send a mailbox switch.",
+      "Usually 2x/week; can spike to 5–8 when they are in town. Photos + PDFs already land on communitypizza2026@gmail.com (Drive invoice Inv684607_2.pdf 2026-06-08). Do not send a mailbox switch. Tom / BOH.",
+    orderOwner: "tom",
     mailbox: CTAP_OPS_MAILBOX,
   },
   {
@@ -104,7 +110,8 @@ export const CTAP_VENDOR_CADENCE: CtapVendorCadence[] = [
     displayName: "Sawyer Meats",
     timesPerWeek: { min: 2, max: 3 },
     intakeMode: "photo_ocr",
-    notes: "2–3x/week; always photographs.",
+    notes: "2–3x/week; always photographs. Tom / BOH.",
+    orderOwner: "tom",
     mailbox: CTAP_OPS_MAILBOX,
   },
   {
@@ -114,7 +121,8 @@ export const CTAP_VENDOR_CADENCE: CtapVendorCadence[] = [
     intakeMode: "email_pdf",
     senderEmail: "accountspayable@humesdist.com",
     notes:
-      "Mailbox switch SENT 2026-08-24 from communitypizza2026@gmail.com to accountspayable@humesdist.com. Do not re-send. Next proof: Tue/Fri invoice PDFs land on communitypizza, not myke@n86.app.",
+      "Mailbox switch SENT 2026-08-24 from communitypizza2026@gmail.com to accountspayable@humesdist.com. Do not re-send. Next proof: Tue/Fri invoice PDFs land on communitypizza, not myke@n86.app. Kenzy / FOH beer.",
+    orderOwner: "kenzy",
     mailbox: CTAP_OPS_MAILBOX,
   },
   {
@@ -125,9 +133,27 @@ export const CTAP_VENDOR_CADENCE: CtapVendorCadence[] = [
     orderWindow: "Sunday or Monday morning",
     notes:
       "Kenzy fills qty on the Google Sheet and checks SEND. Apps Script emails Hy-Vee from communitypizza. Myke is out. Order of record = qty>0 on the sheet (add Licor 43 Crème Brûlée as a row). One-time: Config!B1 = Hy-Vee email + install Code.gs as communitypizza.",
+    orderOwner: "kenzy",
+    mailbox: CTAP_OPS_MAILBOX,
+  },
+  {
+    vendorKey: "fort_dodge_dist",
+    displayName: "Fort Dodge Distributing",
+    timesPerWeek: { min: 1, max: 1 },
+    intakeMode: "photo_ocr",
+    notes:
+      "With Tuesday beer (Humes path). Kenzy / FOH beer. Photos to communitypizza.",
+    orderOwner: "kenzy",
     mailbox: CTAP_OPS_MAILBOX,
   },
 ];
+
+/** Same manager job, opposite house. Agents must not mix Kenzy bar with Tom kitchen. */
+export function vendorOrderOwner(
+  vendorKey: string
+): (typeof CTAP_VENDOR_CADENCE)[number]["orderOwner"] {
+  return CTAP_VENDOR_CADENCE.find(v => v.vendorKey === vendorKey)?.orderOwner;
+}
 
 export type PosIntakeTarget = {
   key: string;

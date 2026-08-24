@@ -7,7 +7,7 @@ This is the operating loop. Agents execute it. Humans only approve sends.
 **Mailbox:** `communitypizza2026@gmail.com`  
 **MCP brain:** `https://www.never86.ai/api/mcp` → `get_operator_system`  
 **Public wedge:** https://www.never86.ai/audit  
-**People:** Kenzy Thompson (wife, **bar FOH manager** — beer + liquor orders, drink specials, FOH staffing) · Tom Dorothy (**BOH manager** — food orders, kitchen specials, BOH staffing). Karlee and Ashley are not on the floor.  
+**People:** Kenzy Thompson (wife, **bar FOH manager** — bar orders / beer + liquor, drink specials, staffing out front) · Tom Dorothy (**BOH manager** — same job in back: food orders, kitchen specials, BOH staffing). Karlee and Ashley are not on the floor.  
 **Logic doc:** `docs/ctap-intake/CTAP_OPERATOR_LOGIC.md` (paste into Google Docs on communitypizza — Drive write is 403 from this agent)
 
 ---
@@ -28,12 +28,12 @@ Window this week: **Sun 8/16 – Sat 8/22** (see `week-window.ts`).
 
 | Vendor | Cadence | Mode |
 |---|---|---|
-| Sysco | ~1× | photo OCR — mailbox switch sent 8/24 |
-| PFG / Performance | Mon/Thu | email PDF — switch sent 8/24 to Scott Selim |
-| Northern Lights | 2–8× | already on communitypizza |
-| Sawyer Meats | Mon/Wed/Fri (~2–3×) | photo OCR |
-| Humes | Tue/Fri | email PDF → **must land communitypizza** |
-| Hy-Vee Wine | Sun/Mon order, Mon delivery | outbound email |
+| Sysco | ~1× | photo OCR — **Tom** / BOH. mailbox switch sent 8/24 |
+| PFG / Performance | Mon/Thu | email PDF — **Tom** / BOH. switch sent 8/24 to Scott Selim |
+| Northern Lights | 2–8× | **Tom** / BOH. already on communitypizza |
+| Sawyer Meats | Mon/Wed/Fri (~2–3×) | photo OCR — **Tom** / BOH |
+| Humes | Tue/Fri | email PDF — **Kenzy** / FOH beer → **must land communitypizza** |
+| Hy-Vee Wine | Sun/Mon order, Mon delivery | outbound email — **Kenzy** / FOH liquor |
 | PDQ | nightly | email PDF |
 
 Truth: handwritten totals beat printed. Strike-throughs dropped. Out-of-year tickets out of the book.

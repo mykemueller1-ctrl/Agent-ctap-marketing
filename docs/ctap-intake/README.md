@@ -8,8 +8,8 @@
 - **Sunday night:** beer order for Budweiser path → **Tuesday** Humes / Fort Dodge Distributing drop
 - **Tuesday night:** beer order for **Friday** Humes drop
 - **Friday:** Humes delivery
-- **Kenzy Thompson** — wife, **bar FOH manager**. Beer + liquor orders, drink specials, FOH staffing. One-tap Hy-Vee. Myke out of the Hy-Vee email loop.
-- **Tom Dorothy** — **BOH manager**. Food vendor orders (Sysco, PFG, NL, Sawyer), kitchen specials, BOH staffing.
+- **Kenzy Thompson** — wife, **bar FOH manager**. Bar orders (beer + liquor), drink specials, staffing out front. One-tap Hy-Vee. Myke out of the Hy-Vee email loop.
+- **Tom Dorothy** — **BOH manager**. Same job in back: food vendor orders (Sysco, PFG, NL, Sawyer), kitchen specials, staffing BOH.
 - Karlee Sturtz / Ashley Holding — **not on the floor**
 
 ## Canonical logic (Drive + git)
@@ -20,13 +20,13 @@ All CTAP POS + vendor mail → **`communitypizza2026@gmail.com`**
 | Source | Cadence | Mode | Notes |
 |---|---|---|---|
 | PDQ Z-report | Nightly | Email PDF | Already → communitypizza |
-| Sysco | ~1×/wk | Photo OCR | Mailbox switch **sent 8/24** from communitypizza |
-| Performance Foods / PFG | ~2×/wk | Email or photo | Switch **sent 8/24** to Scott Selim. Never `NoReply@pfgc.com` |
-| Northern Lights | 2–8×/wk | Photo OCR + PDF | **Already on communitypizza** — do not send a switch |
-| Sawyer Meats | 2–3×/wk | Photo OCR | Always pictures |
-| Humes Distributing | ~2×/wk (Tue + Fri) | Email PDF | Switch **sent 8/24** from communitypizza. Watch Tue/Fri PDFs land here, not `myke@n86.app` |
-| Hy-Vee Wine & Spirits | 1×/wk | Outbound email order | Sun/Mon morning liquor order email |
-| Fort Dodge Distributing | with Tue beer run | TBD | With Kenzy’s Tuesday beer path |
+| Sysco | ~1×/wk | Photo OCR | **Tom** / BOH. Mailbox switch **sent 8/24** |
+| Performance Foods / PFG | ~2×/wk | Email or photo | **Tom** / BOH. Switch **sent 8/24** to Scott Selim. Never `NoReply@pfgc.com` |
+| Northern Lights | 2–8×/wk | Photo OCR + PDF | **Tom** / BOH. **Already on communitypizza** — do not send a switch |
+| Sawyer Meats | 2–3×/wk | Photo OCR | **Tom** / BOH. Always pictures |
+| Humes Distributing | ~2×/wk (Tue + Fri) | Email PDF | **Kenzy** / FOH beer. Switch **sent 8/24**. Watch Tue/Fri PDFs land here, not `myke@n86.app` |
+| Hy-Vee Wine & Spirits | 1×/wk | Outbound email order | **Kenzy** / FOH liquor. Sun/Mon one-tap |
+| Fort Dodge Distributing | with Tue beer run | Photo OCR | **Kenzy** / FOH beer. With Tuesday Humes path |
 
 ## PDQ parse rules (`pdq-z-report-v2`)
 - Real PDQ PDF text is **multiline** (label, then `$` on the next line).
