@@ -10,7 +10,9 @@
 - **Friday:** Humes delivery
 - Karlee Sturtz / Ashley Holding — bar floor
 
-## Ops mailbox (single intake)
+## Canonical logic (Drive + git)
+Full Community operator logic: `docs/ctap-intake/CTAP_OPERATOR_LOGIC.md`  
+Put a copy in Google Docs on `communitypizza2026@gmail.com` titled **CTAP — Community operator logic**. This cloud agent can read that Drive; create/copy returns 403 so the first paste is from phone/desktop.
 All CTAP POS + vendor mail → **`communitypizza2026@gmail.com`**
 
 | Source | Cadence | Mode | Notes |
