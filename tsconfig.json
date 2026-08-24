@@ -8,5 +8,5 @@
     "esModuleInterop": true,
     "types": ["node"]
   },
-  "include": ["sync/Never-86d/server/integrations/evidence/**/*.ts"]
+  "include": ["sync/Never-86d/server/integrations/**/*.ts", "scripts/**/*.ts"]
 }

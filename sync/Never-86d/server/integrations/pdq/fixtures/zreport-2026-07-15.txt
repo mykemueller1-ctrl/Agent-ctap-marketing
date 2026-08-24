@@ -1,0 +1,387 @@
+Transaction Breakdown
+Totals
+Taxable:
+$4,043.97
+Subtotal:
+$5,450.34
+Non Tax:
+$1,406.37
+Tax:
+$287.69
+Grand Total:
+$5,738.03
+Pay Outs -
+$29.71
+Pay In +
+$0.00
+DMR -
+$72.00
+House Account -
+$217.56
+House Account Tips -
+$13.75
+Checks -
+$0.00
+Other -
+$0.00
+Credit Cards -
+$3,374.43
+Credit Cards Tips -
+$469.78
+Gift Cards -
+$0.00
+Gift Cards Tips -
+$0.00
+House Account Cash +
+$0.00
+Credit Card Service Fee +
+$0.00
+Customer Credits -
+$0.00
+Rewards Redeemed -
+$0.00
+Cash Delay Payments -
+$0.00
+Expected Cash:
+$1,560.80
+Shift Deposit
+Dep Shift
+Expected Deposit
+Actual Deposit
+Over Under
+1
+$1,560.80
+$1,530.00
+($30.80)
+2
+$0.00
+$0.00
+$0.00
+Total:
+$1,560.80
+$1,530.00
+($30.80)
+Sales Summary
+Trans Type
+QTY
+Amount
+Avg Check
+%
+Last Year
+Pickup
+25
+$969.84
+$38.79
+16.90
+$596.49
+Delivery
+24
+$1,225.01
+$51.04
+21.35
+$694.22
+Bar
+87
+$1,275.59
+$14.66
+22.23
+$1,137.51
+Table
+42
+$2,267.59
+$53.99
+39.52
+$1,680.63
+Total: 
+178
+$5,738.03
+$32.24
+100%
+$4,108.85
+Charge Summary
+Card Description
+QTY
+Pre-Auth
+Tip Amt
+Total
+Visa
+42
+$1,581.91
+$201.87
+$1,783.78
+MasterCard
+36
+$1,646.65
+$242.91
+$1,889.56
+Discover
+2
+$90.36
+$20.00
+$110.36
+Amex
+2
+$55.51
+$5.00
+$60.51
+Other
+0
+$0.00
+$0.00
+$0.00
+Total: 
+82
+$3,374.43
+$469.78
+$3,844.21
+House Account Charge Summary
+Card Description
+QTY
+Pre-Auth
+Tip Amt
+Total
+Total: 
+Other Payments
+Pmt Desc
+QTY
+Pre-Auth
+Tips Amt
+Total
+Total:
+Business Date: 7/15/2026
+Community Pizza
+Z Report / End Of Day
+Report Generated At: 7/16/2026 5:56:30 AM
+1 Of 3
+
+Labor Summary
+Job Description
+QTY
+Total
+%
+Bartender
+1
+$134.87
+0.03
+Closing Manager
+1
+$112.20
+0.02
+Ctap Manger
+1
+$144.20
+0.03
+Dishwasher
+1
+$40.83
+0.01
+Driver
+4
+$177.95
+0.03
+Extra
+1
+$32.60
+0.01
+Fry Line
+2
+$220.52
+0.04
+InShop
+2
+$122.82
+0.02
+Pizza Maker
+3
+$197.57
+0.04
+Server
+3
+$152.15
+0.03
+Total:
+19
+$1,335.70
+0.26
+Discount Summary
+Type Description
+QTY
+Total
+%
+Cust Credit
+0
+$0.00
+0.00 %
+Employee Meal
+6
+$66.93
+1.21 %
+Manager Meal
+0
+$0.00
+0.00 %
+Neg Menu Items
+13
+$138.95
+2.49 %
+Neg Special Instruction
+5
+$58.50
+1.06 %
+Promo
+3
+$13.25
+0.24 %
+Smart Coupons
+2
+$19.99
+0.37 %
+Total:
+29
+$297.62
+5.18 %
+Misc Summary
+Description
+Num
+Value
+# Voids
+1
+$42.76
+Gift Card Sold
+0
+$0.00
+Gift Card Redm
+0
+$0.00
+Late Deliverys
+7
+$532.04
+Waste
+0
+$0.00
+HA Cash
+0
+$0.00
+HA Credit Card
+0
+$0.00
+HA Check
+0
+$0.00
+0
+$0.00
+Delivery Charge
+24
+$72.00
+Average Del Time
+24
+38 min
+CC Service Fee
+0
+$0.00
+Gratuity
+0
+$0.00
+Cashier Summary
+Reg #
+Shift
+Close Sales
+Staff
+2
+1
+$904.40
+Jessica Gailey
+1
+1
+$780.39
+Gavin Nore
+2
+1
+$560.64
+Jeri Wilson
+5
+1
+$0.00
+Jeri Wilson
+2
+1
+$0.00
+Jeri Wilson
+Total:
+$2,245.43
+Table Service Guest Summary
+# Orders
+# Guest
+Avg Guest
+Per Order
+Avg Total
+Per Guest
+42
+112
+2.67
+$20.25
+Menu Category
+Category Name
+QTY
+Total
+Spec Instruction
+40
+($53.26)
+Smart Coupon
+2
+($19.99)
+UKNOWN
+7
+($7.25)
+Food
+673
+$3,256.26
+Pop
+105
+$164.75
+Liquor
+160
+$583.50
+Beer
+264
+$865.50
+Large Pizzas
+32
+$655.76
+Total:
+1,283
+$5,445.27
+Business Date: 7/15/2026
+Community Pizza
+Z Report / End Of Day
+Report Generated At: 7/16/2026 5:56:31 AM
+2 Of 3
+
+Payout Summary
+Register #
+Time
+Description
+Manager
+Total
+2
+10:37 AM
+Chops
+Jessica Gailey
+$18.71
+2
+3:37 PM
+Hyvee
+Jessica Gailey
+$3.00
+2
+10:49 PM
+Nate Ootd
+Jeri Wilson
+$8.00
+Total:
+$29.71
+Business Date: 7/15/2026
+Community Pizza
+Z Report / End Of Day
+Report Generated At: 7/16/2026 5:56:32 AM
+3 Of 3
