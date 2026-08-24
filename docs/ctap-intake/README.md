@@ -19,7 +19,7 @@ All CTAP POS + vendor mail → **`communitypizza2026@gmail.com`**
 | Performance Foods / PFG | ~2×/wk | Email or photo | |
 | Northern Lights | 2–8×/wk | Photo OCR | Spikes when in town |
 | Sawyer Meats | 2–3×/wk | Photo OCR | Always pictures |
-| Humes Distributing | ~2×/wk (Tue + Fri) | Email PDF | **Switch off `myke@n86.app`** — draft in `humes-mailbox-switch-email.txt` |
+| Humes Distributing | ~2×/wk (Tue + Fri) | Email PDF | Switch **sent 8/24** from communitypizza. Watch Tue/Fri PDFs land here, not `myke@n86.app` |
 | Hy-Vee Wine & Spirits | 1×/wk | Outbound email order | Sun/Mon morning liquor order email |
 | Fort Dodge Distributing | with Tue beer run | TBD | Named in bar-manager workflow doc |
 
@@ -40,8 +40,8 @@ Cloud agent can push **Agent-ctap-marketing** only. Full patch lives under `sync
 - Hunter files confirmed: `docs/gtm/hunter-bots/monday-morning-runbook.md` + `grok-first-hunt.md`
 - Live path: grok.com/connectors → Custom → `https://www.never86.ai/api/mcp` → paste `grok-first-hunt.md`
 - Hy-Vee liquor **sent 8/24** (Ashley). Do not re-send. Sheet owner going forward: **Kenzy Thompson**
-- Humes invoice switch still unsent (`humes-mailbox-switch-email.txt`) unless Kenzy already sent it — cloud Gmail MCP still `needsAuth`
+- Humes AP switch **sent 8/24 from `communitypizza2026@gmail.com`**. Do not re-send. Next proof: Tue invoice PDF in that inbox
 - Tuesday beer draft (`humes-beer-order-draft.txt`) — skip; this week’s alcohol orders are done
 
 ## Blocked this run
-- **Gmail MCP** still `needsAuth` on the cloud agent — cannot send Humes switch or Hy-Vee liquor order until Gmail connects on *this* agent (desktop auth alone is not enough). Phone-send from `communitypizza2026@gmail.com` is the live path.
+- **Gmail MCP** still `needsAuth` on the cloud agent — cannot read PFG/Humes mail from here. Outbound vendor mail is live from `communitypizza2026@gmail.com` (phone/desktop).

@@ -18,7 +18,7 @@ This is the operating loop. Agents execute it. Humans only approve sends.
 
 ## Every Monday morning (Iowa)
 1. **Hy-Vee Wine** — Kenzy owns the sheet. Email liquor qty>0. **Mon 8/24 already sent — do not re-send.** Draft only if next week’s qty changes: `docs/ctap-intake/hyvee-liquor-order-draft.txt`
-2. **Humes AP** — if still on `myke@n86.app`, send switch: `docs/ctap-intake/humes-mailbox-switch-email.txt`
+2. **Humes AP** — mailbox switch **SENT 8/24 from `communitypizza2026@gmail.com`.** Do not re-send. Next: Tue/Fri Humes PDFs must land in that inbox, not `myke@n86.app`.
 3. **Gronk Hunter** — grok.com/connectors → Never86 MCP → paste `docs/gtm/hunter-bots/grok-first-hunt.md`. Keep score ≥ 60. Max 3 human-approved replies. No auto-post.
 4. Beer order path: Sunday night for **Tuesday** Humes / Fort Dodge Distributing (Kenzy).
 

@@ -53,7 +53,7 @@ Public product name is **Never 86'd**. Action Shift is the mechanic. Do not inve
 | Channel | Status |
 |---|---|
 | Google Drive | Live — CTAP lab |
-| Gmail | Cloud agent cannot OAuth — Myke sends Humes/Hy-Vee from phone |
+| Gmail | Cloud agent cannot OAuth — **8/24 Humes AP + Hy-Vee already sent from `communitypizza2026@gmail.com`** |
 | X MCP | `needsAuth` — connect X on this agent to light Hunter on Twitter |
 | Reddit / Meta / TikTok APIs | Not in this environment — queries are ready; run from a machine with access |
 

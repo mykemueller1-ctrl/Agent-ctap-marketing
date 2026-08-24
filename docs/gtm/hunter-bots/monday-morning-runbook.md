@@ -48,9 +48,11 @@ Drop: dashers, consumers, 20+ unit groups, vendors selling software.
 
 ## 20–25 min — store ops (same morning)
 
-You already deferred this:
+**8/24 Iowa:** Hy-Vee liquor and Humes AP switch already went from `communitypizza2026@gmail.com`. Do not duplicate.
 
-- Email Humes: please start sending invoices here instead → `communitypizza2026@gmail.com`
+Later Mondays:
+
+- Email Humes only if invoices are still landing on `myke@n86.app`
 - Email Hy-Vee Wine the liquor lines with qty > 0 from the Drive sheet
 
 Hunter and trucks are the same Monday. Don’t skip food for tweets.

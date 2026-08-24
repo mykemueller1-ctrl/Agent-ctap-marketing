@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  CTAP_HUMES_MAILBOX_SWITCH,
   CTAP_OPS_MAILBOX,
   CTAP_PEOPLE,
   CTAP_VENDOR_CADENCE,
@@ -36,12 +37,12 @@ describe("CTAP intake routing", () => {
     expect(sawyer?.intakeMode).toBe("photo_ocr");
   });
 
-  it("drafts the Humes mailbox switch email", () => {
-    const draft = humesRoutingSwitchEmail();
-    expect(draft.to).toBe("accountspayable@humesdist.com");
-    expect(draft.body).toContain("Please start sending invoices here instead:");
-    expect(draft.body).toContain("communitypizza2026@gmail.com");
-    expect(draft.body).toContain("myke@n86.app");
+  it("records Humes AP switch as sent from communitypizza Gmail", () => {
+    expect(CTAP_HUMES_MAILBOX_SWITCH.status).toBe("sent");
+    expect(CTAP_HUMES_MAILBOX_SWITCH.from).toBe(CTAP_OPS_MAILBOX);
+    expect(CTAP_HUMES_MAILBOX_SWITCH.to).toBe("accountspayable@humesdist.com");
+    const humes = CTAP_VENDOR_CADENCE.find(v => v.vendorKey === "humes");
+    expect(humes?.notes).toMatch(/SENT 2026-08-24/);
   });
 
   it("includes Hy-Vee Wine Sun/Mon liquor order cadence", () => {

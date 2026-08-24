@@ -10,6 +10,14 @@ export const CTAP_OPS_MAILBOX = "communitypizza2026@gmail.com";
 /** Legacy founder inbox — do not route new vendor/POS mail here. */
 export const CTAP_LEGACY_FOUNDER_MAILBOX = "myke@n86.app";
 
+/** Humes AP switch — sent Mon 2026-08-24 from the ops mailbox. Do not re-send. */
+export const CTAP_HUMES_MAILBOX_SWITCH = {
+  status: "sent",
+  sentOn: "2026-08-24",
+  from: CTAP_OPS_MAILBOX,
+  to: "accountspayable@humesdist.com",
+} as const;
+
 /**
  * Living-lab people. Kenzy owns the alcohol sheet. Do not nag Hy-Vee after
  * a Monday send is confirmed.
@@ -93,7 +101,7 @@ export const CTAP_VENDOR_CADENCE: CtapVendorCadence[] = [
     intakeMode: "email_pdf",
     senderEmail: "accountspayable@humesdist.com",
     notes:
-      "Was routing to myke@n86.app — must switch delivery + parser mailbox to CTAP_OPS_MAILBOX.",
+      "Mailbox switch SENT 2026-08-24 from communitypizza2026@gmail.com to accountspayable@humesdist.com. Do not re-send. Next proof: Tue/Fri invoice PDFs land on communitypizza, not myke@n86.app.",
     mailbox: CTAP_OPS_MAILBOX,
   },
   {
