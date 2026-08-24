@@ -42,7 +42,7 @@ Do not fill every par hole. Buy from POS movement + on-hand + replacement need. 
 - Friday: Humes delivery
 
 Liquor sheet: https://docs.google.com/spreadsheets/d/1_gAesi5ufLOHsQ_uan3PEfzcOaVg4gxP8P7F_YHMHbU/edit
-Add a row for Licor 43 Crème Brûlée so the sheet matches what Kenzy actually orders.
+Add a row for Licor 43 Crème Brûlée so the sheet matches what Kenzy actually orders. **Done 8/24 on the live sheet.** Config tab + script saved. Trigger still waiting on Google phone Yes.
 
 One-tap setup (once, logged into communitypizza): Extensions → Apps Script → paste Code.gs → allow → trigger onEditInstallable → Config B1 = Hy-Vee Wine email you already use.
 

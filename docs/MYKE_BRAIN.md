@@ -18,7 +18,7 @@ This is the operating loop. Agents execute it. Humans only approve sends.
 3. One Action Shift for the **prior complete business day** (not today).
 
 ## Every Monday morning (Iowa)
-1. **Hy-Vee Wine** — Kenzy one-tap on the liquor sheet (`docs/ctap-intake/hyvee-one-click/`). Myke is not in this loop. **Mon 8/24 already SENT — do not re-send.**
+1. **Hy-Vee Wine** — Kenzy one-tap on the liquor sheet (`docs/ctap-intake/hyvee-one-click/`). Live sheet now has Crème Brûlée row + Config SEND box + script saved. Trigger still needs Google phone Yes (2FA). **Mon 8/24 already SENT — do not re-send.**
 2. **Humes / Sysco / PFG AP** — mailbox switches **SENT 8/24 from `communitypizza2026@gmail.com`.** Do not re-send. Next: invoices land in that inbox, not `myke@n86.app`.
 3. **Gronk Hunter** — grok.com/connectors → Never86 MCP → paste `docs/gtm/hunter-bots/grok-first-hunt.md`. Keep score ≥ 60. Max 3 human-approved replies. No auto-post.
 4. Beer order path: Sunday night for **Tuesday** Humes / Fort Dodge Distributing (Kenzy).
