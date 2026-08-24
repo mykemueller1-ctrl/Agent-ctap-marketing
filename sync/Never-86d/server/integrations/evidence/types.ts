@@ -21,7 +21,26 @@ export type EvidenceMime =
   | "image/webp"
   | "text/plain";
 
-export type DocumentKind = "invoice" | "z_report" | "unknown";
+export type DocumentKind =
+  | "invoice"
+  | "z_report"
+  | "grocery_receipt"
+  | "payout"
+  | "unknown";
+
+export type VendorKey =
+  | "performance_foods"
+  | "sysco"
+  | "northern_lights"
+  | "sawyer_meats"
+  | "humes"
+  | "hyvee_wine"
+  | "hyvee_grocery"
+  | "fort_dodge_distributing"
+  | "confluence"
+  | "pdq"
+  | "pdq_payout"
+  | "demo_vendor";
 
 export type ExtractMethod =
   | "native_pdf"
@@ -83,6 +102,10 @@ export type ParsedDocument = {
   invoiceNumber?: string;
   businessDate?: string;
   totalAmount?: string;
+  printedTotal?: string;
+  handwrittenTotal?: string;
+  continued?: boolean;
+  lastPage?: boolean;
   items: ParsedLineItem[];
   rawText: string;
 };
@@ -108,6 +131,8 @@ export type TruthDocument = {
   needsReview: boolean;
   warnings: string[];
   confidence: number;
+  inWeekWindow?: boolean;
+  excludeFromBook?: boolean;
   extraction: Pick<ExtractionResult, "method" | "ocrVendor" | "confidence">;
 };
 

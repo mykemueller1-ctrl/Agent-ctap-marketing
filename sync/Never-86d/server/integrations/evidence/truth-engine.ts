@@ -102,15 +102,23 @@ export function buildTruth(input: {
       confidence: item.confidence,
     }))
   );
+  const handwritten = parsed.find((item) => item.handwrittenTotal);
   const totalAmount = field(
     "totalAmount",
     parsed.map((item) => ({
       extractor: item.parserId,
-      value: item.totalAmount,
-      raw: item.totalAmount,
-      confidence: item.confidence,
+      value: handwritten?.handwrittenTotal ?? item.totalAmount,
+      raw: item.handwrittenTotal
+        ? `handwritten:${item.handwrittenTotal}`
+        : item.totalAmount,
+      confidence: item.handwrittenTotal ? 0.95 : item.confidence,
     }))
   );
+  if (handwritten?.handwrittenTotal && handwritten.printedTotal) {
+    warnings.push(
+      `Printed ${handwritten.printedTotal} vs handwritten ${handwritten.handwrittenTotal}`
+    );
+  }
 
   const conflicts = [invoiceNumber, businessDate, totalAmount].filter(
     (item) => item?.conflict

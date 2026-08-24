@@ -13,7 +13,9 @@ Code lives under `sync/Never-86d/server/integrations/evidence/` so it can be cop
 | OCR vendor | **Google Document AI Invoice Parser**. Textract AnalyzeExpense is the named fallback. |
 | Photos | Sysco / Northern Lights / Sawyer stay `photo_ocr`. Fixture OCR only in tests. |
 | Z-reports | Detected and handed to `pdq-z-report-v2`. Not OCR-parsed here. |
-| Truth engine | Field-level confidence + conflict flags. Review if confidence &lt; 0.75 or headers disagree. |
+| Truth engine | Field-level confidence + conflict flags. Review if confidence &lt; 0.75 or headers disagree. Handwritten totals beat printed. |
+| Vendor parsers | PFS delivery, Sysco, Northern Lights, Humes, Fort Dodge Dist, Hy-Vee wine, Hy-Vee grocery, Sawyer ticket, Confluence keg, PDQ payout. |
+| Week window | Book **8/16/2026–8/22/2026** only. 8/11 payouts, 8/12/23 wine pages, and 8/17/24 meat tickets stay out. |
 
 ## Secrets
 

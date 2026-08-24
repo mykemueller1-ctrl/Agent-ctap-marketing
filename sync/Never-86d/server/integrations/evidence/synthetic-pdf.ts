@@ -64,7 +64,7 @@ export type SyntheticInvoice = {
 export const SYNTHETIC_INVOICE: SyntheticInvoice = {
   vendorName: "ACME Test Produce LLC",
   invoiceNumber: "INV-1001",
-  date: "08/01/2026",
+  date: "08/18/2026",
   lines: [
     {
       product: "Demo Romaine Case",
