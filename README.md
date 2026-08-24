@@ -4,7 +4,8 @@ CTAP / Never 86'd agent memory and intake patches.
 
 - Alcohol buying baseline: `docs/agent-memory/CTAP_Alcohol_Buying_Baseline.md`
 - Evidence intake (Phase 1 interfaces + Phase 2 extract/parse/truth): `sync/Never-86d/server/integrations/evidence/`
-- Decision note: `docs/ctap-intake/ocr-evidence-intake.md`
+- Monthly calendar engine (Kenzy bar / Tom kitchen / Myke approval → Humes): `sync/Never-86d/server/calendar/`
+- Decision notes: `docs/ctap-intake/`
 
 ```bash
 npm test
