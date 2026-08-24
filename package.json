@@ -1,0 +1,17 @@
+{
+  "name": "agent-ctap-marketing",
+  "private": true,
+  "type": "module",
+  "description": "CTAP marketing / ops intake — PDQ Z-report parser and vendor mailbox routing. The sync/Never-86d tree is a cherry-pick source for the private Never-86d monorepo.",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "demo": "tsx scripts/demo-pdq-parse.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^24.7.0",
+    "tsx": "^4.19.2",
+    "typescript": "5.9.3",
+    "vitest": "^2.1.4"
+  }
+}
