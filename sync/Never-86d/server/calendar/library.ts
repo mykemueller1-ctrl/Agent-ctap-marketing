@@ -57,8 +57,8 @@ export const DEFAULT_RECURRING_LIBRARY: RecurringSpecial[] = [
     name: "Smash Burger",
     category: "food",
     dayOfWeek: "tuesday",
-    price: "8.99",
-    description: "BOGO second Smash Burger $8.99 with side",
+    price: "11.99",
+    description: "BOGO second Smash Burger $11.99 with side",
     posterRequired: true,
   }),
   special({

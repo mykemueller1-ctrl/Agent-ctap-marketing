@@ -89,6 +89,11 @@ describe("CTAP monthly calendar engine", () => {
         (item) => item.libraryId === "late-night-apps"
       )
     ).toBe(true);
+    expect(
+      specialsForDay(DEFAULT_RECURRING_LIBRARY, "tuesday").find(
+        (item) => item.libraryId === "tuesday-smashburger"
+      )?.price
+    ).toBe("11.99");
 
     const store = createStore();
     editRecurringLibrary(store, "thursday-medium-pizza", {
