@@ -35,5 +35,12 @@ All CTAP POS + vendor mail → **`communitypizza2026@gmail.com`**
 ## Code landing
 Cloud agent can push **Agent-ctap-marketing** only. Full patch lives under `sync/Never-86d/` for cherry-pick into `mykemueller1-ctrl/Never-86d` (push to that repo returned 403 for this agent). Local commit on Never-86d clone: `f6901ea` on branch `cursor/pdq-parser-humes-intake-ceda`.
 
+## Monday Aug 24 6am Iowa go-live
+- Hunter files confirmed: `docs/gtm/hunter-bots/monday-morning-runbook.md` + `grok-first-hunt.md`
+- Live path: grok.com/connectors → Custom → `https://www.never86.ai/api/mcp` → paste `grok-first-hunt.md`
+- Hy-Vee liquor draft rebuilt from live Drive sheet (`hyvee-liquor-order-draft.txt`) — liquor $1,167.31, mixers 0
+- Humes invoice switch still unsent (`humes-mailbox-switch-email.txt`) — cloud Gmail MCP still `needsAuth`
+- Tuesday beer draft from same sheet (`humes-beer-order-draft.txt`) — skip if Ashley already placed Sunday night
+
 ## Blocked this run
-- **Gmail MCP** still `needsAuth` on the cloud agent — cannot send Humes switch or Hy-Vee liquor order until Gmail connects on *this* agent (desktop auth alone is not enough).
+- **Gmail MCP** still `needsAuth` on the cloud agent — cannot send Humes switch or Hy-Vee liquor order until Gmail connects on *this* agent (desktop auth alone is not enough). Phone-send from `communitypizza2026@gmail.com` is the live path.
