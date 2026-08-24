@@ -166,7 +166,13 @@ function render(): void {
     const target = parsed.dates[1];
     if (!source || !target) return;
     const copies = allAssignments()
-      .filter(a => a.date === source && !a.flags.requestedOff)
+      .filter(
+        a =>
+          a.date === source &&
+          !a.flags.requestedOff &&
+          !a.incomplete &&
+          (a.start || a.end)
+      )
       .map(a => ({ ...a, date: target }));
     extra = extra.concat(copies);
     selectedDate = target;
