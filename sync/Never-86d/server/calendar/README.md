@@ -15,7 +15,7 @@ Copy into `Never-86d` under `server/calendar/`. This agent still cannot push tha
 
 - `DRAFT` → `MANAGER_REVIEW` → `MYKE_REVIEW` → `APPROVED` → `SENT_TO_HUMES`
 - The agent never emails Humes on its own judgment.
-- Thursday medium pizza stays Thursday. Edit once in the Recurring Specials Library.
+- Thursday medium pizza **goes up Thursday** (all day, $17.99). Never Wednesday. Edit once in the Recurring Specials Library.
 - Football games may appear on the planning screen. They are not promotions. Monday/Thursday Night Football promos are **NOT CREATED** until Kenzy/Myke record a decision.
 - Suggest events. Never silently add a promotion Myke has not approved.
 - Ignore internet holidays. Labor Day and football are MUST USE traffic.

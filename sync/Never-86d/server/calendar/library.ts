@@ -35,7 +35,7 @@ function special(input: {
 /**
  * Recurring Specials Library.
  * Edit once here; every future month uses the new version.
- * Thursday medium pizza stays Thursday.
+ * Thursday medium pizza GOES UP Thursday — never Wednesday.
  */
 export const DEFAULT_RECURRING_LIBRARY: RecurringSpecial[] = [
   special({
@@ -74,7 +74,7 @@ export const DEFAULT_RECURRING_LIBRARY: RecurringSpecial[] = [
     category: "food",
     dayOfWeek: "thursday",
     price: "17.99",
-    description: "Any medium pizza $17.99",
+    description: "GOES UP Thursday — any medium pizza $17.99 all day. Not Wednesday.",
     lockedDay: true,
     posterRequired: true,
   }),

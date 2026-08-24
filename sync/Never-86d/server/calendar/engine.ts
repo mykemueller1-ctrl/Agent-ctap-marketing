@@ -437,6 +437,12 @@ export function applyMykeDecision(
 }
 
 export function buildHumesEmail(month: CalendarMonth): HumesEmail {
+  const pizza = month.recurring.find(
+    (item) => item.libraryId === "thursday-medium-pizza"
+  );
+  const rest = month.recurring.filter(
+    (item) => item.libraryId !== "thursday-medium-pizza"
+  );
   const lines = [
     `CTAP — ${month.label} Calendar`,
     `Status: ${month.status}`,
@@ -444,8 +450,12 @@ export function buildHumesEmail(month: CalendarMonth): HumesEmail {
     `Monthly food (Tom): ${month.monthlyFood?.name ?? "(none)"} ${month.monthlyFood?.price ?? ""}`.trim(),
     `Monthly drink (Kenzy): ${month.monthlyDrink?.name ?? "(none)"} ${month.monthlyDrink?.price ?? ""}`.trim(),
     "",
+    pizza
+      ? `THURSDAY GOES UP: ${pizza.name} $${pizza.price} all day. Not Wednesday.`
+      : "THURSDAY GOES UP: Any Medium Pizza (missing from library)",
+    "",
     "Weekly specials:",
-    ...month.recurring.map(
+    ...rest.map(
       (item) =>
         `- ${item.dayOfWeek}: ${item.name}${item.price ? ` $${item.price}` : ""}`
     ),
