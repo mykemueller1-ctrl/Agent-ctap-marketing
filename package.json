@@ -2,7 +2,7 @@
   "name": "agent-ctap-marketing",
   "private": true,
   "type": "module",
-  "description": "CTAP marketing / ops intake — PDQ Z-report parser and vendor mailbox routing. The sync/Never-86d tree is a cherry-pick source for the private Never-86d monorepo.",
+  "description": "CTAP marketing / ops intake — PDQ Z-report parser, vendor mailbox routing, and evidence (OCR) intake. The sync/Never-86d tree is a cherry-pick source for the private Never-86d monorepo.",
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest",
