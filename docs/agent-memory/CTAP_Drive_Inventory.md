@@ -20,6 +20,7 @@
 | Menu | `CTAP_Updated_Menu.docx` | Pricing context for sales/food cost later |
 
 Longer invoice / OCR / sales memory: `docs/agent-memory/CTAP_Last_Week_Invoices_Sales.md`.
+Honest gap list (liquor guide, food order, kitchen/driver, Zs, Gmail): `docs/agent-memory/CTAP_What_We_Dont_Have.md`.
 
 ## Shift logic we inherited from Drive (not 7shifts)
 
