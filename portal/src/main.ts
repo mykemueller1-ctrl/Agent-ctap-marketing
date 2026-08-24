@@ -1,5 +1,11 @@
 import "./styles.css";
 import {
+  buildInvoiceInsights,
+  photoFilenames,
+  sheetRowsForWeek,
+  type InvoiceWeekSeed,
+} from "./invoiceWeek";
+import {
   buildInsights,
   displayWindow,
   firstName,
@@ -9,6 +15,15 @@ import {
   type ParsedSchedule,
   type ShiftInsight,
 } from "./parseSchedule";
+import {
+  buildSalesInsights,
+  money,
+  pctLabel,
+  rollup,
+  type SalesInsight,
+  type SalesSeed,
+  type ZDay,
+} from "./salesWeek";
 
 const STATION_ORDER = ["BAR SIDE", "BAR SERVER", "WAITRESS", "PIZZA SIDE"];
 
@@ -30,10 +45,16 @@ const TIMES = [
   "RO",
 ];
 
+type SeatId = "shift" | "sales" | "invoices";
+
 let parsed: ParsedSchedule;
+let invoiceWeek: InvoiceWeekSeed;
+let sales: SalesSeed;
 let selectedDate = "";
+let selectedZ = "";
 let extra: Assignment[] = [];
 let toast = "";
+let seat: SeatId = "invoices";
 
 function allAssignments(): Assignment[] {
   return [...parsed.assignments, ...extra];
@@ -43,16 +64,24 @@ function currentDay(): Assignment[] {
   return allAssignments().filter(a => a.date === selectedDate);
 }
 
+function currentZ(): ZDay | undefined {
+  return (
+    sales.recentZ.find(d => d.date === selectedZ) ??
+    sales.lastCompleteWeek.days.find(d => d.date === selectedZ)
+  );
+}
+
 function render(): void {
   const app = document.querySelector("#app");
   if (!app) return;
-  const dayAssignments = currentDay();
-  const insights = buildInsights({
+
+  const shiftInsights = buildInsights({
     ...parsed,
     assignments: allAssignments(),
   });
-  const dayInsights = insights.filter(i => i.date === selectedDate);
-  const next = insights[0];
+  const invoiceInsights = buildInvoiceInsights(invoiceWeek, sales.invoiceWeekHasZ);
+  const salesInsights = buildSalesInsights(sales);
+  const hero = heroCopy(shiftInsights[0], invoiceInsights[0], salesInsights[0]);
 
   app.innerHTML = `
     <header class="topbar">
@@ -64,39 +93,94 @@ function render(): void {
     </header>
 
     <section class="hero">
-      <div class="kicker">First seat in action — Shift</div>
-      <h1>${next ? next.title : "This week's floor is posted."}</h1>
-      <p>${
-        next
-          ? next.detail + " Pulled from the live CTAP BAR SCHEDULE sheet in Drive — no 7shifts, no HotSchedules."
-          : "Bar crew week is loaded from Google Drive."
-      }</p>
+      <div class="kicker">${hero.kicker}</div>
+      <h1>${hero.title}</h1>
+      <p>${hero.detail}</p>
     </section>
 
     <nav class="seats">
-      <button class="seat active" data-seat="shift">
-        <div class="label">Seat 01</div>
-        <div class="name">Shift</div>
-        <div class="state">Live</div>
-      </button>
-      <button class="seat soon" disabled>
-        <div class="label">Seat 02</div>
-        <div class="name">Sales</div>
-        <div class="state">Next — PDQ Z</div>
-      </button>
-      <button class="seat soon" disabled>
-        <div class="label">Seat 03</div>
-        <div class="name">Buy</div>
-        <div class="state">Next — liquor sheet</div>
-      </button>
-      <button class="seat soon" disabled>
-        <div class="label">Seat 04</div>
-        <div class="name">Invoices</div>
-        <div class="state">Next — Humes / PFS</div>
-      </button>
+      ${seatButton("shift", "Seat 01", "Shift", "Live")}
+      ${seatButton("sales", "Seat 02", "Sales", sales.invoiceWeekHasZ ? "Live" : "Live — Z hole")}
+      ${seatButton("buy", "Seat 03", "Buy", "Next — liquor sheet", true)}
+      ${seatButton("invoices", "Seat 04", "Invoices", "Live — 32 photos")}
     </nav>
 
-    <div class="layout">
+    ${seat === "shift" ? shiftLayout(shiftInsights) : ""}
+    ${seat === "sales" ? salesLayout(salesInsights) : ""}
+    ${seat === "invoices" ? invoicesLayout(invoiceInsights) : ""}
+  `;
+
+  bindNav();
+  if (seat === "shift") bindShift();
+  if (seat === "sales") bindSales();
+}
+
+function heroCopy(
+  shiftNext: ShiftInsight | undefined,
+  invoiceNext: ReturnType<typeof buildInvoiceInsights>[0] | undefined,
+  salesNext: SalesInsight | undefined
+) {
+  if (seat === "invoices") {
+    return {
+      kicker: "Remembered from last week — Invoices",
+      title: invoiceNext?.title ?? "Last week's invoice photos are in Drive.",
+      detail:
+        "32 HEICs in folder 8-16 thru 8-22, from the OCR course. Invoice sheet SOP lives in Drive. Photos stay photo_ocr — Document AI is not live in this repo.",
+    };
+  }
+  if (seat === "sales") {
+    return {
+      kicker: "Remembered from last week — Sales",
+      title: salesNext?.title ?? "Sales denominator is the Z-report.",
+      detail:
+        "No Aug 16–22 Z-reports in Drive yet. Showing the last two Z nights (7/15–7/16/2026) and the last complete weekly folder (9/14–9/20/2025).",
+    };
+  }
+  return {
+    kicker: "First seat in action — Shift",
+    title: shiftNext ? shiftNext.title : "This week's floor is posted.",
+    detail: shiftNext
+      ? shiftNext.detail +
+        " Pulled from the live CTAP BAR SCHEDULE sheet in Drive — no 7shifts, no HotSchedules."
+      : "Bar crew week is loaded from Google Drive.",
+  };
+}
+
+function seatButton(
+  id: SeatId | "buy",
+  label: string,
+  name: string,
+  state: string,
+  disabled = false
+): string {
+  const active = id === seat;
+  return `<button class="seat ${active ? "active" : ""} ${disabled ? "soon" : ""}" data-seat="${id}" ${
+    disabled ? "disabled" : ""
+  }>
+      <div class="label">${label}</div>
+      <div class="name">${name}</div>
+      <div class="state">${state}</div>
+    </button>`;
+}
+
+function bindNav(): void {
+  document.querySelectorAll<HTMLButtonElement>("[data-seat]").forEach(btn => {
+    if (btn.disabled) return;
+    btn.addEventListener("click", () => {
+      const next = btn.dataset.seat as SeatId;
+      if (next === "shift" || next === "sales" || next === "invoices") {
+        seat = next;
+        toast = "";
+        render();
+      }
+    });
+  });
+}
+
+function shiftLayout(insights: ShiftInsight[]): string {
+  const dayAssignments = currentDay();
+  const dayInsights = insights.filter(i => i.date === selectedDate);
+  return `<div class="layout">
       <aside class="panel">
         <h2>Next action</h2>
         ${
@@ -138,64 +222,115 @@ function render(): void {
         </div>
         ${toast ? `<div class="toast">${toast}</div>` : ""}
       </section>
+    </div>`;
+}
+
+function invoicesLayout(
+  insights: ReturnType<typeof buildInvoiceInsights>
+): string {
+  const rows = sheetRowsForWeek(invoiceWeek.weekStart, invoiceWeek.invoiceSheet);
+  const photos = photoFilenames(invoiceWeek.firstPhoto, invoiceWeek.lastPhoto);
+  return `<div class="layout">
+      <aside class="panel">
+        <h2>Next action</h2>
+        ${insights.map(invoiceInsightCard).join("")}
+        <h2 style="margin-top:18px">OCR route</h2>
+        <div class="meta">sourceKind ${invoiceWeek.sourceKind} · HEIC → Document AI · not live</div>
+        <div class="insight"><b>SOPs stay in Drive</b><span>Invoice Sheet for the week · HOW TO INPUT WEEKLY SCHEDULES · CTAP BAR ORDERING DOCS. Portal obeys them; we do not copy the docs into git.</span></div>
+      </aside>
+      <section class="panel">
+        <h2>Invoice sheet cadence · ${invoiceWeek.weekStart} → ${invoiceWeek.weekEnd}</h2>
+        <div class="meta">Sunday is the week start. The Drive SOP fills Mon–Fri. Blanks are still blank — photos are the fill.</div>
+        <div class="cadence">
+          ${rows
+            .map(
+              row => `<article class="card">
+                <div class="who">${row.weekday} · ${row.date}</div>
+                <div class="when">${row.vendors.join(" · ")}</div>
+              </article>`
+            )
+            .join("")}
+        </div>
+        <h2>Photo drop · ${invoiceWeek.driveFolderTitle}</h2>
+        <div class="meta">${invoiceWeek.photoCount} files · uploaded ${invoiceWeek.uploadedAt.slice(0, 10)} · ${invoiceWeek.mimeType}</div>
+        <div class="photos">${photos.map(n => `<span class="chip">${n}</span>`).join("")}</div>
+        <h2>Out of the book</h2>
+        <ul class="sop-list">${invoiceWeek.outOfBook.map(item => `<li>${item}</li>`).join("")}</ul>
+      </section>
+    </div>`;
+}
+
+function salesLayout(insights: SalesInsight[]): string {
+  const day = currentZ();
+  const week = rollup(sales.lastCompleteWeek.days);
+  const zDays = [...sales.recentZ, ...sales.lastCompleteWeek.days];
+  return `<div class="layout">
+      <aside class="panel">
+        <h2>Next action</h2>
+        ${insights.map(salesInsightCard).join("")}
+        <h2 style="margin-top:18px">Targets</h2>
+        <div class="meta">Labor &lt;28% of sales (from Z). Food &lt;30% · beer &lt;21% · liquor &lt;20% need invoice OCR — cannot close 8/16–8/22 yet.</div>
+      </aside>
+      <section class="panel">
+        <h2>Z nights in Drive</h2>
+        <div class="days">
+          ${zDays
+            .map(
+              d =>
+                `<button class="day-btn ${d.date === selectedZ ? "active" : ""}" data-z="${d.date}">${d.label}</button>`
+            )
+            .join("")}
+        </div>
+        ${day ? zDayPanel(day) : ""}
+        <h2>Last complete weekly folder</h2>
+        <div class="meta">${sales.lastCompleteWeek.folder} · ${money(week.grandTotal)} sales · labor ${pctLabel(week.labor, week.grandTotal)}</div>
+        <div class="metrics">
+          <div class="metric"><span>Food sales mix</span><b>${pctLabel(week.foodSales, week.grandTotal)}</b></div>
+          <div class="metric"><span>Beer sales mix</span><b>${pctLabel(week.beerSales, week.grandTotal)}</b></div>
+          <div class="metric"><span>Liquor sales mix</span><b>${pctLabel(week.liquorSales, week.grandTotal)}</b></div>
+          <div class="metric"><span>Labor / sales</span><b>${pctLabel(week.labor, week.grandTotal)}</b></div>
+        </div>
+        <p class="fine">Sales mix is not cost %. Cost % waits on the 32 photos being OCR'd plus Aug Z-reports.</p>
+      </section>
+    </div>`;
+}
+
+function zDayPanel(day: ZDay): string {
+  const labor = pctLabel(day.labor, day.grandTotal);
+  return `<div class="metrics">
+      <div class="metric"><span>Grand total</span><b>${money(day.grandTotal)}</b></div>
+      <div class="metric"><span>Labor</span><b>${money(day.labor)} · ${labor}</b></div>
+      <div class="metric"><span>Food sales</span><b>${money(day.foodSales)}</b></div>
+      <div class="metric"><span>Beer / liquor</span><b>${money(day.beerSales)} / ${money(day.liquorSales)}</b></div>
     </div>
-  `;
-
-  app.querySelectorAll<HTMLButtonElement>(".day-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      selectedDate = btn.dataset.date ?? selectedDate;
-      toast = "";
-      render();
-    });
-  });
-
-  const file = app.querySelector<HTMLInputElement>("#csv");
-  file?.addEventListener("change", async () => {
-    const picked = file.files?.[0];
-    if (!picked) return;
-    const text = await picked.text();
-    parsed = parseWideScheduleCsv(text, "Bar Crew");
-    extra = [];
-    selectedDate = parsed.dates[0] ?? selectedDate;
-    toast = `Loaded ${picked.name} · ${parsed.assignments.length} assignments`;
-    render();
-  });
-
-  app.querySelector("#copy-sun")?.addEventListener("click", () => {
-    const source = parsed.dates[0];
-    const target = parsed.dates[1];
-    if (!source || !target) return;
-    const copies = allAssignments()
-      .filter(
-        a =>
-          a.date === source &&
-          !a.flags.requestedOff &&
-          !a.incomplete &&
-          (a.start || a.end)
-      )
-      .map(a => ({ ...a, date: target }));
-    extra = extra.concat(copies);
-    selectedDate = target;
-    toast = `Copied ${copies.length} Sunday shifts onto Monday.`;
-    render();
-  });
-
-  app.querySelector("#qa-save")?.addEventListener("click", () => {
-    const employee = value("#qa-name");
-    const station = value("#qa-station");
-    const startRaw = value("#qa-start");
-    const endRaw = value("#qa-end");
-    const row = `${employee},${isoToSlash(selectedDate)},${startRaw},${endRaw},${station}`;
-    const header =
-      "employee,date,start time,end time,station";
-    const oneDay = parseWideScheduleCsv(`${header}\n${row}`, parsed.department);
-    extra = extra.concat(oneDay.assignments);
-    toast = `Posted ${firstName(employee)} ${startRaw}–${endRaw} on ${station}.`;
-    render();
-  });
+    ${
+      day.channels.length
+        ? `<div class="channels">${day.channels
+            .map(
+              c =>
+                `<div class="channel"><span>${c.name}</span><b>${money(c.amount)}</b><i>${pctLabel(c.amount, day.grandTotal)}</i></div>`
+            )
+            .join("")}</div>`
+        : ""
+    }
+    <div class="meta">Source: ${day.source}${
+      day.actualDeposit != null
+        ? ` · deposit ${money(day.actualDeposit)} vs expected ${money(day.expectedCash)}`
+        : ""
+    }</div>`;
 }
 
 function insightCard(insight: ShiftInsight): string {
+  return `<div class="insight ${insight.kind}"><b>${insight.title}</b><span>${insight.detail}</span></div>`;
+}
+
+function invoiceInsightCard(
+  insight: ReturnType<typeof buildInvoiceInsights>[0]
+): string {
+  return `<div class="insight ${insight.kind}"><b>${insight.title}</b><span>${insight.detail}</span></div>`;
+}
+
+function salesInsightCard(insight: SalesInsight): string {
   return `<div class="insight ${insight.kind}"><b>${insight.title}</b><span>${insight.detail}</span></div>`;
 }
 
@@ -226,6 +361,69 @@ function shiftCard(a: Assignment): string {
     .join("")}</div></article>`;
 }
 
+function bindShift(): void {
+  document.querySelectorAll<HTMLButtonElement>(".day-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      selectedDate = btn.dataset.date ?? selectedDate;
+      toast = "";
+      render();
+    });
+  });
+
+  const file = document.querySelector<HTMLInputElement>("#csv");
+  file?.addEventListener("change", async () => {
+    const picked = file.files?.[0];
+    if (!picked) return;
+    const text = await picked.text();
+    parsed = parseWideScheduleCsv(text, "Bar Crew");
+    extra = [];
+    selectedDate = parsed.dates[0] ?? selectedDate;
+    toast = `Loaded ${picked.name} · ${parsed.assignments.length} assignments`;
+    render();
+  });
+
+  document.querySelector("#copy-sun")?.addEventListener("click", () => {
+    const source = parsed.dates[0];
+    const target = parsed.dates[1];
+    if (!source || !target) return;
+    const copies = allAssignments()
+      .filter(
+        a =>
+          a.date === source &&
+          !a.flags.requestedOff &&
+          !a.incomplete &&
+          (a.start || a.end)
+      )
+      .map(a => ({ ...a, date: target }));
+    extra = extra.concat(copies);
+    selectedDate = target;
+    toast = `Copied ${copies.length} Sunday shifts onto Monday.`;
+    render();
+  });
+
+  document.querySelector("#qa-save")?.addEventListener("click", () => {
+    const employee = value("#qa-name");
+    const station = value("#qa-station");
+    const startRaw = value("#qa-start");
+    const endRaw = value("#qa-end");
+    const row = `${employee},${isoToSlash(selectedDate)},${startRaw},${endRaw},${station}`;
+    const header = "employee,date,start time,end time,station";
+    const oneDay = parseWideScheduleCsv(`${header}\n${row}`, parsed.department);
+    extra = extra.concat(oneDay.assignments);
+    toast = `Posted ${firstName(employee)} ${startRaw}–${endRaw} on ${station}.`;
+    render();
+  });
+}
+
+function bindSales(): void {
+  document.querySelectorAll<HTMLButtonElement>("[data-z]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      selectedZ = btn.dataset.z ?? selectedZ;
+      render();
+    });
+  });
+}
+
 function value(sel: string): string {
   return (document.querySelector(sel) as HTMLSelectElement).value;
 }
@@ -236,9 +434,16 @@ function isoToSlash(iso: string): string {
 }
 
 async function boot(): Promise<void> {
-  const csv = await fetch("/data/ctap-bar-schedule.csv").then(r => r.text());
+  const [csv, invoiceJson, salesJson] = await Promise.all([
+    fetch("/data/ctap-bar-schedule.csv").then(r => r.text()),
+    fetch("/data/ctap-invoice-week.json").then(r => r.json() as Promise<InvoiceWeekSeed>),
+    fetch("/data/ctap-sales.json").then(r => r.json() as Promise<SalesSeed>),
+  ]);
   parsed = parseWideScheduleCsv(csv, "Bar Crew");
+  invoiceWeek = invoiceJson;
+  sales = salesJson;
   selectedDate = parsed.dates[0] ?? "";
+  selectedZ = sales.recentZ[0]?.date ?? "";
   render();
 }
 

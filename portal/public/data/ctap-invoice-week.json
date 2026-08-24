@@ -1,0 +1,26 @@
+{
+  "weekStart": "2026-08-16",
+  "weekEnd": "2026-08-22",
+  "driveFolderId": "1DxZBAfexSBRn1hJLRmAHl28vP_Jr2AyP",
+  "driveFolderTitle": "8-16 thru 8-22",
+  "photoCount": 32,
+  "firstPhoto": "IMG_6700.HEIC",
+  "lastPhoto": "IMG_6731.HEIC",
+  "mimeType": "image/heif",
+  "uploadedAt": "2026-08-21T11:43:04Z",
+  "sourceKind": "photo_ocr",
+  "ocrLive": false,
+  "invoiceSheetTitle": "Invoice Sheet for the week",
+  "invoiceSheet": [
+    { "weekday": "Monday", "vendors": ["Sawyer"] },
+    { "weekday": "Tuesday", "vendors": ["Northern Lights", "Performance"] },
+    { "weekday": "Wednesday", "vendors": ["Sawyer"] },
+    { "weekday": "Thursday", "vendors": ["Food"] },
+    { "weekday": "Friday", "vendors": ["Northern Lights", "Performance", "Sawyers"] }
+  ],
+  "outOfBook": [
+    "Hy-Vee grocery + PDQ payout dated 8/11",
+    "Hy-Vee wine page dated 8/12/2023",
+    "Sawyer ticket dated 8/17/2024"
+  ]
+}

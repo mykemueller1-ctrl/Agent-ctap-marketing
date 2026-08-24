@@ -19,6 +19,8 @@ export type EvidenceMime =
   | "image/jpeg"
   | "image/png"
   | "image/webp"
+  | "image/heif"
+  | "image/heic"
   | "text/plain";
 
 export type DocumentKind = "invoice" | "z_report" | "unknown";

@@ -4,8 +4,9 @@ export type ExtractRoute = "native_pdf" | "ocr" | "plain_text";
 
 /**
  * Digital PDFs go through native text extract first. Photos (Sysco, Northern
- * Lights, Sawyer) go to the OCR vendor. Mixed email/photo vendors try native
- * PDF when the payload is a PDF, otherwise OCR.
+ * Lights, Sawyer — including last week's HEIC drop) go to the OCR vendor.
+ * Mixed email/photo vendors try native PDF when the payload is a PDF,
+ * otherwise OCR.
  */
 export function routeExtraction(input: {
   mimeType: EvidenceMime;
