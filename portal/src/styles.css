@@ -211,8 +211,19 @@ body {
   border-left: 3px solid var(--amber);
 }
 .insight.labor-ok,
-.insight.pattern {
+.insight.pattern,
+.insight.mixers,
+.insight.prices {
   border-left: 3px solid var(--green);
+}
+
+.insight.par-fill {
+  border-left: 3px solid var(--red);
+}
+
+.insight.liquor,
+.insight.beer {
+  border-left: 3px solid var(--amber);
 }
 
 .days {
@@ -445,6 +456,41 @@ select {
   margin: 8px 0 0;
 }
 
+.order-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.order-col h3 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.order-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid var(--line);
+  padding: 6px 0;
+  font-size: 13px;
+}
+
+.order-row span {
+  color: var(--ink);
+}
+
+.order-row b {
+  color: var(--amber);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
 @media (max-width: 900px) {
   .seats,
   .layout,
@@ -452,7 +498,8 @@ select {
   .quick,
   .cadence,
   .metrics,
-  .channels {
+  .channels,
+  .order-grid {
     grid-template-columns: 1fr;
   }
 }

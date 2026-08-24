@@ -8,6 +8,11 @@ import {
 import { parserFactory } from "./parser-factory";
 import { routeExtraction, shouldFallbackToOcr } from "./routing";
 import { buildTruth } from "./truth-engine";
+import {
+  CTAP_WEEK_2026_08_16,
+  applyWeekWindow,
+  type DateWindow,
+} from "./week-window";
 import type {
   CtapIntakeMode,
   EvidenceDocument,
@@ -103,13 +108,18 @@ export async function ingestEvidence(
     mimeType: EvidenceMime;
     sourceKind: CtapIntakeMode;
     vendorKey?: string;
+    weekWindow?: DateWindow;
   },
   deps: PipelineDeps = createDefaultDeps()
 ): Promise<EvidencePipelineResult> {
   const document = makeEvidenceDocument(input);
   const extraction = await extractEvidence(document, deps);
   const parsed = parserFactory.parse(extraction.text, document.vendorKey);
-  const truth = buildTruth({ parsed: [parsed], extraction });
+  const truth = applyWeekWindow(
+    buildTruth({ parsed: [parsed], extraction }),
+    parsed,
+    input.weekWindow ?? CTAP_WEEK_2026_08_16
+  );
   return { document, extraction, parsed, truth };
 }
 

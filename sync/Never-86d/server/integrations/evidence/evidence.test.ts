@@ -61,6 +61,9 @@ describe("Phase 1 contracts + routing", () => {
       routeExtraction({ mimeType: "image/heif", sourceKind: "photo_ocr" })
     ).toBe("ocr");
     expect(
+      routeExtraction({ mimeType: "image/heic", sourceKind: "photo_ocr" })
+    ).toBe("ocr");
+    expect(
       routeExtraction({
         mimeType: "application/pdf",
         sourceKind: "email_or_photo",

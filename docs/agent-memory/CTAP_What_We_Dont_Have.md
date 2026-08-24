@@ -9,7 +9,7 @@ Two different holes: **in Drive but not in the portal**, vs **not in Drive at al
 
 | What | Drive title | Status |
 |---|---|---|
-| Liquor / beer **guide + this week's order** | `CTAP LIQUOR _ BEER ORDERING SHEET BLANK` (modified 2026-08-23) | Filled. Liquor/wine/cordial qty-to-order totals **$1,167.31**. Beer/kegs/seltzer **$2,005.56**. Combined ~**$3,173**. Over/under rows are on the sheet. **Buy seat is still "Next."** |
+| Liquor / beer **guide + this week's order** | `CTAP LIQUOR _ BEER ORDERING SHEET BLANK` (modified 2026-08-23) | Filled. **Buy seat is live** — names, par, qty, category totals. Unit prices stay in Drive. Combined ~**$3,173** (par-fill risk vs ~$1,400 replacement buy). |
 | Liquor par (older xlsx) | `CTAP LIQUOR PAR SHEET` copies in `CTAP BAR ORDERING DOCS` | Exists. Not the live weekly sheet. |
 | Menu + price move | `CTAP_Updated_Menu.docx` | Full item list + proposed prices. Not in the Sales seat. |
 | Weekly numbers SOP | `Community_Tap_Weekly_Numbers_Tracking_Guide.docx` | How to log daily food/beer/liquor sales vs purchases. No sheet actually filled this way. |
@@ -48,8 +48,10 @@ Two different holes: **in Drive but not in the portal**, vs **not in Drive at al
 
 - **Shift** — bar week 8/30–9/5.
 - **Sales** — 7/15–7/16/2026 Zs + the Sept 2025 weekly pattern + the 8/16–8/22 Z hole.
+- **Buy** — liquor/beer qty-to-order from the 8/23 Drive sheet. No unit prices in git.
 - **Invoices** — 32-photo week + invoice-sheet cadence. Totals not booked.
-- **Buy** — not live, even though Ashley's liquor/beer sheet is sitting in Drive filled as of 8/23.
+
+Calendar engine (Kenzy / Tom / Myke → Humes) is in `sync/Never-86d/server/calendar/` — not a portal seat yet.
 
 ## Highest-leverage drops from Myke
 
@@ -57,4 +59,3 @@ Two different holes: **in Drive but not in the portal**, vs **not in Drive at al
 2. Posted **kitchen** and **driver** weeks (same CSV shape as bar).
 3. This week's **Z-reports** (Aug 16–22).
 4. Connect **Gmail** so PDQ dailies and digital vendor PDFs stop being a hole.
-5. Say **go** on Buy and the live liquor/beer sheet becomes Seat 03.

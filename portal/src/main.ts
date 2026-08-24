@@ -16,6 +16,13 @@ import {
   type ShiftInsight,
 } from "./parseSchedule";
 import {
+  buildBuyInsights,
+  combinedTotal,
+  type BuyInsight,
+  type BuyLine,
+  type BuySeed,
+} from "./buyWeek";
+import {
   buildSalesInsights,
   money,
   pctLabel,
@@ -45,11 +52,12 @@ const TIMES = [
   "RO",
 ];
 
-type SeatId = "shift" | "sales" | "invoices";
+type SeatId = "shift" | "sales" | "buy" | "invoices";
 
 let parsed: ParsedSchedule;
 let invoiceWeek: InvoiceWeekSeed;
 let sales: SalesSeed;
+let buy: BuySeed;
 let selectedDate = "";
 let selectedZ = "";
 let extra: Assignment[] = [];
@@ -81,7 +89,13 @@ function render(): void {
   });
   const invoiceInsights = buildInvoiceInsights(invoiceWeek, sales.invoiceWeekHasZ);
   const salesInsights = buildSalesInsights(sales);
-  const hero = heroCopy(shiftInsights[0], invoiceInsights[0], salesInsights[0]);
+  const buyInsights = buildBuyInsights(buy);
+  const hero = heroCopy(
+    shiftInsights[0],
+    invoiceInsights[0],
+    salesInsights[0],
+    buyInsights[0]
+  );
 
   app.innerHTML = `
     <header class="topbar">
@@ -101,12 +115,13 @@ function render(): void {
     <nav class="seats">
       ${seatButton("shift", "Seat 01", "Shift", "Live")}
       ${seatButton("sales", "Seat 02", "Sales", sales.invoiceWeekHasZ ? "Live" : "Live — Z hole")}
-      ${seatButton("buy", "Seat 03", "Buy", "Next — liquor sheet", true)}
+      ${seatButton("buy", "Seat 03", "Buy", "Live — par-fill")}
       ${seatButton("invoices", "Seat 04", "Invoices", "Live — 32 photos")}
     </nav>
 
     ${seat === "shift" ? shiftLayout(shiftInsights) : ""}
     ${seat === "sales" ? salesLayout(salesInsights) : ""}
+    ${seat === "buy" ? buyLayout(buyInsights) : ""}
     ${seat === "invoices" ? invoicesLayout(invoiceInsights) : ""}
   `;
 
@@ -118,8 +133,17 @@ function render(): void {
 function heroCopy(
   shiftNext: ShiftInsight | undefined,
   invoiceNext: ReturnType<typeof buildInvoiceInsights>[0] | undefined,
-  salesNext: SalesInsight | undefined
+  salesNext: SalesInsight | undefined,
+  buyNext: BuyInsight | undefined
 ) {
+  if (seat === "buy") {
+    return {
+      kicker: "Remembered from Drive — Buy",
+      title: buyNext?.title ?? "Liquor/beer qty-to-order is on the sheet.",
+      detail:
+        "Bar liquor/beer sheet in Drive, modified 8/23. Portal shows name, par, and qty. Unit costs stay in Drive. Do not buy from par alone.",
+    };
+  }
   if (seat === "invoices") {
     return {
       kicker: "Remembered from last week — Invoices",
@@ -147,7 +171,7 @@ function heroCopy(
 }
 
 function seatButton(
-  id: SeatId | "buy",
+  id: SeatId,
   label: string,
   name: string,
   state: string,
@@ -168,7 +192,7 @@ function bindNav(): void {
     if (btn.disabled) return;
     btn.addEventListener("click", () => {
       const next = btn.dataset.seat as SeatId;
-      if (next === "shift" || next === "sales" || next === "invoices") {
+      if (next === "shift" || next === "sales" || next === "buy" || next === "invoices") {
         seat = next;
         toast = "";
         render();
@@ -295,6 +319,47 @@ function salesLayout(insights: SalesInsight[]): string {
     </div>`;
 }
 
+function buyLayout(insights: BuyInsight[]): string {
+  const combined = combinedTotal(buy);
+  return `<div class="layout">
+      <aside class="panel">
+        <h2>Next action</h2>
+        ${insights.map(buyInsightCard).join("")}
+        <h2 style="margin-top:18px">Rails</h2>
+        <div class="meta">Beer &lt;21% · liquor &lt;20% of sales. Do not fill par from the guide alone — use POS movement.</div>
+      </aside>
+      <section class="panel">
+        <h2>This week's qty-to-order</h2>
+        <div class="meta">${buy.driveTitle} · modified ${buy.modifiedAt} · unit costs stay in Drive</div>
+        <div class="metrics">
+          <div class="metric"><span>Liquor / wine / cordial</span><b>${money(buy.liquor.total)}</b></div>
+          <div class="metric"><span>Beer / kegs</span><b>${money(buy.beer.total)}</b></div>
+          <div class="metric"><span>Combined</span><b>${money(combined)}</b></div>
+          <div class="metric"><span>Vs $1,400 replacement</span><b>${money(combined - buy.baselineWeeklySpend)} over</b></div>
+        </div>
+        <div class="order-grid">
+          ${orderCol("Liquor / wine / cordial", buy.liquor.lines)}
+          ${orderCol("Beer / kegs", buy.beer.lines)}
+        </div>
+        <p class="fine">Mixers ordered: ${buy.mixersOrdered}. Sheet over/under: liquor ${money(buy.liquor.overUnder)}, beer ${money(buy.beer.overUnder)}.</p>
+      </section>
+    </div>`;
+}
+
+function orderCol(title: string, lines: BuyLine[]): string {
+  return `<div class="order-col">
+      <h3>${title}</h3>
+      ${lines
+        .map(
+          line => `<div class="order-row">
+            <span>${line.name}${line.par != null ? ` · par ${line.par}` : ""}</span>
+            <b>×${line.qty}</b>
+          </div>`
+        )
+        .join("")}
+    </div>`;
+}
+
 function zDayPanel(day: ZDay): string {
   const labor = pctLabel(day.labor, day.grandTotal);
   return `<div class="metrics">
@@ -331,6 +396,10 @@ function invoiceInsightCard(
 }
 
 function salesInsightCard(insight: SalesInsight): string {
+  return `<div class="insight ${insight.kind}"><b>${insight.title}</b><span>${insight.detail}</span></div>`;
+}
+
+function buyInsightCard(insight: BuyInsight): string {
   return `<div class="insight ${insight.kind}"><b>${insight.title}</b><span>${insight.detail}</span></div>`;
 }
 
@@ -434,14 +503,16 @@ function isoToSlash(iso: string): string {
 }
 
 async function boot(): Promise<void> {
-  const [csv, invoiceJson, salesJson] = await Promise.all([
+  const [csv, invoiceJson, salesJson, buyJson] = await Promise.all([
     fetch("/data/ctap-bar-schedule.csv").then(r => r.text()),
     fetch("/data/ctap-invoice-week.json").then(r => r.json() as Promise<InvoiceWeekSeed>),
     fetch("/data/ctap-sales.json").then(r => r.json() as Promise<SalesSeed>),
+    fetch("/data/ctap-buy.json").then(r => r.json() as Promise<BuySeed>),
   ]);
   parsed = parseWideScheduleCsv(csv, "Bar Crew");
   invoiceWeek = invoiceJson;
   sales = salesJson;
+  buy = buyJson;
   selectedDate = parsed.dates[0] ?? "";
   selectedZ = sales.recentZ[0]?.date ?? "";
   render();

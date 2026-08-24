@@ -1,0 +1,369 @@
+Transaction Breakdown
+Totals
+Taxable:
+$2,809.19
+Subtotal:
+$4,451.55
+Non Tax:
+$1,642.36
+Tax:
+$193.49
+Grand Total:
+$4,645.04
+Pay Outs -
+$212.72
+Pay In +
+$0.00
+DMR -
+$66.00
+House Account -
+$388.54
+House Account Tips -
+$44.00
+Checks -
+$0.00
+Other -
+$0.00
+Credit Cards -
+$2,092.32
+Credit Cards Tips -
+$240.53
+Gift Cards -
+$0.00
+Gift Cards Tips -
+$0.00
+House Account Cash +
+$0.00
+Credit Card Service Fee +
+$0.00
+Customer Credits -
+$0.00
+Rewards Redeemed -
+$0.00
+Cash Delay Payments -
+$0.00
+Expected Cash:
+$1,600.93
+Shift Deposit
+Dep Shift
+Expected Deposit
+Actual Deposit
+Over Under
+1
+$1,600.93
+$1,600.00
+($0.93)
+2
+$0.00
+$0.00
+$0.00
+Total:
+$1,600.93
+$1,600.00
+($0.93)
+Sales Summary
+Trans Type
+QTY
+Amount
+Avg Check
+%
+Last Year
+Pickup
+20
+$603.56
+$30.18
+12.99
+$369.60
+Delivery
+22
+$822.47
+$37.39
+17.71
+$1,866.04
+Bar
+82
+$1,129.93
+$13.78
+24.32
+$1,050.34
+Table
+44
+$2,089.08
+$47.48
+44.97
+$2,196.65
+Total: 
+168
+$4,645.04
+$27.65
+100%
+$5,482.63
+Charge Summary
+Card Description
+QTY
+Pre-Auth
+Tip Amt
+Total
+Visa
+37
+$1,055.96
+$117.89
+$1,173.85
+MasterCard
+27
+$838.14
+$109.66
+$947.80
+Discover
+2
+$68.44
+$0.00
+$68.44
+Amex
+1
+$129.78
+$12.98
+$142.76
+Other
+0
+$0.00
+$0.00
+$0.00
+Total: 
+67
+$2,092.32
+$240.53
+$2,332.85
+House Account Charge Summary
+Card Description
+QTY
+Pre-Auth
+Tip Amt
+Total
+Total: 
+Cashier Summary
+Reg #
+Shift
+Close Sales
+Staff
+2
+1
+$643.23
+Bryson Cook
+1
+1
+$378.54
+Che Lyftogt
+2
+1
+$711.72
+Jessica Gailey
+Total:
+$1,733.49
+Other Payments
+Pmt Desc
+QTY
+Pre-Auth
+Tips Amt
+Total
+Total:
+Business Date: 7/16/2026
+Community Pizza
+Z Report / End Of Day
+Report Generated At: 7/17/2026 5:44:08 AM
+1 Of 2
+
+Labor Summary
+Job Description
+QTY
+Total
+%
+Bartender
+1
+$106.17
+0.03
+Closing Manager
+1
+$132.68
+0.03
+Ctap Manger
+2
+$216.30
+0.05
+Dishwasher
+1
+$40.71
+0.01
+Driver
+3
+$177.73
+0.04
+Fry Line
+3
+$281.56
+0.07
+InShop
+1
+$65.65
+0.02
+Pizza Maker
+3
+$235.51
+0.06
+Server
+3
+$173.63
+0.04
+Total:
+18
+$1,429.94
+0.34
+Discount Summary
+Type Description
+QTY
+Total
+%
+Cust Credit
+0
+$0.00
+0.00 %
+Employee Meal
+2
+$10.00
+0.22 %
+Manager Meal
+0
+$0.00
+0.00 %
+Neg Menu Items
+1
+$1.00
+0.02 %
+Neg Special Instruction
+0
+$0.00
+0.00 %
+Promo
+6
+$91.22
+2.01 %
+Smart Coupons
+0
+$0.00
+0.00 %
+Total:
+9
+$102.22
+2.24 %
+Payout Summary
+Register #
+Time
+Description
+Manager
+Total
+2
+8:31 AM
+Car Wash Smoker
+Bryson Cook
+$20.00
+2
+3:32 PM
+Matt Payout
+Bryson Cook
+$186.72
+2
+4:10 PM
+Store Run
+Bryson Cook
+$6.00
+Total:
+$212.72
+Misc Summary
+Description
+Num
+Value
+# Voids
+0
+$0.00
+Gift Card Sold
+1
+$50.00
+Gift Card Redm
+0
+$0.00
+Late Deliverys
+2
+$91.42
+Waste
+0
+$0.00
+HA Cash
+0
+$0.00
+HA Credit Card
+0
+$0.00
+HA Check
+0
+$0.00
+0
+$0.00
+Delivery Charge
+22
+$66.00
+Average Del Time
+22
+17 min
+CC Service Fee
+0
+$0.00
+Gratuity
+0
+$0.00
+Table Service Guest Summary
+# Orders
+# Guest
+Avg Guest
+Per Order
+Avg Total
+Per Guest
+44
+106
+2.41
+$19.71
+Menu Category
+Category Name
+QTY
+Total
+Gift Card Sold
+1
+$50.00
+Spec Instruction
+66
+$16.44
+UKNOWN
+8
+($40.47)
+Food
+522
+$2,789.39
+Pop
+91
+$122.25
+Liquor
+180
+$642.00
+Beer
+194
+$712.00
+Large Pizzas
+7
+$153.94
+Total:
+1,069
+$4,445.55
+Business Date: 7/16/2026
+Community Pizza
+Z Report / End Of Day
+Report Generated At: 7/17/2026 5:44:09 AM
+2 Of 2
