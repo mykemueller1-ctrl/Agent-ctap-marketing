@@ -22,6 +22,7 @@ export const CTAP_HUMES_MAILBOX_SWITCH = {
  * Living-lab people. Karlee Sturtz and Ashley Holding are not on the floor.
  * Kenzy and Tom run the same manager job on opposite houses.
  * Kenzy = bar / FOH. Tom = kitchen / BOH.
+ * LOCKED — operator confirmed Mon Aug 24, 2026. Do not reopen.
  */
 export const CTAP_PEOPLE = {
   owner: "Mychael \"Myke\" Mueller",
