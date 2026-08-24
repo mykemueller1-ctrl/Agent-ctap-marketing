@@ -7,7 +7,7 @@ This is the operating loop. Agents execute it. Humans only approve sends.
 **Mailbox:** `communitypizza2026@gmail.com`  
 **MCP brain:** `https://www.never86.ai/api/mcp` → `get_operator_system`  
 **Public wedge:** https://www.never86.ai/audit  
-**People:** Kenzy Thompson (wife — liquor/beer sheet, Hy-Vee Monday, Humes beer) · Karlee Sturtz (bar) · Ashley Holding (bar; 8/24 Hy-Vee already sent) · Tom Dorothy (kitchen)
+**People:** Kenzy Thompson (wife — Excel liquor par → texts Myke → he emails Hy-Vee) · Karlee Sturtz (bar) · Ashley Holding (bar) · Tom Dorothy (kitchen)
 
 ---
 
@@ -17,8 +17,8 @@ This is the operating loop. Agents execute it. Humans only approve sends.
 3. One Action Shift for the **prior complete business day** (not today).
 
 ## Every Monday morning (Iowa)
-1. **Hy-Vee Wine** — Kenzy owns the sheet. Email liquor qty>0. **Mon 8/24 already sent — do not re-send.** Draft only if next week’s qty changes: `docs/ctap-intake/hyvee-liquor-order-draft.txt`
-2. **Humes AP** — mailbox switch **SENT 8/24 from `communitypizza2026@gmail.com`.** Do not re-send. Next: Tue/Fri Humes PDFs must land in that inbox, not `myke@n86.app`.
+1. **Hy-Vee Wine** — Kenzy Excel → text Myke → he emails. **Mon 8/24 SENT (Kenzy text, 33 lines, Crème Brûlée 2).** Do not re-send. File: `docs/ctap-intake/hyvee-liquor-order-draft.txt`
+2. **Humes / Sysco / PFG AP** — mailbox switches **SENT 8/24 from `communitypizza2026@gmail.com`.** Do not re-send. Next: invoices land in that inbox, not `myke@n86.app`.
 3. **Gronk Hunter** — grok.com/connectors → Never86 MCP → paste `docs/gtm/hunter-bots/grok-first-hunt.md`. Keep score ≥ 60. Max 3 human-approved replies. No auto-post.
 4. Beer order path: Sunday night for **Tuesday** Humes / Fort Dodge Distributing (Kenzy).
 
@@ -27,8 +27,8 @@ Window this week: **Sun 8/16 – Sat 8/22** (see `week-window.ts`).
 
 | Vendor | Cadence | Mode |
 |---|---|---|
-| Sysco | ~1× | photo OCR — switch draft ready |
-| PFG / Performance | Mon/Thu | email PDF (`NoReply@pfgc.com`) — switch to Scott Selim `scott.selim@pfgc.com` |
+| Sysco | ~1× | photo OCR — mailbox switch sent 8/24 |
+| PFG / Performance | Mon/Thu | email PDF — switch sent 8/24 to Scott Selim |
 | Northern Lights | 2–8× | already on communitypizza |
 | Sawyer Meats | Mon/Wed/Fri (~2–3×) | photo OCR |
 | Humes | Tue/Fri | email PDF → **must land communitypizza** |

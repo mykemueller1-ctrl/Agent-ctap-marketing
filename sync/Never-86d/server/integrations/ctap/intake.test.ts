@@ -1,13 +1,14 @@
 import { describe, expect, it } from "vitest";
 import {
   CTAP_HUMES_MAILBOX_SWITCH,
+  CTAP_HYVEE_SENT_2026_08_24,
+  CTAP_KENZY_LIQUOR_PATH,
   CTAP_NORTHERN_LIGHTS_MAILBOX,
   CTAP_OPS_MAILBOX,
   CTAP_PEOPLE,
   CTAP_PFG_MAILBOX_SWITCH,
   CTAP_SYSCO_MAILBOX_SWITCH,
   CTAP_VENDOR_CADENCE,
-  humesRoutingSwitchEmail,
   INTAKE_STACK_TARGETS,
   vendorMailboxSwitchEmail,
 } from "./intake";
@@ -52,6 +53,7 @@ describe("CTAP intake routing", () => {
   });
 
   it("drafts the same mailbox switch for PFG Scott Selim, not NoReply", () => {
+    expect(CTAP_PFG_MAILBOX_SWITCH.status).toBe("sent");
     expect(CTAP_PFG_MAILBOX_SWITCH.to).toBe("scott.selim@pfgc.com");
     expect(CTAP_PFG_MAILBOX_SWITCH.doNotSendTo).toBe("NoReply@pfgc.com");
     const draft = vendorMailboxSwitchEmail({ to: CTAP_PFG_MAILBOX_SWITCH.to });
@@ -61,16 +63,31 @@ describe("CTAP intake routing", () => {
     expect(pfg?.orderToEmail).toBe("scott.selim@pfgc.com");
   });
 
-  it("holds Sysco mailbox switch until the consultant address is pasted", () => {
-    expect(CTAP_SYSCO_MAILBOX_SWITCH.to).toBeNull();
+  it("records Sysco mailbox switch as sent from communitypizza", () => {
+    expect(CTAP_SYSCO_MAILBOX_SWITCH.status).toBe("sent");
     expect(CTAP_SYSCO_MAILBOX_SWITCH.from).toBe(CTAP_OPS_MAILBOX);
+  });
+
+  it("uses Kenzy Excel→text as Hy-Vee order of record, including Crème Brûlée", () => {
+    expect(CTAP_KENZY_LIQUOR_PATH.fills).toBe("excel");
+    expect(CTAP_KENZY_LIQUOR_PATH.toMyke).toBe("text");
+    expect(CTAP_KENZY_LIQUOR_PATH.orderOfRecord).toBe("kenzy_text");
+    expect(CTAP_HYVEE_SENT_2026_08_24.lines).toEqual(
+      expect.arrayContaining([
+        "Titos Vodka - 10",
+        "Licor 43 - 1",
+        "Licor 43 Crème Brûlée - 2",
+        "Champagne (Ballatore) - 1",
+      ])
+    );
+    expect(CTAP_HYVEE_SENT_2026_08_24.lines).toHaveLength(33);
   });
 
   it("includes Hy-Vee Wine Sun/Mon liquor order cadence", () => {
     const hyvee = CTAP_VENDOR_CADENCE.find(v => v.vendorKey === "hyvee_wine");
     expect(hyvee?.intakeMode).toBe("outbound_email_order");
     expect(hyvee?.orderWindow).toMatch(/Sunday or Monday/i);
-    expect(hyvee?.notes).toMatch(/Kenzy Thompson/);
+    expect(hyvee?.notes).toMatch(/Kenzy fills Excel/);
   });
 
   it("names Kenzy Thompson as wife and alcohol-sheet owner", () => {

@@ -1,52 +1,39 @@
-To: (Hy-Vee Wine & Spirits Fort Dodge — paste the address Myke already uses)
-From: communitypizza2026@gmail.com
-Subject: Community Tap & Pizza — weekly liquor order
+SENT: 2026-08-24 morning from communitypizza2026@gmail.com
+Source of truth: Kenzy Thompson text (from her Excel) → Myke emailed Hy-Vee
+Do not re-send. Drive sheet lagged (missing Licor 43 Crème Brûlée).
 
-Hi Hy-Vee Wine,
+Community liquor order Monday 8/24 —
 
-Please fill this liquor order for Community Tap & Pizza (Fort Dodge). Qty is bottles unless noted.
-
-Wine
-- White Zin (Sutter Home) 1.5L — 1
-- Pinot Grigio (Beringer) 750ml — 3
-
-Spirits / cordial
-- Blackberry Brandy — 1
-- Captain — 7
-- Bacardi Limon — 1
-- Malibu — 1
-- Jose Cuervo — 1
-- Patron Silver — 1
-- Hawkeye Vodka — 4
-- Tito's — 10
-- Absolut — 1
-- Smirnoff Vanilla — 1
-- Smirnoff Raspberry — 2
-- Smirnoff Peach — 1
-- Black Velvet — 2
-- Black Velvet Caramel — 1
-- Canadian Club — 1
-- Jameson — 1
-- Jack Daniels — 1
-- Fireball 1.75L — 1
-- Crown Peach — 2
-- Crown Apple — 4
-- Crown Royal — 1
-- Peach Schnapps — 1
-- Peppermint Schnapps 1.75L — 2
-- Watermelon Pucker — 1
-- Cherry Mcguillicuddys — 2
-- Rumplemintz — 1
-- Kahlua — 1
-- Baileys — 1
-- Licor 43 — 1
-- Champagne — 1
-
-Sheet liquor total $1,167.31 (OVER/UNDER −$244.31). Mixers qty 0 — do not add Tonic / Diet 7 Up / Ginger Beer / Bloody Mary / Squirt.
-
-Source: CTAP liquor sheet, Drive pull Mon Aug 24 2026 6:01am Iowa (sheet last edited Sun Aug 23 ~2:44pm Iowa). Tito's 10 is the par rebuild — confirm on-hand before filling.
-
-Thanks,
-Myke Mueller
-Community Tap & Pizza
-communitypizza2026@gmail.com
+*White Zin (Sutterhome) (1.5L) - 1
+*Pinot Grigio (Beringer) (750ml) - 3
+*Blackberry Brandy - 1
+*Captain - 7
+*Bacardi Limon - 1
+*Malibu - 1
+*Jose Cuervo Gold Tequila - 1
+*Patron Silver - 1
+*Hawkeye Vodka - 4
+*Titos Vodka - 10
+*Absolut - 1
+*Smirnoff Vanilla - 1
+*Smirnoff Raspberry - 2
+*Smirnoff Peach - 1
+*Black Velvet - 2
+*Black Velvet Caramel - 1
+*Canadian Club - 1
+*Jameson - 1
+*Jack Daniel’s - 1
+*Fireball (1.75L) - 1
+*Crown Peach - 2
+*Crown Apple - 4
+*Crown Royal - 1
+*Peach Schnapps - 1
+*Peppermint Schnapps (1.75L) - 2
+*Watermelon Pucker - 1
+*Cherry Mcguillicuddys - 2
+*Rumplemintz - 1
+*Kahlua - 1
+*Baileys - 1
+*Licor 43 - 1
+*Licor 43 Crème Brûlée - 2
+*Champagne (Ballatore) - 1

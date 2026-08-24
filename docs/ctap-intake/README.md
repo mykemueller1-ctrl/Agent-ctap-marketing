@@ -1,13 +1,13 @@
 # CTAP intake — PDQ dial-in + mailbox routing (Aug 23 2026)
 
-## Weekly alcohol order / delivery calendar (Kenzy + bar)
-- **Sun or Mon morning:** email **liquor order → Hy-Vee Wine** (from CTAP liquor/beer ordering sheet)
+## Weekly alcohol order / delivery calendar (Kenzy + Myke)
+- **Kenzy** fills Excel → **texts Myke** the qty>0 list → **Myke emails Hy-Vee** from `communitypizza2026@gmail.com`
+- Order of record is **Kenzy’s text**, not the Drive sheet (8/24 text had Licor 43 Crème Brûlée the sheet lacked)
 - **Monday:** Hy-Vee wine/liquor delivery lands
 - **Sunday night:** beer order for Budweiser path → **Tuesday** Humes / Fort Dodge Distributing drop
 - **Tuesday night:** beer order for **Friday** Humes drop
 - **Friday:** Humes delivery
-- **Kenzy Thompson** (Myke’s wife) owns the liquor/beer Google Sheet + Hy-Vee/Humes order emails
-- Karlee Sturtz / Ashley Holding — bar floor. Mon 8/24 Hy-Vee liquor **already sent — do not duplicate**
+- Karlee Sturtz / Ashley Holding — bar floor
 
 ## Ops mailbox (single intake)
 All CTAP POS + vendor mail → **`communitypizza2026@gmail.com`**
@@ -15,8 +15,8 @@ All CTAP POS + vendor mail → **`communitypizza2026@gmail.com`**
 | Source | Cadence | Mode | Notes |
 |---|---|---|---|
 | PDQ Z-report | Nightly | Email PDF | Already → communitypizza |
-| Sysco | ~1×/wk | Photo OCR | Switch draft ready — paste to the Sysco consultant (`sysco-mailbox-switch-email.txt`) |
-| Performance Foods / PFG | ~2×/wk | Email or photo | Switch → **Scott Selim** `scott.selim@pfgc.com`. Never `NoReply@pfgc.com` |
+| Sysco | ~1×/wk | Photo OCR | Mailbox switch **sent 8/24** from communitypizza |
+| Performance Foods / PFG | ~2×/wk | Email or photo | Switch **sent 8/24** to Scott Selim. Never `NoReply@pfgc.com` |
 | Northern Lights | 2–8×/wk | Photo OCR + PDF | **Already on communitypizza** — do not send a switch |
 | Sawyer Meats | 2–3×/wk | Photo OCR | Always pictures |
 | Humes Distributing | ~2×/wk (Tue + Fri) | Email PDF | Switch **sent 8/24** from communitypizza. Watch Tue/Fri PDFs land here, not `myke@n86.app` |
@@ -39,10 +39,9 @@ Cloud agent can push **Agent-ctap-marketing** only. Full patch lives under `sync
 ## Monday Aug 24 6am Iowa go-live
 - Hunter files confirmed: `docs/gtm/hunter-bots/monday-morning-runbook.md` + `grok-first-hunt.md`
 - Live path: grok.com/connectors → Custom → `https://www.never86.ai/api/mcp` → paste `grok-first-hunt.md`
-- Hy-Vee liquor **sent 8/24** (Ashley). Do not re-send. Sheet owner going forward: **Kenzy Thompson**
+- Hy-Vee liquor **sent 8/24** from Kenzy’s Excel text (33 lines, includes Licor 43 Crème Brûlée ×2). Do not re-send
 - Humes AP switch **sent 8/24 from `communitypizza2026@gmail.com`**. Do not re-send. Next proof: Tue invoice PDF in that inbox
-- PFG mailbox switch ready → Scott Selim `scott.selim@pfgc.com` (`pfg-mailbox-switch-email.txt`)
-- Sysco mailbox switch ready — consultant email not on file (`sysco-mailbox-switch-email.txt`)
+- PFG + Sysco mailbox switches **sent 8/24** (operator confirmed). Do not re-send
 - Northern Lights **already on communitypizza** (photos + PDF Inv684607). Do not send a switch
 - Tuesday beer draft (`humes-beer-order-draft.txt`) — skip; this week’s alcohol orders are done
 

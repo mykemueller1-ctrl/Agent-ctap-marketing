@@ -26,14 +26,11 @@ export const CTAP_PEOPLE = {
   owner: "Mychael \"Myke\" Mueller",
   spouse: {
     name: "Kenzy Thompson",
-    role: "wife; liquor/beer Google Sheet + Hy-Vee Monday + Humes beer orders",
+    role: "wife; fills Excel liquor/beer par, texts qty>0 to Myke; he emails Hy-Vee from communitypizza",
   },
   bar: [
     { name: "Karlee Sturtz", role: "bar manager" },
-    {
-      name: "Ashley Holding",
-      role: "bar; Hy-Vee liquor 2026-08-24 already sent — do not re-send",
-    },
+    { name: "Ashley Holding", role: "bar" },
   ],
   kitchen: { name: "Tom Dorothy", role: "kitchen; Northern Lights / Sawyer" },
 } as const;
@@ -66,7 +63,7 @@ export const CTAP_VENDOR_CADENCE: CtapVendorCadence[] = [
     timesPerWeek: { min: 1, max: 1 },
     intakeMode: "photo_ocr",
     notes:
-      "Once weekly; typically photographed invoices. Mailbox switch ready: send to the Sysco consultant from communitypizza2026@gmail.com (rep email not on file).",
+      "Once weekly; typically photographed invoices. Mailbox switch SENT 2026-08-24 from communitypizza (operator confirmed). Do not re-send.",
     mailbox: CTAP_OPS_MAILBOX,
   },
   {
@@ -77,7 +74,7 @@ export const CTAP_VENDOR_CADENCE: CtapVendorCadence[] = [
     senderEmail: "NoReply@pfgc.com",
     orderToEmail: "scott.selim@pfgc.com",
     notes:
-      "About twice weekly (Mon/Thu). Invoice mailer is NoReply@pfgc.com — do not send to that. Switch goes to sales rep Scott Selim (scott.selim@pfgc.com) from communitypizza2026@gmail.com.",
+      "About twice weekly (Mon/Thu). Invoice mailer is NoReply@pfgc.com — do not send to that. Mailbox switch SENT 2026-08-24 from communitypizza to Scott Selim (operator confirmed). Do not re-send.",
     mailbox: CTAP_OPS_MAILBOX,
   },
   {
@@ -114,7 +111,7 @@ export const CTAP_VENDOR_CADENCE: CtapVendorCadence[] = [
     intakeMode: "outbound_email_order",
     orderWindow: "Sunday or Monday morning",
     notes:
-      "Kenzy Thompson (Myke's wife) owns the liquor/beer Google Sheet. Hy-Vee liquor email Sun/Mon morning; Mon 2026-08-24 already sent — do not duplicate. Beer rides Humes / Fort Dodge Dist.",
+      "Kenzy fills Excel → texts Myke the qty>0 list → Myke emails Hy-Vee from communitypizza. Order of record is Kenzy's text, not the Drive sheet (8/24 text had Licor 43 Crème Brûlée the sheet lacked). Mon 2026-08-24 SENT — do not duplicate.",
     mailbox: CTAP_OPS_MAILBOX,
   },
 ];
@@ -259,22 +256,77 @@ export function humesRoutingSwitchEmail(options?: {
 }
 
 export const CTAP_PFG_MAILBOX_SWITCH = {
-  status: "ready",
+  status: "sent",
+  sentOn: "2026-08-24",
   from: CTAP_OPS_MAILBOX,
   to: "scott.selim@pfgc.com",
   doNotSendTo: "NoReply@pfgc.com",
 } as const;
 
 export const CTAP_SYSCO_MAILBOX_SWITCH = {
-  status: "ready",
+  status: "sent",
+  sentOn: "2026-08-24",
   from: CTAP_OPS_MAILBOX,
   to: null,
-  note: "Paste to the Sysco consultant on the CTAP account — email not in Drive.",
+  note: "Operator confirmed sent 2026-08-24 from communitypizza. Consultant address not in Drive.",
 } as const;
 
 export const CTAP_NORTHERN_LIGHTS_MAILBOX = {
   status: "already_communitypizza",
   mailbox: CTAP_OPS_MAILBOX,
+} as const;
+
+/**
+ * Kenzy does not email Hy-Vee. She fills Excel, texts Myke, he forwards.
+ * Kenzy's text is the order of record. The Drive sheet can lag.
+ */
+export const CTAP_KENZY_LIQUOR_PATH = {
+  fills: "excel",
+  toMyke: "text",
+  outbound: "Myke emails Hy-Vee from communitypizza2026@gmail.com",
+  orderOfRecord: "kenzy_text",
+} as const;
+
+/** VERIFIED send 2026-08-24 — Kenzy text, not Drive sheet. */
+export const CTAP_HYVEE_SENT_2026_08_24 = {
+  sentOn: "2026-08-24",
+  from: CTAP_OPS_MAILBOX,
+  source: "Kenzy Thompson Excel → text",
+  lines: [
+    "White Zin (Sutterhome) (1.5L) - 1",
+    "Pinot Grigio (Beringer) (750ml) - 3",
+    "Blackberry Brandy - 1",
+    "Captain - 7",
+    "Bacardi Limon - 1",
+    "Malibu - 1",
+    "Jose Cuervo Gold Tequila - 1",
+    "Patron Silver - 1",
+    "Hawkeye Vodka - 4",
+    "Titos Vodka - 10",
+    "Absolut - 1",
+    "Smirnoff Vanilla - 1",
+    "Smirnoff Raspberry - 2",
+    "Smirnoff Peach - 1",
+    "Black Velvet - 2",
+    "Black Velvet Caramel - 1",
+    "Canadian Club - 1",
+    "Jameson - 1",
+    "Jack Daniel’s - 1",
+    "Fireball (1.75L) - 1",
+    "Crown Peach - 2",
+    "Crown Apple - 4",
+    "Crown Royal - 1",
+    "Peach Schnapps - 1",
+    "Peppermint Schnapps (1.75L) - 2",
+    "Watermelon Pucker - 1",
+    "Cherry Mcguillicuddys - 2",
+    "Rumplemintz - 1",
+    "Kahlua - 1",
+    "Baileys - 1",
+    "Licor 43 - 1",
+    "Licor 43 Crème Brûlée - 2",
+    "Champagne (Ballatore) - 1",
+  ],
 } as const;
 
 /** Live liquor ordering sheet Myke emails to Hy-Vee Wine Sun/Mon morning. */
