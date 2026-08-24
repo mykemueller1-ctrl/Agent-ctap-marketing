@@ -93,9 +93,22 @@ describe("CTAP intake routing", () => {
   it("names Kenzy as bar FOH manager and Tom as BOH manager", () => {
     expect(CTAP_PEOPLE.spouse.name).toBe("Kenzy Thompson");
     expect(CTAP_PEOPLE.foh.name).toBe("Kenzy Thompson");
-    expect(CTAP_PEOPLE.foh.role).toMatch(/FOH/i);
+    expect(CTAP_PEOPLE.foh.owns).toEqual(
+      expect.arrayContaining([
+        "beer orders",
+        "liquor orders",
+        "drink specials",
+        "FOH staffing",
+      ])
+    );
     expect(CTAP_PEOPLE.boh.name).toBe("Tom Dorothy");
-    expect(CTAP_PEOPLE.boh.role).toMatch(/BOH/i);
+    expect(CTAP_PEOPLE.boh.owns).toEqual(
+      expect.arrayContaining([
+        "food vendor orders",
+        "kitchen specials",
+        "BOH staffing",
+      ])
+    );
     expect(JSON.stringify(CTAP_PEOPLE)).not.toMatch(/Karlee|Ashley/);
   });
 

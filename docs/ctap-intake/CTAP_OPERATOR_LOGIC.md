@@ -12,8 +12,8 @@ This is how Community runs. Agents and humans follow it. Do not invent a second 
 
 ## People
 - Myke Mueller — owner. Not in the weekly Hy-Vee email loop.
-- **Kenzy Thompson** — wife, **bar FOH manager**. Liquor/beer par. One-tap SEND to Hy-Vee. Myke out.
-- **Tom Dorothy** — **BOH manager**. Kitchen. Northern Lights / Sawyer photos.
+- **Kenzy Thompson** — wife, **bar FOH manager**. Beer orders, liquor orders, drink specials, staffing out front. One-tap Hy-Vee. Myke out of the liquor email loop.
+- **Tom Dorothy** — **BOH manager**. Same job in back: food vendor orders (Sysco, PFG, Northern Lights, Sawyer), kitchen specials, staffing BOH.
 - Karlee Sturtz and Ashley Holding — **not on the floor.**
 
 ## Rails (do not blend beer + liquor)

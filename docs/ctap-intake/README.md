@@ -8,8 +8,8 @@
 - **Sunday night:** beer order for Budweiser path → **Tuesday** Humes / Fort Dodge Distributing drop
 - **Tuesday night:** beer order for **Friday** Humes drop
 - **Friday:** Humes delivery
-- **Kenzy Thompson** — wife, **bar FOH manager**. One-tap Hy-Vee / beer orders. Myke out of the Hy-Vee email loop.
-- **Tom Dorothy** — **BOH manager**. Kitchen. Northern Lights / Sawyer photos.
+- **Kenzy Thompson** — wife, **bar FOH manager**. Beer + liquor orders, drink specials, FOH staffing. One-tap Hy-Vee. Myke out of the Hy-Vee email loop.
+- **Tom Dorothy** — **BOH manager**. Food vendor orders (Sysco, PFG, NL, Sawyer), kitchen specials, BOH staffing.
 - Karlee Sturtz / Ashley Holding — **not on the floor**
 
 ## Canonical logic (Drive + git)

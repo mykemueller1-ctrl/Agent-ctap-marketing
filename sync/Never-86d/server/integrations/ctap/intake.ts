@@ -26,15 +26,25 @@ export const CTAP_PEOPLE = {
   owner: "Mychael \"Myke\" Mueller",
   spouse: {
     name: "Kenzy Thompson",
-    role: "wife; bar FOH manager; liquor/beer sheet + one-tap Hy-Vee — Myke is not in this loop",
+    role: "wife; bar FOH manager — beer + liquor orders, drink specials, FOH staffing. Myke is not in the Hy-Vee loop.",
   },
   foh: {
     name: "Kenzy Thompson",
     role: "bar FOH manager",
+    owns: ["beer orders", "liquor orders", "drink specials", "FOH staffing"],
   },
   boh: {
     name: "Tom Dorothy",
-    role: "BOH manager; kitchen; Northern Lights / Sawyer",
+    role: "BOH manager",
+    owns: [
+      "food vendor orders",
+      "kitchen specials",
+      "BOH staffing",
+      "Northern Lights",
+      "Sawyer",
+      "Sysco",
+      "PFG",
+    ],
   },
 } as const;
 
