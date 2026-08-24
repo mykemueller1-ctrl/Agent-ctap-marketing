@@ -3,8 +3,12 @@ import { parserFactory } from "./parser-factory";
 import { buildTruth } from "./truth-engine";
 import {
   CONFLUENCE_LAYOUT,
+  HUMES_WEEKDAY_LAYOUT,
   HYVEE_GROCERY_LAYOUT,
+  LABOR_PAYOUT_LAYOUT,
+  MISC_PAYOUT_LAYOUT,
   PAYOUT_LAYOUT,
+  PFS_LAST_PAGE_LAYOUT,
   SAWYER_LAYOUT,
 } from "./fixtures/layouts";
 import {
@@ -39,6 +43,8 @@ describe("8/16–8/22 week window", () => {
     expect(parseTicketDate("8/17/24")).toBe("2024-08-17");
     expect(parseTicketDate("08/12/2023")).toBe("2023-08-12");
     expect(parseTicketDate("8/11/2026")).toBe("2026-08-11");
+    expect(parseTicketDate("Friday, Aug 21, 2026")).toBe("2026-08-21");
+    expect(parseTicketDate("Aug 21, 2026")).toBe("2026-08-21");
     expect(ticketInWindow("08/17/2026")).toBe(true);
     expect(ticketInWindow("08/22/2026")).toBe(true);
     expect(ticketInWindow("08/16/2026")).toBe(true);
@@ -68,5 +74,27 @@ describe("8/16–8/22 week window", () => {
     expect(keg.inWeekWindow).toBe(true);
     expect(keg.excludeFromBook).toBe(false);
     expect(keg.fields.totalAmount?.value).toBe("186.00");
+  });
+
+  it("books Friday beer, Tuesday last-page food, labor, and after-midnight misc", () => {
+    const humes = truthFor(HUMES_WEEKDAY_LAYOUT, "humes");
+    expect(humes.inWeekWindow).toBe(true);
+    expect(humes.fields.businessDate?.value).toBe("Aug 21, 2026");
+    expect(humes.fields.totalAmount?.value).toBe("15.49");
+
+    const pfs = truthFor(PFS_LAST_PAGE_LAYOUT, "performance_foods");
+    expect(pfs.inWeekWindow).toBe(true);
+    expect(pfs.fields.totalAmount?.value).toBe("28.00");
+
+    const labor = truthFor(LABOR_PAYOUT_LAYOUT, "pdq_payout");
+    expect(labor.inWeekWindow).toBe(true);
+    expect(labor.documentKind).toBe("payout");
+    expect(labor.fields.totalAmount?.value).toBe("25.00");
+
+    const misc = truthFor(MISC_PAYOUT_LAYOUT, "pdq_payout");
+    expect(misc.inWeekWindow).toBe(true);
+    expect(misc.fields.totalAmount?.value).toBe("15.35");
+
+    expect(sumBooked([humes, pfs, labor, misc])).toBe("83.84");
   });
 });
