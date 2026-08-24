@@ -65,7 +65,8 @@ export const CTAP_VENDOR_CADENCE: CtapVendorCadence[] = [
     displayName: "Sysco",
     timesPerWeek: { min: 1, max: 1 },
     intakeMode: "photo_ocr",
-    notes: "Once weekly; typically photographed invoices.",
+    notes:
+      "Once weekly; typically photographed invoices. Mailbox switch ready: send to the Sysco consultant from communitypizza2026@gmail.com (rep email not on file).",
     mailbox: CTAP_OPS_MAILBOX,
   },
   {
@@ -74,7 +75,9 @@ export const CTAP_VENDOR_CADENCE: CtapVendorCadence[] = [
     timesPerWeek: { min: 2, max: 2 },
     intakeMode: "email_or_photo",
     senderEmail: "NoReply@pfgc.com",
-    notes: "About twice weekly.",
+    orderToEmail: "scott.selim@pfgc.com",
+    notes:
+      "About twice weekly (Mon/Thu). Invoice mailer is NoReply@pfgc.com — do not send to that. Switch goes to sales rep Scott Selim (scott.selim@pfgc.com) from communitypizza2026@gmail.com.",
     mailbox: CTAP_OPS_MAILBOX,
   },
   {
@@ -83,7 +86,7 @@ export const CTAP_VENDOR_CADENCE: CtapVendorCadence[] = [
     timesPerWeek: { min: 2, max: 8 },
     intakeMode: "photo_ocr",
     notes:
-      "Usually 2x/week; can spike to 5–8 when they are in town. Always photos.",
+      "Usually 2x/week; can spike to 5–8 when they are in town. Photos + PDFs already land on communitypizza2026@gmail.com (Drive invoice Inv684607_2.pdf 2026-06-08). Do not send a mailbox switch.",
     mailbox: CTAP_OPS_MAILBOX,
   },
   {
@@ -224,13 +227,11 @@ export const INTAKE_STACK_TARGETS: PosIntakeTarget[] = [
   },
 ];
 
-export function humesRoutingSwitchEmail(options?: {
-  to?: string;
-  accountName?: string;
+export function vendorMailboxSwitchEmail(options: {
+  to: string;
 }): { to: string; subject: string; body: string } {
-  const to = options?.to ?? "accountspayable@humesdist.com";
   return {
-    to,
+    to: options.to,
     subject: "Please start sending invoices here instead — Community Tap & Pizza",
     body: [
       "Hello,",
@@ -247,6 +248,34 @@ export function humesRoutingSwitchEmail(options?: {
     ].join("\n"),
   };
 }
+
+export function humesRoutingSwitchEmail(options?: {
+  to?: string;
+  accountName?: string;
+}): { to: string; subject: string; body: string } {
+  return vendorMailboxSwitchEmail({
+    to: options?.to ?? "accountspayable@humesdist.com",
+  });
+}
+
+export const CTAP_PFG_MAILBOX_SWITCH = {
+  status: "ready",
+  from: CTAP_OPS_MAILBOX,
+  to: "scott.selim@pfgc.com",
+  doNotSendTo: "NoReply@pfgc.com",
+} as const;
+
+export const CTAP_SYSCO_MAILBOX_SWITCH = {
+  status: "ready",
+  from: CTAP_OPS_MAILBOX,
+  to: null,
+  note: "Paste to the Sysco consultant on the CTAP account — email not in Drive.",
+} as const;
+
+export const CTAP_NORTHERN_LIGHTS_MAILBOX = {
+  status: "already_communitypizza",
+  mailbox: CTAP_OPS_MAILBOX,
+} as const;
 
 /** Live liquor ordering sheet Myke emails to Hy-Vee Wine Sun/Mon morning. */
 export const CTAP_LIQUOR_ORDER_SHEET_ID =

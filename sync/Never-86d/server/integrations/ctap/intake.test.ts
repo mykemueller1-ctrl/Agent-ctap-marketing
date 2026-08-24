@@ -1,11 +1,15 @@
 import { describe, expect, it } from "vitest";
 import {
   CTAP_HUMES_MAILBOX_SWITCH,
+  CTAP_NORTHERN_LIGHTS_MAILBOX,
   CTAP_OPS_MAILBOX,
   CTAP_PEOPLE,
+  CTAP_PFG_MAILBOX_SWITCH,
+  CTAP_SYSCO_MAILBOX_SWITCH,
   CTAP_VENDOR_CADENCE,
   humesRoutingSwitchEmail,
   INTAKE_STACK_TARGETS,
+  vendorMailboxSwitchEmail,
 } from "./intake";
 import { HUMES_MAILBOX } from "../vendors/humes";
 import { PDQ_MAILBOX } from "../pdq/detector";
@@ -33,6 +37,8 @@ describe("CTAP intake routing", () => {
     );
     expect(northern?.timesPerWeek.max).toBe(8);
     expect(northern?.intakeMode).toBe("photo_ocr");
+    expect(northern?.notes).toMatch(/already land on communitypizza/);
+    expect(CTAP_NORTHERN_LIGHTS_MAILBOX.status).toBe("already_communitypizza");
     const sawyer = CTAP_VENDOR_CADENCE.find(v => v.vendorKey === "sawyer_meats");
     expect(sawyer?.intakeMode).toBe("photo_ocr");
   });
@@ -43,6 +49,21 @@ describe("CTAP intake routing", () => {
     expect(CTAP_HUMES_MAILBOX_SWITCH.to).toBe("accountspayable@humesdist.com");
     const humes = CTAP_VENDOR_CADENCE.find(v => v.vendorKey === "humes");
     expect(humes?.notes).toMatch(/SENT 2026-08-24/);
+  });
+
+  it("drafts the same mailbox switch for PFG Scott Selim, not NoReply", () => {
+    expect(CTAP_PFG_MAILBOX_SWITCH.to).toBe("scott.selim@pfgc.com");
+    expect(CTAP_PFG_MAILBOX_SWITCH.doNotSendTo).toBe("NoReply@pfgc.com");
+    const draft = vendorMailboxSwitchEmail({ to: CTAP_PFG_MAILBOX_SWITCH.to });
+    expect(draft.body).toContain("communitypizza2026@gmail.com");
+    expect(draft.body).toContain("myke@n86.app");
+    const pfg = CTAP_VENDOR_CADENCE.find(v => v.vendorKey === "performance_foods");
+    expect(pfg?.orderToEmail).toBe("scott.selim@pfgc.com");
+  });
+
+  it("holds Sysco mailbox switch until the consultant address is pasted", () => {
+    expect(CTAP_SYSCO_MAILBOX_SWITCH.to).toBeNull();
+    expect(CTAP_SYSCO_MAILBOX_SWITCH.from).toBe(CTAP_OPS_MAILBOX);
   });
 
   it("includes Hy-Vee Wine Sun/Mon liquor order cadence", () => {

@@ -15,9 +15,9 @@ All CTAP POS + vendor mail → **`communitypizza2026@gmail.com`**
 | Source | Cadence | Mode | Notes |
 |---|---|---|---|
 | PDQ Z-report | Nightly | Email PDF | Already → communitypizza |
-| Sysco | ~1×/wk | Photo OCR | |
-| Performance Foods / PFG | ~2×/wk | Email or photo | |
-| Northern Lights | 2–8×/wk | Photo OCR | Spikes when in town |
+| Sysco | ~1×/wk | Photo OCR | Switch draft ready — paste to the Sysco consultant (`sysco-mailbox-switch-email.txt`) |
+| Performance Foods / PFG | ~2×/wk | Email or photo | Switch → **Scott Selim** `scott.selim@pfgc.com`. Never `NoReply@pfgc.com` |
+| Northern Lights | 2–8×/wk | Photo OCR + PDF | **Already on communitypizza** — do not send a switch |
 | Sawyer Meats | 2–3×/wk | Photo OCR | Always pictures |
 | Humes Distributing | ~2×/wk (Tue + Fri) | Email PDF | Switch **sent 8/24** from communitypizza. Watch Tue/Fri PDFs land here, not `myke@n86.app` |
 | Hy-Vee Wine & Spirits | 1×/wk | Outbound email order | Sun/Mon morning liquor order email |
@@ -41,6 +41,9 @@ Cloud agent can push **Agent-ctap-marketing** only. Full patch lives under `sync
 - Live path: grok.com/connectors → Custom → `https://www.never86.ai/api/mcp` → paste `grok-first-hunt.md`
 - Hy-Vee liquor **sent 8/24** (Ashley). Do not re-send. Sheet owner going forward: **Kenzy Thompson**
 - Humes AP switch **sent 8/24 from `communitypizza2026@gmail.com`**. Do not re-send. Next proof: Tue invoice PDF in that inbox
+- PFG mailbox switch ready → Scott Selim `scott.selim@pfgc.com` (`pfg-mailbox-switch-email.txt`)
+- Sysco mailbox switch ready — consultant email not on file (`sysco-mailbox-switch-email.txt`)
+- Northern Lights **already on communitypizza** (photos + PDF Inv684607). Do not send a switch
 - Tuesday beer draft (`humes-beer-order-draft.txt`) — skip; this week’s alcohol orders are done
 
 ## Blocked this run

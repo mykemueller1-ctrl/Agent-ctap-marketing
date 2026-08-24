@@ -27,9 +27,9 @@ Window this week: **Sun 8/16 – Sat 8/22** (see `week-window.ts`).
 
 | Vendor | Cadence | Mode |
 |---|---|---|
-| Sysco | ~1× | photo OCR |
-| PFG / Performance | Mon/Thu | email PDF (`NoReply@pfgc.com`) |
-| Northern Lights | 2–8× | photo OCR |
+| Sysco | ~1× | photo OCR — switch draft ready |
+| PFG / Performance | Mon/Thu | email PDF (`NoReply@pfgc.com`) — switch to Scott Selim `scott.selim@pfgc.com` |
+| Northern Lights | 2–8× | already on communitypizza |
 | Sawyer Meats | Mon/Wed/Fri (~2–3×) | photo OCR |
 | Humes | Tue/Fri | email PDF → **must land communitypizza** |
 | Hy-Vee Wine | Sun/Mon order, Mon delivery | outbound email |
