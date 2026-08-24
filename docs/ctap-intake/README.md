@@ -1,8 +1,9 @@
 # CTAP intake — PDQ dial-in + mailbox routing (Aug 23 2026)
 
-## Weekly alcohol order / delivery calendar (Kenzy + Myke)
-- **Kenzy** fills Excel → **texts Myke** the qty>0 list → **Myke emails Hy-Vee** from `communitypizza2026@gmail.com`
-- Order of record is **Kenzy’s text**, not the Drive sheet (8/24 text had Licor 43 Crème Brûlée the sheet lacked)
+## Weekly alcohol order / delivery calendar (Kenzy one-tap)
+- Kenzy fills qty on the Google liquor sheet → checks **SEND** on Config → Hy-Vee is emailed from `communitypizza2026@gmail.com`
+- **Myke is out of this loop.** Script: `docs/ctap-intake/hyvee-one-click/`
+- Add Licor 43 Crème Brûlée as a sheet row so 1-click matches what she orders
 - **Monday:** Hy-Vee wine/liquor delivery lands
 - **Sunday night:** beer order for Budweiser path → **Tuesday** Humes / Fort Dodge Distributing drop
 - **Tuesday night:** beer order for **Friday** Humes drop

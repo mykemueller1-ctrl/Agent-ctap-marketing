@@ -26,7 +26,7 @@ export const CTAP_PEOPLE = {
   owner: "Mychael \"Myke\" Mueller",
   spouse: {
     name: "Kenzy Thompson",
-    role: "wife; fills Excel liquor/beer par, texts qty>0 to Myke; he emails Hy-Vee from communitypizza",
+    role: "wife; one-tap Hy-Vee send on the liquor Google Sheet — Myke is not in this loop",
   },
   bar: [
     { name: "Karlee Sturtz", role: "bar manager" },
@@ -111,7 +111,7 @@ export const CTAP_VENDOR_CADENCE: CtapVendorCadence[] = [
     intakeMode: "outbound_email_order",
     orderWindow: "Sunday or Monday morning",
     notes:
-      "Kenzy fills Excel → texts Myke the qty>0 list → Myke emails Hy-Vee from communitypizza. Order of record is Kenzy's text, not the Drive sheet (8/24 text had Licor 43 Crème Brûlée the sheet lacked). Mon 2026-08-24 SENT — do not duplicate.",
+      "Kenzy fills qty on the Google Sheet and checks SEND. Apps Script emails Hy-Vee from communitypizza. Myke is out. Order of record = qty>0 on the sheet (add Licor 43 Crème Brûlée as a row). One-time: Config!B1 = Hy-Vee email + install Code.gs as communitypizza.",
     mailbox: CTAP_OPS_MAILBOX,
   },
 ];
@@ -277,14 +277,15 @@ export const CTAP_NORTHERN_LIGHTS_MAILBOX = {
 } as const;
 
 /**
- * Kenzy does not email Hy-Vee. She fills Excel, texts Myke, he forwards.
- * Kenzy's text is the order of record. The Drive sheet can lag.
+ * Target path: Kenzy one-tap on the Google Sheet. Myke is not in the loop.
+ * 8/24 was still Excel → text → Myke (historical).
  */
 export const CTAP_KENZY_LIQUOR_PATH = {
-  fills: "excel",
-  toMyke: "text",
-  outbound: "Myke emails Hy-Vee from communitypizza2026@gmail.com",
-  orderOfRecord: "kenzy_text",
+  fills: "google_sheet",
+  toMyke: "none",
+  outbound: "one-tap checkbox emails Hy-Vee from communitypizza",
+  orderOfRecord: "sheet_qty_gt_0",
+  mykeInLoop: false,
 } as const;
 
 /** VERIFIED send 2026-08-24 — Kenzy text, not Drive sheet. */

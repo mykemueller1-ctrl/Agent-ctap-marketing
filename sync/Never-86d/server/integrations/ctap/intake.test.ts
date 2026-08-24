@@ -68,10 +68,10 @@ describe("CTAP intake routing", () => {
     expect(CTAP_SYSCO_MAILBOX_SWITCH.from).toBe(CTAP_OPS_MAILBOX);
   });
 
-  it("uses Kenzy Excel→text as Hy-Vee order of record, including Crème Brûlée", () => {
-    expect(CTAP_KENZY_LIQUOR_PATH.fills).toBe("excel");
-    expect(CTAP_KENZY_LIQUOR_PATH.toMyke).toBe("text");
-    expect(CTAP_KENZY_LIQUOR_PATH.orderOfRecord).toBe("kenzy_text");
+  it("keeps 8/24 Kenzy text as historical send and one-tap as the live path", () => {
+    expect(CTAP_KENZY_LIQUOR_PATH.fills).toBe("google_sheet");
+    expect(CTAP_KENZY_LIQUOR_PATH.toMyke).toBe("none");
+    expect(CTAP_KENZY_LIQUOR_PATH.mykeInLoop).toBe(false);
     expect(CTAP_HYVEE_SENT_2026_08_24.lines).toEqual(
       expect.arrayContaining([
         "Titos Vodka - 10",
@@ -87,7 +87,7 @@ describe("CTAP intake routing", () => {
     const hyvee = CTAP_VENDOR_CADENCE.find(v => v.vendorKey === "hyvee_wine");
     expect(hyvee?.intakeMode).toBe("outbound_email_order");
     expect(hyvee?.orderWindow).toMatch(/Sunday or Monday/i);
-    expect(hyvee?.notes).toMatch(/Kenzy fills Excel/);
+    expect(hyvee?.notes).toMatch(/Myke is out/);
   });
 
   it("names Kenzy Thompson as wife and alcohol-sheet owner", () => {

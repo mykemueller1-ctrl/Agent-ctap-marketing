@@ -7,7 +7,7 @@ This is the operating loop. Agents execute it. Humans only approve sends.
 **Mailbox:** `communitypizza2026@gmail.com`  
 **MCP brain:** `https://www.never86.ai/api/mcp` → `get_operator_system`  
 **Public wedge:** https://www.never86.ai/audit  
-**People:** Kenzy Thompson (wife — Excel liquor par → texts Myke → he emails Hy-Vee) · Karlee Sturtz (bar) · Ashley Holding (bar) · Tom Dorothy (kitchen)
+**People:** Kenzy Thompson (wife — one-tap Hy-Vee on the liquor Google Sheet; Myke out) · Karlee Sturtz (bar) · Ashley Holding (bar) · Tom Dorothy (kitchen)
 
 ---
 
@@ -17,7 +17,7 @@ This is the operating loop. Agents execute it. Humans only approve sends.
 3. One Action Shift for the **prior complete business day** (not today).
 
 ## Every Monday morning (Iowa)
-1. **Hy-Vee Wine** — Kenzy Excel → text Myke → he emails. **Mon 8/24 SENT (Kenzy text, 33 lines, Crème Brûlée 2).** Do not re-send. File: `docs/ctap-intake/hyvee-liquor-order-draft.txt`
+1. **Hy-Vee Wine** — Kenzy one-tap on the liquor sheet (`docs/ctap-intake/hyvee-one-click/`). Myke is not in this loop. **Mon 8/24 already SENT — do not re-send.**
 2. **Humes / Sysco / PFG AP** — mailbox switches **SENT 8/24 from `communitypizza2026@gmail.com`.** Do not re-send. Next: invoices land in that inbox, not `myke@n86.app`.
 3. **Gronk Hunter** — grok.com/connectors → Never86 MCP → paste `docs/gtm/hunter-bots/grok-first-hunt.md`. Keep score ≥ 60. Max 3 human-approved replies. No auto-post.
 4. Beer order path: Sunday night for **Tuesday** Humes / Fort Dodge Distributing (Kenzy).
