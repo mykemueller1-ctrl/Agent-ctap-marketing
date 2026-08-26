@@ -3,7 +3,8 @@
 Working memory for **Community Tap & Pizza** and Never 86'd **1–3 unit** intake.
 
 **Start here:** `docs/agent-memory/CTAP_One_Tree.md`  
-**Daily loop:** `docs/MYKE_BRAIN.md`
+**Daily loop:** `docs/MYKE_BRAIN.md`  
+**Community Lab (roles / Action Shift owners):** `docs/ctap-intake/COMMUNITY_LAB.md`
 
 `sync/Never-86d/` is a cherry-pick source for the private workers app.
 
@@ -33,6 +34,7 @@ npm run demo     # PDQ Z-report fixture (7/16)
 | Workflow | Where |
 |---|---|
 | Owner portal | `portal/` |
+| Community Lab (Kenzy / Tom / crew) | `docs/ctap-intake/COMMUNITY_LAB.md` · `sync/Never-86d/server/integrations/ctap/community-lab.ts` |
 | PDQ Z-report (Large Pizza → Food) | `sync/Never-86d/server/integrations/pdq/` |
 | Photo invoices + week book + vendor parsers | `sync/Never-86d/server/integrations/evidence/` |
 | Humes / PFG parsers | `sync/Never-86d/server/integrations/vendors/` |

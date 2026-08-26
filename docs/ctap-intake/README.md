@@ -2,6 +2,8 @@
 
 **One working tree:** `docs/agent-memory/CTAP_One_Tree.md` (portal + PDQ + parsers + calendar + hunter). Use that, not the split chats.
 
+**Community Lab (roles / Action Shift owners):** `docs/ctap-intake/COMMUNITY_LAB.md` — Kenzy front, Tom back, crew presence locked 8/26.
+
 ## Weekly alcohol order / delivery calendar (Kenzy FOH)
 - **Kenzy** fills qty on the Google Sheet and checks **SEND**. Apps Script emails Hy-Vee from `communitypizza2026@gmail.com`. **Myke is out.**
 - 8/24 was still Excel → text → Myke (historical, 33 lines including Licor 43 Crème Brûlée ×2). Do not re-send.

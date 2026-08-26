@@ -19,36 +19,11 @@ export const CTAP_HUMES_MAILBOX_SWITCH = {
 } as const;
 
 /**
- * Living-lab people. Karlee Sturtz and Ashley Holding are not on the floor.
- * Kenzy and Tom run the same manager job on opposite houses.
- * Kenzy = bar / FOH. Tom = kitchen / BOH.
- * LOCKED — operator confirmed Mon Aug 24, 2026. Do not reopen.
+ * Living-lab people. Source of truth is Community Lab.
+ * Karlee Sturtz and Ashley Holding are not on the floor.
+ * Crew presence locked Wed Aug 26, 2026.
  */
-export const CTAP_PEOPLE = {
-  owner: "Mychael \"Myke\" Mueller",
-  spouse: {
-    name: "Kenzy Thompson",
-    role: "wife; bar FOH manager — bar orders (beer + liquor), drink specials, FOH staffing. Myke is not in the Hy-Vee loop.",
-  },
-  foh: {
-    name: "Kenzy Thompson",
-    house: "front",
-    role: "bar FOH manager",
-    owns: [
-      "bar orders",
-      "beer orders",
-      "liquor orders",
-      "drink specials",
-      "FOH staffing",
-    ],
-  },
-  boh: {
-    name: "Tom Dorothy",
-    house: "back",
-    role: "BOH manager",
-    owns: ["food vendor orders", "kitchen specials", "BOH staffing"],
-  },
-} as const;
+export { CTAP_PEOPLE } from "./community-lab";
 
 export type CtapVendorCadence = {
   vendorKey: string;

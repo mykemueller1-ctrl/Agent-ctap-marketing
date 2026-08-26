@@ -1,6 +1,6 @@
 # One tree — stop chasing eight chats
 
-**Branch:** `cursor/grab-all-one-tree-c931`  
+**Branch:** `main` (one-tree cockpit + Community Lab)  
 **Mailbox:** `communitypizza2026@gmail.com`  
 **Portal:** `npm run portal` → http://localhost:5173  
 **Nightly (no Gmail):** `npm run nightly`
@@ -19,6 +19,7 @@ This is the working copy. Split-chat draft PRs are leftovers. Form new work **in
 | Food accounting (#9) | Prime cost rails | `docs/agent-memory/CTAP_Food_Accounting_Baseline.md` |
 | POS + silo landscape (#10) | Operator pain vs vendors | `docs/agent-memory/CTAP_POS_Silo_Operator_Landscape.md` |
 | Ops brain | Kenzy FOH / Tom BOH / Hy-Vee one-tap | `intake.ts` + `docs/ctap-intake/CTAP_OPERATOR_LOGIC.md` + `hyvee-one-click/` |
+| Community Lab | Floor roster + Action Shift owners (crew locked 8/26) | `docs/ctap-intake/COMMUNITY_LAB.md` + `community-lab.ts` |
 | Owner portal + Shift | First live seat | `portal/` Shift |
 | Invoices + Sales memory | Last-week photos, Z hole | `portal/` Invoices + Sales |
 | Monthly calendar | Smash $11.99 · Thursday pizza lock · Kenzy/Tom/Myke → Humes | engine + **Calendar portal seat** |

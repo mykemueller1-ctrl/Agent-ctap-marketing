@@ -9,7 +9,9 @@ This is the operating loop. Agents execute it. Humans only approve sends.
 **Mailbox:** `communitypizza2026@gmail.com`  
 **MCP brain:** `https://www.never86.ai/api/mcp` → `get_operator_system`  
 **Public wedge:** https://www.never86.ai/audit  
-**People:** Kenzy Thompson (wife — **bar FOH manager**, one-tap Hy-Vee, Myke out of the liquor email loop) · Tom Dorothy (**BOH manager** — food vendors, kitchen specials) · Karlee Sturtz / Ashley Holding (not on the floor)
+**Lab:** Community Lab (`docs/ctap-intake/COMMUNITY_LAB.md`) — store overlay on Never 86'd. Kenzy front, Tom back, Myke owner.  
+**People (managers locked 8/24; crew presence locked 8/26, operator confirmed):** Kenzy Thompson (wife, **bar FOH manager** — bar orders / beer + liquor, drink specials, staffing out front) · Tom Dorothy (**BOH manager** — same job in back: food orders, kitchen specials, BOH staffing). Karlee and Ashley are not on the floor. Floor crew still there: Jessica Gailey, Che Lyftogt (bartenders) · Gavin Noore, Moe Thomas, Sally Hart, Bryson Cook (job titles still estimated).  
+**Logic doc:** `docs/ctap-intake/CTAP_OPERATOR_LOGIC.md` (paste into Google Docs on communitypizza — Drive write is 403 from this agent)
 
 ---
 
@@ -19,7 +21,7 @@ This is the operating loop. Agents execute it. Humans only approve sends.
 3. One Action Shift for the **prior complete business day** (not today).
 
 ## Every Monday morning (Iowa)
-1. **Hy-Vee Wine** — Kenzy fills qty on the Google Sheet and checks SEND. Apps Script emails Hy-Vee from communitypizza. **Myke is out.** **Mon 8/24 SENT** (Kenzy text, 33 lines, Crème Brûlée 2) — historical, do not re-send. Live path: `docs/ctap-intake/hyvee-one-click/`. Crème Brûlée row is on the live sheet (par 3, qty 0 this week).
+1. **Hy-Vee Wine** — Kenzy fills qty on the Google Sheet and checks SEND. Apps Script emails Hy-Vee from communitypizza. **Myke is out.** **Mon 8/24 SENT** (Kenzy text, 33 lines, Crème Brûlée 2) — historical, do not re-send. Live path: `docs/ctap-intake/hyvee-one-click/`. Crème Brûlée row is on the live sheet (par 3, qty 0 this week). Trigger still needs Google phone Yes (2FA).
 2. **Humes / Sysco / PFG AP** — mailbox switches **SENT 8/24 from `communitypizza2026@gmail.com`.** Do not re-send. Next: invoices land in that inbox, not `myke@n86.app`.
 3. **Gronk Hunter** — grok.com/connectors → Never86 MCP → paste `docs/gtm/hunter-bots/grok-first-hunt.md`. Keep score ≥ 60. Max 3 human-approved replies. No auto-post.
 4. Beer order path: Sunday night for **Tuesday** Humes / Fort Dodge Distributing (Kenzy).
@@ -29,11 +31,11 @@ Window this week: **Sun 8/16 – Sat 8/22** (see `week-window.ts`).
 
 | Vendor | Cadence | Mode |
 |---|---|---|
-| Sysco | ~1× | photo OCR — mailbox switch sent 8/24 |
-| PFG / Performance | Mon/Thu | email PDF — switch sent 8/24 to Scott Selim |
-| Northern Lights | 2–8× | already on communitypizza |
-| Sawyer Meats | Mon/Wed/Fri (~2–3×) | photo OCR |
-| Humes | Tue/Fri | email PDF → **must land communitypizza** |
+| Sysco | ~1× | photo OCR — **Tom** / BOH. mailbox switch sent 8/24 |
+| PFG / Performance | Mon/Thu | email PDF — **Tom** / BOH. switch sent 8/24 to Scott Selim |
+| Northern Lights | 2–8× | **Tom** / BOH. already on communitypizza |
+| Sawyer Meats | Mon/Wed/Fri (~2–3×) | photo OCR — **Tom** / BOH |
+| Humes | Tue/Fri | email PDF — **Kenzy** / FOH beer → **must land communitypizza** |
 | Hy-Vee Wine | Sun/Mon order, Mon delivery | Kenzy one-tap outbound from communitypizza |
 | PDQ | nightly | email PDF |
 
