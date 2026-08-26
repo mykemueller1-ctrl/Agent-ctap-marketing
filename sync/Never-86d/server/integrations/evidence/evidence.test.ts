@@ -33,6 +33,13 @@ const FORBIDDEN_FIXTURE_MARKERS = [
   "Northern Lights",
   "Humes Distributing",
   "Hy-Vee",
+  "239335",
+  "439547404",
+  "699091",
+  "227930",
+  "199980",
+  "Community Tap",
+  "Smokeworx",
 ];
 
 describe("Phase 1 contracts + routing", () => {
@@ -195,9 +202,11 @@ describe("Phase 2 OCR vendor + parser factory + truth engine", () => {
 
 describe("fixture hygiene", () => {
   it("does not embed real invoices, POS exports, or ops emails", () => {
-    const sourceFiles = ["synthetic-pdf.ts", "fixtures/README.md"].map((name) =>
-      readFileSync(join(here, name), "utf8")
-    );
+    const sourceFiles = [
+      "synthetic-pdf.ts",
+      "fixtures/README.md",
+      "fixtures/layouts.ts",
+    ].map((name) => readFileSync(join(here, name), "utf8"));
     const blob = sourceFiles.join("\n");
     for (const marker of FORBIDDEN_FIXTURE_MARKERS) {
       expect(blob).not.toContain(marker);

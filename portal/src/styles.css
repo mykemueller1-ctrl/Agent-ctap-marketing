@@ -73,6 +73,67 @@ body {
   background: var(--green);
 }
 
+.loop {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: -12px 0 22px;
+}
+
+.loop span {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.loop span.ready {
+  border-color: #3d5a36;
+  color: var(--green);
+}
+
+.loop span.hold {
+  border-color: var(--amber-dim);
+  color: var(--amber);
+}
+
+.loop span.blocked {
+  border-color: #6a3a30;
+  color: var(--red);
+}
+
+.week-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin: 10px 0 16px;
+}
+
+.week-day {
+  background: #1a1612;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.week-day.locked {
+  border-color: var(--amber-dim);
+}
+
+.week-day .when {
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.week-day .who {
+  margin: 6px 0 8px;
+  font-weight: 600;
+}
+
 .hero {
   background: linear-gradient(180deg, #2c241c, var(--panel));
   border: 1px solid var(--line);
@@ -213,7 +274,11 @@ body {
 .insight.labor-ok,
 .insight.pattern,
 .insight.mixers,
-.insight.prices {
+.insight.prices,
+.insight.hyvee,
+.insight.weekly,
+.insight.ok,
+.insight.par-fill {
   border-left: 3px solid var(--green);
 }
 
@@ -511,7 +576,8 @@ select {
   .cadence,
   .metrics,
   .channels,
-  .order-grid {
+  .order-grid,
+  .week-grid {
     grid-template-columns: 1fr;
   }
 }

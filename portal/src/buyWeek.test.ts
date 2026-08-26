@@ -42,9 +42,18 @@ describe("Buy seat — Drive liquor/beer sheet without dumping prices", () => {
     expect(biggest(seed.liquor.lines, 1)[0]?.name).toBe("Titos");
     expect(biggest(seed.beer.lines, 1)[0]?.name).toBe("Busch Light Cans");
 
+    expect(seed.mykeInLoop).toBe(false);
+    expect(seed.hyveePath).toBe("kenzy_one_tap");
+    expect(seed.cremeBruleeRow).toMatchObject({
+      name: "Licor 43 Crème Brûlée",
+      par: 3,
+      qty: 0,
+      onLiveSheet: true,
+    });
     const insights = buildBuyInsights(seed);
-    expect(insights[0]?.kind).toBe("send");
-    expect(insights[0]?.title).toMatch(/Send /);
+    expect(insights[0]?.kind).toBe("hyvee");
+    expect(insights[0]?.title).toMatch(/Kenzy one-tap/);
+    expect(insights.some(i => i.kind === "send")).toBe(true);
     expect(insights.some(i => i.kind === "par-fill")).toBe(true);
   });
 });

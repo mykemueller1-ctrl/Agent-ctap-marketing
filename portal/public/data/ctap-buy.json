@@ -6,6 +6,14 @@
   "baselineWeeklySpend": 1400,
   "parFillRisk": 3355,
   "mixersOrdered": 0,
+  "mykeInLoop": false,
+  "hyveePath": "kenzy_one_tap",
+  "cremeBruleeRow": {
+    "name": "Licor 43 Crème Brûlée",
+    "par": 3,
+    "qty": 0,
+    "onLiveSheet": true
+  },
   "liquor": {
     "total": 1167.31,
     "overUnder": -244.31,

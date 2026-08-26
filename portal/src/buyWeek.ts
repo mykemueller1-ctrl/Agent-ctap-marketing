@@ -56,10 +56,18 @@ export type BuySeed = {
   liquor: BuySection;
   beer: BuySection;
   mixersOrdered: number;
+  mykeInLoop: false;
+  hyveePath: "kenzy_one_tap";
+  cremeBruleeRow: {
+    name: string;
+    par: number;
+    qty: number;
+    onLiveSheet: true;
+  };
 };
 
 export type BuyInsight = {
-  kind: "par-fill" | "send" | "hold" | "liquor" | "beer" | "mixers" | "prices";
+  kind: "par-fill" | "send" | "hold" | "liquor" | "beer" | "mixers" | "prices" | "hyvee";
   title: string;
   detail: string;
 };
@@ -104,6 +112,11 @@ export function buildBuyInsights(seed: BuySeed): BuyInsight[] {
   const beerUnder = seed.beer.overUnder < 0;
 
   return [
+    {
+      kind: "hyvee",
+      title: "Kenzy one-tap Hy-Vee. Myke is out of the loop",
+      detail: `${seed.cremeBruleeRow.name} is on the live sheet (par ${seed.cremeBruleeRow.par}, qty ${seed.cremeBruleeRow.qty} this week). She checks SEND on Config. Apps Script emails Hy-Vee from communitypizza. Do not re-send the 8/24 text order.`,
+    },
     {
       kind: "send",
       title: `Send ${send.length} volume + keg lines. Hold ${hold.length} qty-1 premium / one-offs`,

@@ -48,10 +48,9 @@ Two different holes: **in Drive but not in the portal**, vs **not in Drive at al
 
 - **Shift** — bar week 8/30–9/5.
 - **Sales** — 7/15–7/16/2026 Zs + the Sept 2025 weekly pattern + the 8/16–8/22 Z hole.
-- **Buy** — liquor/beer qty-to-order from the 8/23 Drive sheet. No unit prices in git.
+- **Buy** — liquor/beer qty-to-order from the 8/23 Drive sheet. Kenzy one-tap. No unit prices in git.
 - **Invoices** — 32-photo week + invoice-sheet cadence. Totals not booked.
-
-Calendar engine (Kenzy / Tom / Myke → Humes) is in `sync/Never-86d/server/calendar/` — not a portal seat yet.
+- **Calendar** — September DRAFT seat. Smash $11.99 · Thursday pizza locked. Tom food blank. Humes unsent.
 
 ## Highest-leverage drops from Myke
 

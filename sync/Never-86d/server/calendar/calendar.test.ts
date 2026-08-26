@@ -74,9 +74,11 @@ describe("CTAP monthly calendar engine", () => {
   });
 
   it("keeps Thursday medium pizza on Thursday and copies late-night apps to Saturday", () => {
-    expect(
-      specialsForDay(DEFAULT_RECURRING_LIBRARY, "thursday").map((item) => item.name)
-    ).toContain("Any Medium Pizza");
+    const thursdayPizza = specialsForDay(DEFAULT_RECURRING_LIBRARY, "thursday").find(
+      (item) => item.libraryId === "thursday-medium-pizza"
+    );
+    expect(thursdayPizza?.name).toBe("Any Medium Pizza");
+    expect(thursdayPizza?.description).toMatch(/GOES UP Thursday/i);
     expect(
       specialsForDay(DEFAULT_RECURRING_LIBRARY, "wednesday").some(
         (item) => item.libraryId === "thursday-medium-pizza"
@@ -87,6 +89,11 @@ describe("CTAP monthly calendar engine", () => {
         (item) => item.libraryId === "late-night-apps"
       )
     ).toBe(true);
+    expect(
+      specialsForDay(DEFAULT_RECURRING_LIBRARY, "tuesday").find(
+        (item) => item.libraryId === "tuesday-smashburger"
+      )?.price
+    ).toBe("11.99");
 
     const store = createStore();
     editRecurringLibrary(store, "thursday-medium-pizza", {
@@ -203,6 +210,8 @@ describe("CTAP monthly calendar engine", () => {
 
     const fifteenth = runMonthlyTick(store, "2026-08-15");
     expect(fifteenth.email?.subject).toBe("CTAP — September 2026 Calendar");
+    expect(fifteenth.email?.body).toMatch(/THURSDAY GOES UP: Any Medium Pizza \$17\.99 all day/);
+    expect(fifteenth.email?.body).not.toMatch(/wednesday: Any Medium Pizza/i);
     expect(store.emails[0]?.approvalBy).toBe("myke");
     expect(store.emails[0]?.attachmentHash).toHaveLength(64);
     expect(store.months.get(month.monthKey)?.status).toBe("SENT_TO_HUMES");

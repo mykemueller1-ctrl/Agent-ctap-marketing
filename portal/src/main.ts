@@ -25,9 +25,12 @@ import {
 } from "./buyWeek";
 import {
   buildCalendarInsights,
+  smashBurger,
+  thursdayPizza,
   type CalendarInsight,
   type CalendarSeed,
 } from "./calendarMonth";
+import { buildNightlyReport } from "../../sync/Never-86d/server/ctap-loop/nightly";
 import {
   buildSalesInsights,
   money,
@@ -136,6 +139,7 @@ function render(): void {
       </div>
       <div class="seat-pill"><span class="dot"></span> Owner seat · <b>Myke Mueller</b></div>
     </header>
+    ${loopStrip()}
 
     <section class="hero">
       <div class="kicker">${hero.kicker}</div>
@@ -146,9 +150,9 @@ function render(): void {
     <nav class="seats">
       ${seatButton("shift", "Seat 01", "Shift", dept === "bar" ? "Live" : "Stale template")}
       ${seatButton("sales", "Seat 02", "Sales", sales.invoiceWeekHasZ ? "Live" : "Live — Z hole")}
-      ${seatButton("buy", "Seat 03", "Buy", "Live — send/hold")}
+      ${seatButton("buy", "Seat 03", "Buy", "Kenzy one-tap")}
       ${seatButton("invoices", "Seat 04", "Invoices", "Live — 32 photos")}
-      ${seatButton("calendar", "Seat 05", "Calendar", "Draft — Sep")}
+      ${seatButton("calendar", "Seat 05", "Calendar", "Smash $11.99 · Thu pizza")}
     </nav>
 
     ${seat === "shift" ? shiftLayout(shiftInsights) : ""}
@@ -172,18 +176,19 @@ function heroCopy(
 ) {
   if (seat === "buy") {
     return {
-      kicker: "I took the Buy call",
-      title: buyNext?.title ?? "Send volume. Hold the par-fill.",
+      kicker: "Kenzy one-tap · Myke out",
+      title: buyNext?.title ?? "Kenzy one-tap Hy-Vee. Myke is out of the loop.",
       detail:
-        "8/23 Drive sheet. Names, par, qty only. Unit costs stay in Drive. I am not emailing Hy-Vee/Humes the whole list.",
+        "8/23 Drive sheet. Names, par, qty only. Unit costs stay in Drive. Kenzy checks SEND. I am not emailing Hy-Vee the par-fill.",
     };
   }
   if (seat === "calendar") {
+    const smash = smashBurger(calendar);
+    const pizza = thursdayPizza(calendar);
     return {
       kicker: "September 2026 — Calendar",
       title: calendarNext?.title ?? "Draft month. Humes stays unsent.",
-      detail:
-        "Kenzy owns drink. Tom owns food. Football is planning-only. Only Myke can release the Humes email.",
+      detail: `Smash Burger $${smash?.price ?? "11.99"} Tuesday. ${pizza?.name ?? "Any Medium Pizza"} GOES UP Thursday. Kenzy drink · Tom food. Only Myke can release Humes.`,
     };
   }
   if (seat === "invoices") {
@@ -406,7 +411,7 @@ function buyLayout(insights: BuyInsight[]): string {
           ${orderCol("Send", withActions([...buy.liquor.lines, ...buy.beer.lines]).filter(l => l.action === "send"))}
           ${orderCol("Hold", withActions([...buy.liquor.lines, ...buy.beer.lines]).filter(l => l.action === "hold"))}
         </div>
-        <p class="fine">Mixers ordered: ${buy.mixersOrdered}. Sheet over/under: liquor ${money(buy.liquor.overUnder)}, beer ${money(buy.beer.overUnder)}.</p>
+        <p class="fine">Mixers ordered: ${buy.mixersOrdered}. Sheet over/under: liquor ${money(buy.liquor.overUnder)}, beer ${money(buy.beer.overUnder)}. ${buy.cremeBruleeRow.name} on live sheet · par ${buy.cremeBruleeRow.par} · qty ${buy.cremeBruleeRow.qty}.</p>
       </section>
     </div>`;
 }
@@ -425,6 +430,45 @@ function orderCol(title: string, lines: Array<BuyLine & { action?: string }>): s
     </div>`;
 }
 
+function loopStrip(): string {
+  const tagged = withActions([...buy.liquor.lines, ...buy.beer.lines]).filter(
+    line => line.qty > 0
+  );
+  const z = sales.recentZ[0];
+  const smash = smashBurger(calendar);
+  const pizza = thursdayPizza(calendar);
+  const report = buildNightlyReport({
+    pdq: z
+      ? {
+          businessDate: z.date,
+          grandTotal: z.grandTotal.toFixed(2),
+          laborPct: (z.labor / z.grandTotal) * 100,
+        }
+      : null,
+    buy: {
+      sendCount: tagged.filter(line => line.action === "send").length,
+      holdCount: tagged.filter(line => line.action === "hold").length,
+      combined: combinedTotal(buy),
+      mykeInLoop: buy.mykeInLoop,
+    },
+    calendar: {
+      smashPrice: smash?.price ?? "11.99",
+      pizzaDay: pizza?.day ?? "Thursday",
+      drinkApproved: calendar.drink.approved,
+      foodNamed: Boolean(calendar.food.name),
+    },
+    invoicePhotos: invoiceWeek.photoCount,
+    gmailConnected: false,
+    ocrConfigured: invoiceWeek.ocrLive,
+  });
+  return `<div class="loop">${report.steps
+    .map(
+      step =>
+        `<span class="${step.status}" title="${step.detail}">${step.title}</span>`
+    )
+    .join("")}</div>`;
+}
+
 function calendarLayout(insights: CalendarInsight[]): string {
   return `<div class="layout">
       <aside class="panel">
@@ -439,6 +483,20 @@ function calendarLayout(insights: CalendarInsight[]): string {
           <div class="metric"><span>Food · Tom</span><b>${calendar.food.name ?? "Missing"}</b></div>
           <div class="metric"><span>Humes</span><b>Not sent</b></div>
           <div class="metric"><span>Football promos</span><b>Not created</b></div>
+        </div>
+        <h2>Weekly library</h2>
+        <div class="week-grid">
+          ${calendar.weekly
+            .map(
+              item => `<article class="week-day ${item.locked ? "locked" : ""}">
+                <div class="when">${item.day}${item.goesUp ? " · GOES UP" : ""}</div>
+                <div class="who">${item.name}</div>
+                <div class="flags">${item.price ? `<span class="flag">$${item.price}</span>` : ""}${
+                  item.poster ? `<span class="flag">Poster</span>` : ""
+                }${item.locked ? `<span class="flag">Locked</span>` : ""}</div>
+              </article>`
+            )
+            .join("")}
         </div>
         <h2>Events</h2>
         ${calendar.events

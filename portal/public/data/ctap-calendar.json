@@ -13,6 +13,28 @@
     "owner": "Tom",
     "approved": false
   },
+  "weekly": [
+    { "day": "Sunday", "name": "NFL / game-day" },
+    { "day": "Monday", "name": "Monday food/drink specials" },
+    {
+      "day": "Tuesday",
+      "name": "Smash Burger",
+      "price": "11.99",
+      "poster": true
+    },
+    { "day": "Wednesday", "name": "Wednesday specials" },
+    {
+      "day": "Thursday",
+      "name": "Any Medium Pizza",
+      "price": "17.99",
+      "locked": true,
+      "goesUp": true,
+      "poster": true
+    },
+    { "day": "Friday", "name": "Half-rack ribs", "price": "17.99", "poster": true },
+    { "day": "Friday", "name": "$6.99 appetizer flash", "price": "6.99" },
+    { "day": "Saturday", "name": "College football / Iowa game-day" }
+  ],
   "events": [
     {
       "name": "Stadium Drive",
