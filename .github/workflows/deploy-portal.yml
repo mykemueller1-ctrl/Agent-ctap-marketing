@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -26,12 +26,21 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run build
+      - name: Publish gh-pages branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: portal/dist
+          force_orphan: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: portal/dist
 
   deploy:
     needs: build
+    # Official Pages API 404s until the repo owner enables Pages in Settings.
+    # gh-pages branch still publishes above. Do not fail main for that click.
+    continue-on-error: true
     runs-on: ubuntu-latest
     environment:
       name: github-pages

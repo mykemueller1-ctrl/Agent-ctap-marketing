@@ -3,6 +3,8 @@ import { defineConfig } from "vite";
 export default defineConfig({
   root: "portal",
   publicDir: "public",
+  // Relative so GitHub Pages project URL and gh-pages CDNs both load assets.
+  base: "./",
   build: {
     outDir: "dist",
     emptyOutDir: true,
