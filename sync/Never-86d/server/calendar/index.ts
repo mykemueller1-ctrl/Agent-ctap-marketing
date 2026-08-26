@@ -55,3 +55,16 @@ export {
   stadiumDriveEvent,
 } from "./seed";
 export { laborDay, nextMonthKey, monthLabel } from "./dates";
+export { BAR_WEEK_KEY, BAR_WEEK_SHIFTS } from "./bar-week";
+export type { Shift } from "./bar-week";
+export {
+  BAR_ROSTER,
+  CTAP_ROSTER,
+  DRIVER_ROSTER,
+  KITCHEN_ROSTER,
+  PAYROLL_ACCOUNTANT,
+  namesOnPayroll,
+  peopleAt,
+  personInSystem,
+} from "./people";
+export type { Person, Station } from "./people";

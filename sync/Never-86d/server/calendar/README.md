@@ -30,6 +30,10 @@ Copy into `Never-86d` under `server/calendar/`. This agent still cannot push tha
 | 14th | Myke packet: preview, food, drink, holidays, events, weekly promos, prices, changed specials. Buttons **APPROVE / EDIT / HOLD** |
 | 15th | If approved, generate the Humes email. Subject `CTAP — {Month Year} Calendar`. Log `sent_at`, `recipient`, `calendar_version`, `sent_by`, `approval_by`, `attachment_hash` |
 
+## People
+
+Source of truth is the current payroll Mike Mueller sent to Mary Oleson (`cfmapayroll@yahoo.com`). Until this agent can read that Gmail thread, `people.ts` loads every name from the Drive schedules: bar week 8/30–9/5 (times posted), kitchen names, driver names. Mychael / Mike Mueller is one person. Matt Jones is one person on kitchen and driver.
+
 ## Intelligence
 
 Not just a calendar generator. `special_performance` feeds plan → execute → measure → learn → recommend (example: Apple Cider Mimosas back next September from last year's gross profit and Sunday brunch mix).

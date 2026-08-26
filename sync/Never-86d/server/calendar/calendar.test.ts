@@ -1,10 +1,14 @@
 import { describe, expect, it } from "vitest";
 import {
   APPLE_CIDER_MIMOSA_PERFORMANCE,
+  BAR_ROSTER,
+  BAR_WEEK_SHIFTS,
   DATABASE_OBJECTS,
   DEFAULT_RECURRING_LIBRARY,
   KENZY,
+  KITCHEN_ROSTER,
   LEARN_LOOP,
+  PAYROLL_ACCOUNTANT,
   TOM,
   applyMykeDecision,
   assertNotInventedFootballPromo,
@@ -18,6 +22,8 @@ import {
   internalNotice,
   laborDay,
   lockMonth,
+  namesOnPayroll,
+  peopleAt,
   recommendNextYear,
   runMonthlyTick,
   sendHumesEmailIfApproved,
@@ -63,6 +69,22 @@ describe("CTAP monthly calendar engine", () => {
     expect(KENZY.title).toBe("Bar");
     expect(TOM.side).toBe("kitchen");
     expect(TOM.title).toBe("Kitchen manager");
+    expect(BAR_ROSTER.some((person) => person.name === "Kenzy Thompson")).toBe(
+      true
+    );
+    expect(KITCHEN_ROSTER.some((person) => person.name === "Thomas Dorothy")).toBe(
+      true
+    );
+    expect(peopleAt("bar").length).toBeGreaterThanOrEqual(9);
+    expect(namesOnPayroll()).toContain("Kenzy Thompson");
+    expect(namesOnPayroll()).toContain("Moe Thomas");
+    expect(PAYROLL_ACCOUNTANT.email).toBe("cfmapayroll@yahoo.com");
+    expect(
+      BAR_WEEK_SHIFTS.some(
+        (shift) =>
+          shift.name === "Kenzy Thompson" && shift.date === "2026-08-30"
+      )
+    ).toBe(true);
     expect(DATABASE_OBJECTS).toContain("calendar_email_log");
     expect(LEARN_LOOP).toEqual([
       "plan",
