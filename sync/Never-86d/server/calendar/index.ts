@@ -64,6 +64,7 @@ export {
   KITCHEN_ROSTER,
   PAYROLL_ACCOUNTANT,
   namesOnPayroll,
+  NO_LONGER_ON_PAYROLL,
   peopleAt,
   personInSystem,
 } from "./people";

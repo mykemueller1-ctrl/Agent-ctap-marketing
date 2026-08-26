@@ -22,10 +22,21 @@ describe("CTAP house handbook", () => {
     expect(HANDBOOK_VERSION).toBe("ctap-handbook-v1");
     expect(HANDBOOK_RULES.length).toBeGreaterThanOrEqual(12);
     expect(lookupRule("if-not-in-app")?.severity).toBe("hard");
-    expect(lookupRule("foh-checklist-every-shift")?.owners).toContain(
-      HANDBOOK_OWNERS.karlee
-    );
+    expect(lookupRule("foh-checklist-every-shift")?.owners).toEqual([
+      HANDBOOK_OWNERS.kenzy,
+    ]);
     expect(lookupRule("kitchen-portions")?.owners).toContain(HANDBOOK_OWNERS.tom);
+    expect(
+      SHIFT_CHECKLISTS.filter((item) => item.side === "foh").every(
+        (item) => item.owner === HANDBOOK_OWNERS.kenzy
+      )
+    ).toBe(true);
+    expect(SHIFT_CHECKLISTS.find((item) => item.id === "bar-close")?.owner).toBe(
+      HANDBOOK_OWNERS.kenzy
+    );
+    const owners = HANDBOOK_RULES.flatMap((rule) => rule.owners ?? []);
+    expect(owners).not.toContain("Karlee Sturtz");
+    expect(owners).not.toContain("Ashley Holding");
     expect(rulesFor("bar").some((rule) => rule.id === "overpour-writeup")).toBe(
       true
     );

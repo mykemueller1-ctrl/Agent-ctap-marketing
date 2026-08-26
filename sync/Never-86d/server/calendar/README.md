@@ -7,7 +7,7 @@ Copy into `Never-86d` under `server/calendar/`. This agent still cannot push tha
 
 | Person | Side | What they own |
 |---|---|---|
-| **Kenzy** | Bar | Drink specials, glassware/garnish, football promo *decisions* |
+| **Kenzy** | Out front | Checklists, drink specials, glassware/garnish, football promo *decisions* |
 | **Tom** | Kitchen manager | Food specials, monthly food feature |
 | **Myke** | Operations | Final approval. The only person who can release the Humes email |
 

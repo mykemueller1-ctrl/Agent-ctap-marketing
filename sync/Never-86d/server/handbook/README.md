@@ -15,4 +15,4 @@ Machine-readable SOPs from `communitypizza2026@gmail.com` Drive. Floor rules, no
 - Full recipe-card deck (bar book exists; pour specs pulled, not every SKU)
 - Station POS passwords — never stored here
 
-Owners: Karlee FOH checklists · Ashley POS/voids · Tom kitchen · Myke weekly numbers.
+Owners: **Kenzy** out front + checklists · **Tom** kitchen · **Myke** weekly numbers. Karlee and Ashley are gone.

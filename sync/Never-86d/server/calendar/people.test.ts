@@ -6,6 +6,7 @@ import {
   DRIVER_ROSTER,
   KITCHEN_ROSTER,
   PAYROLL_ACCOUNTANT,
+  NO_LONGER_ON_PAYROLL,
   namesOnPayroll,
   peopleAt,
   personInSystem,
@@ -14,8 +15,6 @@ import {
 const BAR_NAMES = [
   "Mychael Mueller",
   "Jessica Gailey",
-  "Karlee Sturtz",
-  "Ashley Holding",
   "Kenzy Thompson",
   "Jeri Wilson",
   "Bryson Cook",
@@ -65,6 +64,10 @@ describe("CTAP people roster", () => {
       CTAP_ROSTER.length
     );
     expect(PAYROLL_ACCOUNTANT.email).toBe("cfmapayroll@yahoo.com");
+    expect(personInSystem("Kinsey")?.name).toBe("Kenzy Thompson");
+    expect(personInSystem("Karlee Sturtz")).toBeUndefined();
+    expect(personInSystem("Ashley Holding")).toBeUndefined();
+    expect(NO_LONGER_ON_PAYROLL).toEqual(["Karlee Sturtz", "Ashley Holding"]);
   });
 
   it("treats Mike Mueller and Matt Jones as one person each", () => {

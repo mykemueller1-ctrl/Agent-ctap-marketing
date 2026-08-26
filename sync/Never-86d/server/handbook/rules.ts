@@ -12,8 +12,6 @@ import type {
 export const HANDBOOK_OWNERS = {
   myke: "Mychael Mueller",
   tom: "Thomas Dorothy",
-  karlee: "Karlee Sturtz",
-  ashley: "Ashley Holding",
   kenzy: "Kenzy Thompson",
 } as const;
 
@@ -141,17 +139,17 @@ export const HANDBOOK_RULES: HandbookRule[] = [
     severity: "hard",
     title: "If it’s not in the app, it didn’t happen",
     body: "Checklists, feedback, issues, write-ups, and schedule live in Never86’d. No sticky notes, no texts as the system of record.",
-    owners: [HANDBOOK_OWNERS.karlee, HANDBOOK_OWNERS.ashley, HANDBOOK_OWNERS.tom],
-    source: "Wednesday manager meeting — Karlee & Ashley",
+    owners: [HANDBOOK_OWNERS.kenzy, HANDBOOK_OWNERS.tom],
+    source: "Wednesday FOH manager meeting",
   },
   {
     id: "foh-checklist-every-shift",
     side: "foh",
     severity: "hard",
     title: "Dining room checklist every shift",
-    body: "Morning, mid, and close. Karlee owns 95%+ completion. Managers review completion rates.",
-    owners: [HANDBOOK_OWNERS.karlee],
-    source: "Wednesday manager meeting — Karlee & Ashley",
+    body: "Morning, mid, and close. Kenzy owns out front and the checklist. 95%+ completion.",
+    owners: [HANDBOOK_OWNERS.kenzy],
+    source: "Wednesday FOH manager meeting",
   },
   {
     id: "shift-feedback",
@@ -159,17 +157,17 @@ export const HANDBOOK_RULES: HandbookRule[] = [
     severity: "hard",
     title: "Feedback after every shift",
     body: "Good or bad. Every employee has a folder for notes and coaching. Managers review folders weekly.",
-    owners: [HANDBOOK_OWNERS.karlee, HANDBOOK_OWNERS.ashley],
-    source: "Wednesday manager meeting — Karlee & Ashley",
+    owners: [HANDBOOK_OWNERS.kenzy],
+    source: "Wednesday FOH manager meeting",
   },
   {
     id: "voids-need-manager",
     side: "foh",
     severity: "hard",
     title: "Voids need manager approval",
-    body: "Accuracy over speed. Ashley owns promo/void accuracy and POS retraining. Live POS test: standard drink, modifier, promo, void.",
-    owners: [HANDBOOK_OWNERS.ashley],
-    source: "Wednesday manager meeting — Karlee & Ashley",
+    body: "Accuracy over speed. Kenzy owns promo/void accuracy and POS retraining. Live POS test: standard drink, modifier, promo, void.",
+    owners: [HANDBOOK_OWNERS.kenzy],
+    source: "Wednesday FOH manager meeting",
   },
   {
     id: "right-pos-button",
@@ -177,7 +175,7 @@ export const HANDBOOK_RULES: HandbookRule[] = [
     severity: "hard",
     title: "Hit the right POS button",
     body: "No “open” items for standard drinks. Carbliss and Skimmers ring by item, not a broad button.",
-    owners: [HANDBOOK_OWNERS.ashley, HANDBOOK_OWNERS.karlee],
+    owners: [HANDBOOK_OWNERS.kenzy],
     source: "Bar goals & bonus + out-front meeting",
   },
   {
@@ -186,7 +184,7 @@ export const HANDBOOK_RULES: HandbookRule[] = [
     severity: "hard",
     title: "Correct glass for the spec pour",
     body: "Old sizes are retired. Mixed drinks in the pristler. Shot in a 2 oz glass, not filled to the top. Rocks packed with ice. Mind plastic cups.",
-    owners: [HANDBOOK_OWNERS.karlee, HANDBOOK_OWNERS.ashley],
+    owners: [HANDBOOK_OWNERS.kenzy],
     source: "Bar goals & bonus + out-front meeting",
   },
   {
@@ -195,7 +193,7 @@ export const HANDBOOK_RULES: HandbookRule[] = [
     severity: "hard",
     title: "Overpour after training is a write-up",
     body: "We train first. Continued overpouring or missed specs = write-up or termination. Entire staff, not just managers.",
-    owners: [HANDBOOK_OWNERS.karlee, HANDBOOK_OWNERS.ashley],
+    owners: [HANDBOOK_OWNERS.kenzy],
     source: "Bar goals & bonus structure",
   },
   {
@@ -204,7 +202,7 @@ export const HANDBOOK_RULES: HandbookRule[] = [
     severity: "hard",
     title: "Lunch special does not include fountain soda",
     body: "No soda on the lunch special. Staff pop to take home is bought. Fountain soda is free if they don’t want a take-home.",
-    owners: [HANDBOOK_OWNERS.karlee],
+    owners: [HANDBOOK_OWNERS.kenzy],
     source: "Out-front meeting",
   },
   {
@@ -213,7 +211,7 @@ export const HANDBOOK_RULES: HandbookRule[] = [
     severity: "hard",
     title: "No extra kegs and no surprise Humes drops",
     body: "Do not get kegs unless you absolutely have to. Tell Bambi at Humes: no more just dropping product.",
-    owners: [HANDBOOK_OWNERS.ashley, HANDBOOK_OWNERS.karlee],
+    owners: [HANDBOOK_OWNERS.kenzy],
     source: "Weekly manager numbers 10-5 thru 10-11",
   },
   {
@@ -258,7 +256,7 @@ export const HANDBOOK_RULES: HandbookRule[] = [
     severity: "process",
     title: "Schedule tokens from the paper week",
     body: "Open / OPEN / Close / RO. Stations are department-specific (bar vs kitchen). Rename the week to the dates before download-CSV upload.",
-    owners: [HANDBOOK_OWNERS.karlee, HANDBOOK_OWNERS.ashley, HANDBOOK_OWNERS.tom],
+    owners: [HANDBOOK_OWNERS.kenzy, HANDBOOK_OWNERS.tom],
     source: "HOW TO INPUT WEEKLY SCHEDULES",
   },
 ];
@@ -269,7 +267,7 @@ export const SHIFT_CHECKLISTS: ShiftChecklist[] = [
     name: "FOH morning",
     side: "foh",
     when: "morning",
-    owner: HANDBOOK_OWNERS.karlee,
+    owner: HANDBOOK_OWNERS.kenzy,
     items: [
       "Complete morning dining room checklist in the app",
       "Confirm POS is up and pour/glass specs are on the well",
@@ -281,7 +279,7 @@ export const SHIFT_CHECKLISTS: ShiftChecklist[] = [
     name: "FOH mid",
     side: "foh",
     when: "mid",
-    owner: HANDBOOK_OWNERS.karlee,
+    owner: HANDBOOK_OWNERS.kenzy,
     items: [
       "Complete mid-shift dining room checklist",
       "No open-ring standard drinks",
@@ -293,7 +291,7 @@ export const SHIFT_CHECKLISTS: ShiftChecklist[] = [
     name: "FOH close",
     side: "foh",
     when: "close",
-    owner: HANDBOOK_OWNERS.karlee,
+    owner: HANDBOOK_OWNERS.kenzy,
     items: [
       "Complete close dining room checklist",
       "Submit shift feedback (good or bad)",
@@ -317,7 +315,7 @@ export const SHIFT_CHECKLISTS: ShiftChecklist[] = [
     name: "Bar close",
     side: "bar",
     when: "close",
-    owner: HANDBOOK_OWNERS.ashley,
+    owner: HANDBOOK_OWNERS.kenzy,
     items: [
       "Right buttons all night — no open items for standard drinks",
       "Glassware and pour specs held",

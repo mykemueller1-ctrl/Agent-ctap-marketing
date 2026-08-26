@@ -6,6 +6,7 @@
  * Until then every name on the live Drive schedules is in the roster:
  * bar week Sun 8/30/2026–Sat 9/5/2026 (times posted) plus kitchen and
  * driver name lists. Duplicate rows (Mychael, Matt Jones) are one person.
+ * Karlee Sturtz and Ashley Holding are gone — do not put them back.
  */
 
 export type Station = "bar" | "kitchen" | "driver" | "ops";
@@ -49,9 +50,10 @@ export const BAR_ROSTER: Person[] = [
     roleNote: "Owner. On bar week and kitchen sheet. Same person as Mike Mueller.",
   }),
   person("Jessica Gailey", "bar"),
-  person("Karlee Sturtz", "bar", { roleNote: "Bar manager" }),
-  person("Ashley Holding", "bar", { roleNote: "Bar manager" }),
-  person("Kenzy Thompson", "bar"),
+  person("Kenzy Thompson", "bar", {
+    aliases: ["Kinsey Thompson", "Kinsey", "Kenzy"],
+    roleNote: "Out front. Owns the FOH checklist.",
+  }),
   person("Jeri Wilson", "bar"),
   person("Bryson Cook", "bar"),
   person("Kaillee Miller", "bar"),
@@ -105,6 +107,9 @@ export const CTAP_ROSTER: Person[] = [
   ...KITCHEN_ROSTER,
   ...DRIVER_ROSTER,
 ];
+
+/** Off the floor. Do not put them back from old Drive sheets. */
+export const NO_LONGER_ON_PAYROLL = ["Karlee Sturtz", "Ashley Holding"];
 
 export const PAYROLL_ACCOUNTANT = {
   name: "Mary E. Oleson",

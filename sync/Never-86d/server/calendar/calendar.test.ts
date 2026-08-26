@@ -66,7 +66,7 @@ function buildSeptember() {
 describe("CTAP monthly calendar engine", () => {
   it("assigns Kenzy to bar and Tom to kitchen", () => {
     expect(KENZY.side).toBe("bar");
-    expect(KENZY.title).toBe("Bar");
+    expect(KENZY.title).toBe("Out front");
     expect(TOM.side).toBe("kitchen");
     expect(TOM.title).toBe("Kitchen manager");
     expect(BAR_ROSTER.some((person) => person.name === "Kenzy Thompson")).toBe(
@@ -75,7 +75,7 @@ describe("CTAP monthly calendar engine", () => {
     expect(KITCHEN_ROSTER.some((person) => person.name === "Thomas Dorothy")).toBe(
       true
     );
-    expect(peopleAt("bar").length).toBeGreaterThanOrEqual(9);
+    expect(peopleAt("bar").length).toBeGreaterThanOrEqual(7);
     expect(namesOnPayroll()).toContain("Kenzy Thompson");
     expect(namesOnPayroll()).toContain("Moe Thomas");
     expect(PAYROLL_ACCOUNTANT.email).toBe("cfmapayroll@yahoo.com");
