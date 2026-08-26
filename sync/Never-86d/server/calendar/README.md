@@ -32,7 +32,7 @@ Copy into `Never-86d` under `server/calendar/`. This agent still cannot push tha
 
 ## People
 
-Source of truth is the current payroll Mike Mueller sent to Mary Oleson (`cfmapayroll@yahoo.com`). Until this agent can read that Gmail thread, `people.ts` loads every name from the Drive schedules: bar week 8/30–9/5 (times posted), kitchen names, driver names. Mychael / Mike Mueller is one person. Matt Jones is one person on kitchen and driver.
+Source of truth is the current payroll Mike Mueller sent to Mary Oleson (`cfmapayroll@yahoo.com`). Until this agent can read that Gmail thread, `people.ts` loads names from the posted paper week Sun 8/30/2026–Sat 9/5/2026 (`bar-week.ts`, source `paper-posted-week`) plus kitchen and driver sheets. The old Drive Google Sheet is stale — Karlee Sturtz and Ashley Holding are gone. Mychael / Mike Mueller is one person. Matt Jones is one person on kitchen and driver.
 
 House SOPs (FOH, bar, kitchen, bounce, checklists) live in `sync/Never-86d/server/handbook/`.
 

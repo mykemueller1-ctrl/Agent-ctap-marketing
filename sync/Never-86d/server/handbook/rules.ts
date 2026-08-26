@@ -82,6 +82,10 @@ export const FOH_STATIONS = [
   "BAR SERVER",
   "WAITRESS",
   "PIZZA SIDE",
+  "BT",
+  "BW",
+  "FLOAT",
+  "FOH",
 ] as const;
 
 export const KITCHEN_STATIONS = [

@@ -3,9 +3,8 @@
  * Mike Mueller sent to Mary Oleson (cfmapayroll@yahoo.com).
  *
  * This agent cannot open that Gmail thread until Allow is clicked.
- * Until then every name on the live Drive schedules is in the roster:
- * bar week Sun 8/30/2026–Sat 9/5/2026 (times posted) plus kitchen and
- * driver name lists. Duplicate rows (Mychael, Matt Jones) are one person.
+ * Posted paper week Sun 8/30/2026–Sat 9/5/2026 is the live out-front roster.
+ * Kitchen/driver names stay from those sheets. Mychael / Matt Jones are one person each.
  * Karlee Sturtz and Ashley Holding are gone — do not put them back.
  */
 
@@ -42,23 +41,27 @@ function person(
   };
 }
 
-/** Live bar week 8/30/2026–9/5/2026 — times exist on CTAP BAR SCHEDULE X1 WEEK. */
+/** Posted paper week 8/30/2026–9/5/2026. Kenzy owns out front. */
 export const BAR_ROSTER: Person[] = [
   person("Mychael Mueller", "ops", {
     alsoStations: ["bar", "kitchen"],
-    aliases: ["Mike Mueller", "Myke Mueller", "Myke", "Mike"],
-    roleNote: "Owner. On bar week and kitchen sheet. Same person as Mike Mueller.",
+    aliases: ["Mike Mueller", "Myke Mueller", "Myke", "Mike", "Mychael"],
+    roleNote: "Owner. Opens every day this week. Same person as Mike Mueller.",
   }),
   person("Jessica Gailey", "bar"),
   person("Kenzy Thompson", "bar", {
     aliases: ["Kinsey Thompson", "Kinsey", "Kenzy"],
     roleNote: "Out front. Owns the FOH checklist.",
   }),
-  person("Jeri Wilson", "bar"),
   person("Bryson Cook", "bar"),
-  person("Kaillee Miller", "bar"),
-  person("Samantha Swearingen", "bar"),
-  person("Azaria Silvey", "bar"),
+  person("Jeri Wilson", "bar"),
+  person("Kaillee Miller", "bar", { aliases: ["Kailee M.", "Kailee Miller", "Kailee"] }),
+  person("Samantha Swearingen", "bar", { aliases: ["Sam"] }),
+  person("Sydney", "bar"),
+  person("Araya", "bar", { aliases: ["Azaria Silvey", "Azaria", "Araya Silvey"] }),
+  person("Shantera", "bar"),
+  person("Kaylee S.", "bar", { aliases: ["Kaylee"] }),
+  person("Lauren", "bar"),
 ];
 
 /**

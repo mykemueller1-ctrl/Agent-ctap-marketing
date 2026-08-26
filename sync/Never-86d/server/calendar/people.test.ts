@@ -1,12 +1,15 @@
 import { describe, expect, it } from "vitest";
 import {
   BAR_ROSTER,
+  BAR_WEEK_EVENTS,
   BAR_WEEK_SHIFTS,
+  BAR_WEEK_SOURCE,
   CTAP_ROSTER,
   DRIVER_ROSTER,
   KITCHEN_ROSTER,
   PAYROLL_ACCOUNTANT,
   NO_LONGER_ON_PAYROLL,
+  REQUESTED_OFF,
   namesOnPayroll,
   peopleAt,
   personInSystem,
@@ -16,11 +19,15 @@ const BAR_NAMES = [
   "Mychael Mueller",
   "Jessica Gailey",
   "Kenzy Thompson",
-  "Jeri Wilson",
   "Bryson Cook",
+  "Jeri Wilson",
   "Kaillee Miller",
   "Samantha Swearingen",
-  "Azaria Silvey",
+  "Sydney",
+  "Araya",
+  "Shantera",
+  "Kaylee S.",
+  "Lauren",
 ];
 
 const KITCHEN_NAMES = [
@@ -86,12 +93,56 @@ describe("CTAP people roster", () => {
     );
   });
 
-  it("has posted times for the live bar week", () => {
+  it("has posted times or requested-off for everyone on the paper roster", () => {
     for (const name of BAR_NAMES) {
-      expect(
-        BAR_WEEK_SHIFTS.some((shift) => shift.name === name),
-        `${name} missing from bar week 8/30–9/5`
-      ).toBe(true);
+      const worked = BAR_WEEK_SHIFTS.some((shift) => shift.name === name);
+      const off = REQUESTED_OFF.some((item) => item.name === name);
+      expect(worked || off, `${name} missing from paper week 8/30–9/5`).toBe(
+        true
+      );
     }
+    expect(BAR_WEEK_SHIFTS.every((shift) => BAR_NAMES.includes(shift.name))).toBe(
+      true
+    );
+  });
+
+  it("uses the posted paper week, not the old Drive sheet", () => {
+    expect(BAR_WEEK_SOURCE).toBe("paper-posted-week");
+    expect(
+      BAR_WEEK_SHIFTS.some(
+        (shift) =>
+          shift.name === "Kenzy Thompson" &&
+          shift.date === "2026-09-05" &&
+          shift.start === "10:00 AM" &&
+          shift.end === "5:00 PM" &&
+          shift.station === "BAR SIDE"
+      )
+    ).toBe(true);
+    expect(
+      BAR_WEEK_SHIFTS.some(
+        (shift) =>
+          shift.name === "Jessica Gailey" && shift.date === "2026-09-04"
+      )
+    ).toBe(false);
+    expect(
+      BAR_WEEK_SHIFTS.some(
+        (shift) => /Karlee|Ashley/.test(shift.name)
+      )
+    ).toBe(false);
+    expect(personInSystem("Azaria Silvey")?.name).toBe("Araya");
+    expect(personInSystem("Kailee M.")?.name).toBe("Kaillee Miller");
+    expect(
+      BAR_WEEK_SHIFTS.some((shift) => shift.name === "Sydney")
+    ).toBe(false);
+    expect(
+      REQUESTED_OFF.some(
+        (item) => item.name === "Sydney" && item.date === "2026-09-05"
+      )
+    ).toBe(true);
+    expect(BAR_WEEK_EVENTS.map((item) => item.label)).toEqual([
+      "Home Dodger football game",
+      "Hawk game 3:15",
+      "Party of 80 at 2 p.m.",
+    ]);
   });
 });
