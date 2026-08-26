@@ -24,6 +24,7 @@ export type InvoiceWeekSeed = {
   invoiceSheetTitle: string;
   invoiceSheet: InvoiceSheetRow[];
   outOfBook: string[];
+  photos: Array<{ name: string; fileId: string }>;
 };
 
 export type InvoiceInsight = {
@@ -68,6 +69,10 @@ export function sheetRowsForWeek(
   });
 }
 
+export function driveFileUrl(fileId: string): string {
+  return `https://drive.google.com/file/d/${fileId}/view`;
+}
+
 export function photoFilenames(first: string, last: string): string[] {
   const parse = (name: string) => {
     const m = name.match(/^(IMG_)(\d+)(\.\w+)$/i);
@@ -95,7 +100,7 @@ export function buildInvoiceInsights(
   insights.push({
     kind: "photos",
     title: `${seed.photoCount} invoice photos in Drive`,
-    detail: `${seed.driveFolderTitle} · ${seed.firstPhoto}–${seed.lastPhoto} · ${seed.mimeType}. Stay in Drive — not in git.`,
+    detail: `${seed.driveFolderTitle} · ${seed.firstPhoto}–${seed.lastPhoto} · ${seed.mimeType}. ${seed.photos.length} Drive links in the seat. Stay in Drive — bytes not in git.`,
   });
   insights.push({
     kind: seed.ocrLive ? "ocr" : "ocr",

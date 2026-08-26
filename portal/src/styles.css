@@ -278,7 +278,8 @@ body {
 .insight.hyvee,
 .insight.weekly,
 .insight.ok,
-.insight.par-fill {
+.insight.par-fill,
+.insight.menu {
   border-left: 3px solid var(--green);
 }
 
@@ -460,6 +461,12 @@ select {
   padding: 3px 8px;
   color: var(--muted);
   background: #1a1612;
+  text-decoration: none;
+}
+
+a.chip:hover {
+  color: var(--ink);
+  border-color: var(--amber-dim);
 }
 
 .sop-list {

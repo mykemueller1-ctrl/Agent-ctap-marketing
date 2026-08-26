@@ -8,6 +8,8 @@
   "mixersOrdered": 0,
   "mykeInLoop": false,
   "hyveePath": "kenzy_one_tap",
+  "hyveeEmailSet": false,
+  "sendCheckbox": false,
   "cremeBruleeRow": {
     "name": "Licor 43 Crème Brûlée",
     "par": 3,

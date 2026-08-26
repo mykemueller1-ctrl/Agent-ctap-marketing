@@ -27,9 +27,11 @@ This is the working copy. Split-chat draft PRs are leftovers. Form new work **in
 
 1. **Shift** — bar week Sun 8/30–Sat 9/5 from Drive.
 2. **Sales** — 7/15–7/16/2026 Zs + Sept 2025 weekly folder. No Aug 16–22 Zs in Drive.
-3. **Buy** — liquor/beer qty-to-order from the 8/23 Drive sheet. **Kenzy one-tap Hy-Vee. Myke out.** Names, par, qty. **No unit prices in git.** Combined ~$3,173 is par-fill risk. Crème Brûlée row on live sheet (par 3, qty 0).
-4. **Invoices** — 32 HEICs in `8-16 thru 8-22`. SOP cadence. Not OCR'd.
+3. **Buy** — liquor/beer qty-to-order from the 8/23 Drive sheet. **Kenzy one-tap Hy-Vee. Myke out.** Config B1 Hy-Vee email still blank, SEND off. Crème Brûlée row on live sheet (par 3, qty 0).
+4. **Invoices** — 32 HEICs in `8-16 thru 8-22` with Drive file IDs. Each chip opens the photo. Not OCR'd.
 5. **Calendar** — September DRAFT. Smash Burger **$11.99** Tuesday. Medium pizza **GOES UP Thursday $17.99**. Tom food still blank. Humes unsent.
+
+**Sales also shows the proposed menu move** from `CTAP_Updated_Menu.docx` (not in POS). Smash plate $14.99 ≠ Tuesday BOGO $11.99.
 
 ## Daily loop
 
@@ -41,6 +43,9 @@ This is the working copy. Split-chat draft PRs are leftovers. Form new work **in
 - Food SKU order guide (the 32 photos *are* the list until OCR)
 - Posted kitchen + driver weeks
 - Document AI secrets
-- Hy-Vee Apps Script **onEdit trigger** (Google 2FA / Kenzy Editor share)
+- Hy-Vee Apps Script **onEdit trigger** (Google 2FA / Kenzy Editor share) + Config B1 still blank
+- Render deploy needs Myke to pick the workspace (MCP `list_workspaces` unauthorized from here)
+
+`render.yaml` is in the repo. Blueprint: https://dashboard.render.com/blueprint/new?repo=https://github.com/mykemueller1-ctrl/Agent-ctap-marketing
 
 See `docs/agent-memory/CTAP_What_We_Dont_Have.md`.

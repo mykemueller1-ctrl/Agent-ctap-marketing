@@ -13,6 +13,8 @@ Working memory for **Community Tap & Pizza** and Never 86'd **1–3 unit** intak
 npm install
 npm test
 npm run portal   # owner seat at http://localhost:5173
+npm run build    # static files in portal/dist (Render)
+npm run nightly  # loop this computer can run without Gmail
 npm run demo     # PDQ Z-report fixture (7/16)
 ```
 
@@ -21,10 +23,10 @@ npm run demo     # PDQ Z-report fixture (7/16)
 | Seat | Status |
 |---|---|
 | Shift | Bar week 8/30–9/5 live. Kitchen + drivers = Feb templates, no times |
-| Sales | 7/15–7/16 Zs + Sept 2025 week. Aug 16–22 Z hole (mail, not Drive) |
-| Buy | I took the call: send volume + kegs, hold qty-1 premium. No unit prices in git |
-| Invoices | 32 HEICs *are* the food list. Not OCR'd |
-| Calendar | September DRAFT. Tom food missing. Football planning-only. Humes unsent |
+| Sales | 7/15–7/16 Zs + Sept 2025 week. Aug 16–22 Z hole. Menu move PROPOSED, not POS |
+| Buy | Kenzy one-tap. Config B1 blank. Send volume, hold qty-1. No unit prices in git |
+| Invoices | 32 HEICs with Drive links. Not OCR'd |
+| Calendar | September DRAFT. Smash $11.99. Thursday pizza locked. Tom food missing. Humes unsent |
 
 ## Code map
 

@@ -63,6 +63,12 @@ describe("Drive invoice sheet SOP + photo drop", () => {
     expect(seed.photoCount).toBe(32);
     expect(seed.sourceKind).toBe("photo_ocr");
     expect(seed.ocrLive).toBe(false);
+    expect(seed.photos).toHaveLength(32);
+    expect(new Set(seed.photos.map(p => p.fileId)).size).toBe(32);
+    expect(seed.photos[0]).toMatchObject({
+      name: "IMG_6700.HEIC",
+      fileId: "1mhjhAKYimdAf1e3lB2AoQnhacWUTxjs0",
+    });
   });
 
   it("flags the sales-denominator hole when no Z exists for the photo week", () => {

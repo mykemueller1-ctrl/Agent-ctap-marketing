@@ -44,6 +44,8 @@ describe("Buy seat — Drive liquor/beer sheet without dumping prices", () => {
 
     expect(seed.mykeInLoop).toBe(false);
     expect(seed.hyveePath).toBe("kenzy_one_tap");
+    expect(seed.hyveeEmailSet).toBe(false);
+    expect(seed.sendCheckbox).toBe(false);
     expect(seed.cremeBruleeRow).toMatchObject({
       name: "Licor 43 Crème Brûlée",
       par: 3,

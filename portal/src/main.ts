@@ -1,6 +1,7 @@
 import "./styles.css";
 import {
   buildInvoiceInsights,
+  driveFileUrl,
   photoFilenames,
   sheetRowsForWeek,
   type InvoiceWeekSeed,
@@ -31,6 +32,7 @@ import {
   type CalendarSeed,
 } from "./calendarMonth";
 import { buildNightlyReport } from "../../sync/Never-86d/server/ctap-loop/nightly";
+import { buildMenuInsights, type MenuSeed } from "./menuMove";
 import {
   buildSalesInsights,
   money,
@@ -63,6 +65,7 @@ let invoiceWeek: InvoiceWeekSeed;
 let sales: SalesSeed;
 let buy: BuySeed;
 let calendar: CalendarSeed;
+let menu: MenuSeed;
 let selectedDate = "";
 let selectedZ = "";
 let extra: Assignment[] = [];
@@ -121,6 +124,7 @@ function render(): void {
   });
   const invoiceInsights = buildInvoiceInsights(invoiceWeek, sales.invoiceWeekHasZ);
   const salesInsights = buildSalesInsights(sales);
+  const menuInsights = buildMenuInsights(menu);
   const buyInsights = buildBuyInsights(buy);
   const calendarInsights = buildCalendarInsights(calendar);
   const hero = heroCopy(
@@ -149,14 +153,14 @@ function render(): void {
 
     <nav class="seats">
       ${seatButton("shift", "Seat 01", "Shift", dept === "bar" ? "Live" : "Stale template")}
-      ${seatButton("sales", "Seat 02", "Sales", sales.invoiceWeekHasZ ? "Live" : "Live — Z hole")}
+      ${seatButton("sales", "Seat 02", "Sales", sales.invoiceWeekHasZ ? "Live" : "Z hole · menu proposed")}
       ${seatButton("buy", "Seat 03", "Buy", "Kenzy one-tap")}
-      ${seatButton("invoices", "Seat 04", "Invoices", "Live — 32 photos")}
+      ${seatButton("invoices", "Seat 04", "Invoices", "32 Drive links")}
       ${seatButton("calendar", "Seat 05", "Calendar", "Smash $11.99 · Thu pizza")}
     </nav>
 
     ${seat === "shift" ? shiftLayout(shiftInsights) : ""}
-    ${seat === "sales" ? salesLayout(salesInsights) : ""}
+    ${seat === "sales" ? salesLayout(salesInsights, menuInsights) : ""}
     ${seat === "buy" ? buyLayout(buyInsights) : ""}
     ${seat === "invoices" ? invoicesLayout(invoiceInsights) : ""}
     ${seat === "calendar" ? calendarLayout(calendarInsights) : ""}
@@ -196,7 +200,7 @@ function heroCopy(
       kicker: "Remembered from last week — Invoices",
       title: invoiceNext?.title ?? "Last week's invoice photos are in Drive.",
       detail:
-        "Food order list is the 32 HEICs. No Sysco/NL standing guide in Drive. Photos stay photo_ocr — Document AI is not live.",
+        "Food order list is the 32 HEICs. Each chip opens Drive. No Sysco/NL standing guide. Photos stay photo_ocr — Document AI is not live.",
     };
   }
   if (seat === "sales") {
@@ -204,7 +208,7 @@ function heroCopy(
       kicker: "Remembered from last week — Sales",
       title: salesNext?.title ?? "Sales denominator is the Z-report.",
       detail:
-        "Drive still has no Aug 16–22 Z-reports. Mail is where PDQ dailies live. Showing 7/15–7/16/2026 and the Sept 2025 week.",
+        "Drive still has no Aug 16–22 Z-reports. Menu price move is PROPOSED, not in POS. Showing 7/15–7/16/2026 and the Sept 2025 week.",
     };
   }
   const week = currentWeek();
@@ -323,7 +327,6 @@ function invoicesLayout(
   insights: ReturnType<typeof buildInvoiceInsights>
 ): string {
   const rows = sheetRowsForWeek(invoiceWeek.weekStart, invoiceWeek.invoiceSheet);
-  const photos = photoFilenames(invoiceWeek.firstPhoto, invoiceWeek.lastPhoto);
   return `<div class="layout">
       <aside class="panel">
         <h2>Next action</h2>
@@ -347,14 +350,28 @@ function invoicesLayout(
         </div>
         <h2>Photo drop · ${invoiceWeek.driveFolderTitle}</h2>
         <div class="meta">${invoiceWeek.photoCount} files · uploaded ${invoiceWeek.uploadedAt.slice(0, 10)} · ${invoiceWeek.mimeType}</div>
-        <div class="photos">${photos.map(n => `<span class="chip">${n}</span>`).join("")}</div>
+        <div class="photos">${(invoiceWeek.photos.length
+          ? invoiceWeek.photos
+          : photoFilenames(invoiceWeek.firstPhoto, invoiceWeek.lastPhoto).map(
+              name => ({ name, fileId: "" })
+            )
+        )
+          .map(photo =>
+            photo.fileId
+              ? `<a class="chip" href="${driveFileUrl(photo.fileId)}" target="_blank" rel="noreferrer">${photo.name}</a>`
+              : `<span class="chip">${photo.name}</span>`
+          )
+          .join("")}</div>
         <h2>Out of the book</h2>
         <ul class="sop-list">${invoiceWeek.outOfBook.map(item => `<li>${item}</li>`).join("")}</ul>
       </section>
     </div>`;
 }
 
-function salesLayout(insights: SalesInsight[]): string {
+function salesLayout(
+  insights: SalesInsight[],
+  menuInsights: ReturnType<typeof buildMenuInsights>
+): string {
   const day = currentZ();
   const week = rollup(sales.lastCompleteWeek.days);
   const zDays = [...sales.recentZ, ...sales.lastCompleteWeek.days];
@@ -362,6 +379,7 @@ function salesLayout(insights: SalesInsight[]): string {
       <aside class="panel">
         <h2>Next action</h2>
         ${insights.map(salesInsightCard).join("")}
+        ${menuInsights.map(i => `<div class="insight ${i.kind}"><b>${i.title}</b><span>${i.detail}</span></div>`).join("")}
         <h2 style="margin-top:18px">Targets</h2>
         <div class="meta">Labor &lt;28% of sales (from Z). Food &lt;30% · beer &lt;21% · liquor &lt;20% need invoice OCR — cannot close 8/16–8/22 yet.</div>
       </aside>
@@ -385,6 +403,19 @@ function salesLayout(insights: SalesInsight[]): string {
           <div class="metric"><span>Labor / sales</span><b>${pctLabel(week.labor, week.grandTotal)}</b></div>
         </div>
         <p class="fine">Sales mix is not cost %. Cost % waits on the 32 photos being OCR'd plus Aug Z-reports.</p>
+        <h2>Proposed menu move</h2>
+        <div class="meta">${menu.driveTitle} · ${menu.status} · not in POS · effective date blank</div>
+        <div class="week-grid">
+          ${menu.collisions
+            .map(
+              item => `<article class="week-day">
+                <div class="when">${item.name}</div>
+                <div class="who">$${item.current.toFixed(2)} → $${item.proposed.toFixed(2)}</div>
+                <div class="flags"><span class="flag">${item.calendar}</span></div>
+              </article>`
+            )
+            .join("")}
+        </div>
       </section>
     </div>`;
 }
@@ -673,7 +704,7 @@ function isoToSlash(iso: string): string {
 }
 
 async function boot(): Promise<void> {
-  const [barCsv, kitchenCsv, driverCsv, invoiceJson, salesJson, buyJson, calendarJson] =
+  const [barCsv, kitchenCsv, driverCsv, invoiceJson, salesJson, buyJson, calendarJson, menuJson] =
     await Promise.all([
       fetch("/data/ctap-bar-schedule.csv").then(r => r.text()),
       fetch("/data/ctap-kitchen-schedule.csv").then(r => r.text()),
@@ -682,6 +713,7 @@ async function boot(): Promise<void> {
       fetch("/data/ctap-sales.json").then(r => r.json() as Promise<SalesSeed>),
       fetch("/data/ctap-buy.json").then(r => r.json() as Promise<BuySeed>),
       fetch("/data/ctap-calendar.json").then(r => r.json() as Promise<CalendarSeed>),
+      fetch("/data/ctap-menu.json").then(r => r.json() as Promise<MenuSeed>),
     ]);
   barWeek = parseWideScheduleCsv(barCsv, "Bar Crew");
   kitchenWeek = parseWideScheduleCsv(kitchenCsv, "Kitchen");
@@ -690,6 +722,7 @@ async function boot(): Promise<void> {
   sales = salesJson;
   buy = buyJson;
   calendar = calendarJson;
+  menu = menuJson;
   selectedDate = barWeek.dates[0] ?? "";
   selectedZ = sales.recentZ[0]?.date ?? "";
   render();

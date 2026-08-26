@@ -1,0 +1,32 @@
+{
+  "status": "PROPOSED",
+  "inPos": false,
+  "effective": null,
+  "driveFileId": "1_q1GzAhLBPFbW6y3pNre61iOIUHGXe4Y",
+  "driveTitle": "CTAP_Updated_Menu.docx",
+  "estimatedAnnualGain": 87000,
+  "itemsRemoved": 14,
+  "collisions": [
+    {
+      "name": "Smash Burger w/Side",
+      "current": 13.99,
+      "proposed": 14.99,
+      "calendar": "Tuesday BOGO $11.99",
+      "detail": "Menu plate is the dinner smash. Tuesday special is a different price. Do not blend them."
+    },
+    {
+      "name": "Half Rack of Ribs",
+      "current": 21.45,
+      "proposed": 21.99,
+      "calendar": "Friday dinner $17.99",
+      "detail": "Calendar Friday flash stays $17.99 until Myke edits the library. Menu dinner is the all-day plate."
+    },
+    {
+      "name": "Medium cheese pizza",
+      "current": 15.99,
+      "proposed": 16.99,
+      "calendar": "Thursday any medium $17.99",
+      "detail": "Thursday GOES UP is the special. Menu cheese is the everyday price."
+    }
+  ]
+}

@@ -11,11 +11,11 @@ Two different holes: **in Drive but not in the portal**, vs **not in Drive at al
 |---|---|---|
 | Liquor / beer **guide + this week's order** | `CTAP LIQUOR _ BEER ORDERING SHEET BLANK` (modified 2026-08-23) | Filled. **Buy seat is live** — names, par, qty, category totals. Unit prices stay in Drive. Combined ~**$3,173** (par-fill risk vs ~$1,400 replacement buy). |
 | Liquor par (older xlsx) | `CTAP LIQUOR PAR SHEET` copies in `CTAP BAR ORDERING DOCS` | Exists. Not the live weekly sheet. |
-| Menu + price move | `CTAP_Updated_Menu.docx` | Full item list + proposed prices. Not in the Sales seat. |
+| Menu + price move | `CTAP_Updated_Menu.docx` | **Wired into Sales.** Status **PROPOSED**, not in POS. Effective date blank. Tuesday Smash $11.99 stays the special; menu plate is $14.99 proposed. |
 | Weekly numbers SOP | `Community_Tap_Weekly_Numbers_Tracking_Guide.docx` | How to log daily food/beer/liquor sales vs purchases. No sheet actually filled this way. |
 | Kitchen roster template | `CTAP KITCHEN SCHEDULE` | Names only. Week **2/22–2/28/2026**. Every start/end/station blank. |
 | Driver roster template | `CTAP DRIVER SCHEDULE` | Same — names, Feb 2026, no times. |
-| Invoice photos | folder `8-16 thru 8-22` | 32 HEICs catalogued. **Not OCR'd** (Document AI secrets not in this repo). |
+| Invoice photos | folder `8-16 thru 8-22` | 32 HEICs catalogued **with Drive file IDs**. Portal chips open Drive. **Not OCR'd** (Document AI secrets not in this repo). |
 | Vendor intake template | `Fort Dodge_Vendor_Intake` (shared by Tammy) | Headers only. No vendors filled. |
 
 ## Not in this Drive at all (or blank)
@@ -47,9 +47,9 @@ Two different holes: **in Drive but not in the portal**, vs **not in Drive at al
 ## What *is* live in the owner portal
 
 - **Shift** — bar week 8/30–9/5.
-- **Sales** — 7/15–7/16/2026 Zs + the Sept 2025 weekly pattern + the 8/16–8/22 Z hole.
-- **Buy** — liquor/beer qty-to-order from the 8/23 Drive sheet. Kenzy one-tap. No unit prices in git.
-- **Invoices** — 32-photo week + invoice-sheet cadence. Totals not booked.
+- **Sales** — 7/15–7/16/2026 Zs + the Sept 2025 weekly pattern + the 8/16–8/22 Z hole + proposed menu (not in POS).
+- **Buy** — liquor/beer qty-to-order from the 8/23 Drive sheet. Kenzy one-tap. Config B1 still blank. No unit prices in git.
+- **Invoices** — 32-photo week with Drive links. Totals not booked.
 - **Calendar** — September DRAFT seat. Smash $11.99 · Thursday pizza locked. Tom food blank. Humes unsent.
 
 ## Highest-leverage drops from Myke

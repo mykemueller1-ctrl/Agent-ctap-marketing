@@ -58,6 +58,8 @@ export type BuySeed = {
   mixersOrdered: number;
   mykeInLoop: false;
   hyveePath: "kenzy_one_tap";
+  hyveeEmailSet: false;
+  sendCheckbox: false;
   cremeBruleeRow: {
     name: string;
     par: number;
@@ -115,7 +117,7 @@ export function buildBuyInsights(seed: BuySeed): BuyInsight[] {
     {
       kind: "hyvee",
       title: "Kenzy one-tap Hy-Vee. Myke is out of the loop",
-      detail: `${seed.cremeBruleeRow.name} is on the live sheet (par ${seed.cremeBruleeRow.par}, qty ${seed.cremeBruleeRow.qty} this week). She checks SEND on Config. Apps Script emails Hy-Vee from communitypizza. Do not re-send the 8/24 text order.`,
+      detail: `${seed.cremeBruleeRow.name} is on the live sheet (par ${seed.cremeBruleeRow.par}, qty ${seed.cremeBruleeRow.qty} this week). Config B1 Hy-Vee email is ${seed.hyveeEmailSet ? "set" : "still blank"}. SEND checkbox is ${seed.sendCheckbox ? "on" : "off"}. She checks SEND after B1 is filled. Do not re-send the 8/24 text order.`,
     },
     {
       kind: "send",
