@@ -5,6 +5,7 @@ export default defineConfig({
     include: [
       "sync/Never-86d/server/integrations/evidence/**/*.test.ts",
       "sync/Never-86d/server/calendar/**/*.test.ts",
+      "sync/Never-86d/server/handbook/**/*.test.ts",
     ],
     environment: "node",
   },
