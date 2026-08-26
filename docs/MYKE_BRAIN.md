@@ -7,6 +7,7 @@ This is the operating loop. Agents execute it. Humans only approve sends.
 **Mailbox:** `communitypizza2026@gmail.com`  
 **MCP brain:** `https://www.never86.ai/api/mcp` → `get_operator_system`  
 **Public wedge:** https://www.never86.ai/audit  
+**Lab:** Community Lab (`docs/ctap-intake/COMMUNITY_LAB.md`) — store overlay on Never 86'd. Kenzy front, Tom back, Myke owner.  
 **People (locked 8/24, operator confirmed):** Kenzy Thompson (wife, **bar FOH manager** — bar orders / beer + liquor, drink specials, staffing out front) · Tom Dorothy (**BOH manager** — same job in back: food orders, kitchen specials, BOH staffing). Karlee and Ashley are not on the floor.  
 **Logic doc:** `docs/ctap-intake/CTAP_OPERATOR_LOGIC.md` (paste into Google Docs on communitypizza — Drive write is 403 from this agent)
 
