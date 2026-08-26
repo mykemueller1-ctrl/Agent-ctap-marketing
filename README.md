@@ -23,7 +23,7 @@ npm run demo     # PDQ Z-report fixture (7/16)
 
 | Seat | Status |
 |---|---|
-| Shift | Bar week 8/30–9/5 live. Kitchen + drivers = Feb templates, no times |
+| Shift | Paper week 8/30–9/5 live. Karlee/Ashley off. Kitchen + drivers = Feb templates, no times |
 | Sales | 7/15–7/16 Zs + Sept 2025 week. Aug 16–22 Z hole. Menu move PROPOSED, not POS |
 | Buy | Kenzy one-tap. Config B1 blank. Send volume, hold qty-1. No unit prices in git |
 | Invoices | 32 HEICs with Drive links. Not OCR'd |
