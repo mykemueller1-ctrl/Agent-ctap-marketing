@@ -12,13 +12,17 @@ const fixture = readFileSync(
   "utf8"
 );
 
-describe("parseWideScheduleCsv — CTAP bar week from Drive", () => {
-  it("reads the posted 8/30–9/5 week", () => {
+describe("parseWideScheduleCsv — posted paper week 8/30–9/5", () => {
+  it("reads the paper roster and keeps Karlee/Ashley off", () => {
     const parsed = parseWideScheduleCsv(fixture, "Bar Crew");
     expect(parsed.weekStart).toBe("2026-08-30");
     expect(parsed.weekEnd).toBe("2026-09-05");
     expect(parsed.employees).toContain("Mychael Mueller");
-    expect(parsed.employees).toContain("Ashley Holding");
+    expect(parsed.employees).toContain("Kenzy Thompson");
+    expect(parsed.employees).toContain("Araya");
+    expect(parsed.employees).toContain("Sydney");
+    expect(parsed.employees).not.toContain("Ashley Holding");
+    expect(parsed.employees).not.toContain("Karlee Sturtz");
     expect(parsed.dates).toHaveLength(7);
   });
 
@@ -30,32 +34,34 @@ describe("parseWideScheduleCsv — CTAP bar week from Drive", () => {
     expect(mykeSun?.flags.opens).toBe(true);
     expect(mykeSun?.start).toBe("07:00");
     expect(mykeSun?.end).toBe("08:00");
-    expect(mykeSun?.station).toBe("BAR SIDE");
+    expect(mykeSun?.station).toBe("FOH");
 
     const jessicaSun = parsed.assignments.find(
       a => a.employee === "Jessica Gailey" && a.date === "2026-08-30"
     );
     expect(jessicaSun?.flags.requestedOff).toBe(true);
 
-    const kenzyThu = parsed.assignments.find(
-      a => a.employee === "Kenzy Thompson" && a.date === "2026-09-03"
+    const kenzySat = parsed.assignments.find(
+      a => a.employee === "Kenzy Thompson" && a.date === "2026-09-05"
     );
-    expect(kenzyThu?.hours).toBe(9);
-
-    const ashleyTue = parsed.assignments.find(
-      a => a.employee === "Ashley Holding" && a.date === "2026-09-01"
-    );
-    expect(ashleyTue?.flags.closes).toBe(false);
-    expect(ashleyTue?.end).toBe("22:00");
+    expect(kenzySat?.hours).toBe(7);
+    expect(kenzySat?.station).toBe("BAR SIDE");
 
     const kenzyFri = parsed.assignments.find(
       a => a.employee === "Kenzy Thompson" && a.date === "2026-09-04"
     );
     expect(kenzyFri?.hours).toBe(8);
     expect(kenzyFri?.end).toBe("24:00");
+    expect(kenzyFri?.flags.closes).toBe(true);
+
+    expect(
+      parsed.assignments.some(
+        a => a.employee === "Jessica Gailey" && a.date === "2026-09-04"
+      )
+    ).toBe(false);
   });
 
-  it("flags Monday as a coverage hole and Sunday RO", () => {
+  it("flags Monday pizza-side hole and Sunday RO", () => {
     const insights = buildInsights(parseWideScheduleCsv(fixture));
     expect(
       insights.some(
@@ -64,12 +70,12 @@ describe("parseWideScheduleCsv — CTAP bar week from Drive", () => {
     ).toBe(true);
     expect(
       insights.some(
-        i => i.kind === "thin-day" && i.date === "2026-08-31"
+        i => i.kind === "requested-off" && i.date === "2026-08-30" && /Jessica/i.test(i.title)
       )
     ).toBe(true);
     expect(
       insights.some(
-        i => i.kind === "requested-off" && i.date === "2026-08-30" && /Jessica/i.test(i.title)
+        i => i.kind === "requested-off" && i.date === "2026-09-05" && /Sydney/i.test(i.title)
       )
     ).toBe(true);
   });

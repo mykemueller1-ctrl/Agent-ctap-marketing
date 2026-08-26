@@ -10,7 +10,7 @@ export type CtapRole = {
 export const KENZY: CtapRole = {
   id: "kenzy",
   name: "Kenzy",
-  title: "Bar",
+  title: "Out front",
   side: "bar",
 };
 

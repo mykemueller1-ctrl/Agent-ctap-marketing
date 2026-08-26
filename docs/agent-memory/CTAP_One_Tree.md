@@ -26,7 +26,7 @@ This is the working copy. Split-chat draft PRs are leftovers. Form new work **in
 
 ## Live owner seats
 
-1. **Shift** — bar week Sun 8/30–Sat 9/5 from Drive.
+1. **Shift** — posted paper week Sun 8/30–Sat 9/5. Drive Google Sheet is stale (Karlee/Ashley).
 2. **Sales** — 7/15–7/16/2026 Zs + Sept 2025 weekly folder. No Aug 16–22 Zs in Drive.
 3. **Buy** — liquor/beer qty-to-order from the 8/23 Drive sheet. **Kenzy one-tap Hy-Vee. Myke out.** Config B1 Hy-Vee email still blank, SEND off. Crème Brûlée row on live sheet (par 3, qty 0).
 4. **Invoices** — 32 HEICs in `8-16 thru 8-22` with Drive file IDs. Each chip opens the photo. Not OCR'd.

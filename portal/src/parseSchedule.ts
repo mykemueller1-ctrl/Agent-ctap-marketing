@@ -76,7 +76,7 @@ function parseClock(raw: string, role: "start" | "end"): {
       requestedOff: false,
     };
   }
-  if (value.toUpperCase() === "RO") {
+  if (value.toUpperCase() === "RO" || value.toUpperCase() === "R/O") {
     return {
       clock: null,
       opens: false,
@@ -103,7 +103,7 @@ function parseClock(raw: string, role: "start" | "end"): {
       requestedOff: false,
     };
   }
-  if (value.toLowerCase() === "close") {
+  if (value.toLowerCase() === "close" || value.toUpperCase() === "CL") {
     return {
       clock: role === "end" ? CLOSE_CLOCK : null,
       opens: false,

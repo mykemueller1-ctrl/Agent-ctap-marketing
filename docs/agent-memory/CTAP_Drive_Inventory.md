@@ -8,7 +8,7 @@
 
 | Kind | Drive title | How the portal uses it |
 |---|---|---|
-| Bar weekly schedule | `CTAP BAR SCHEDULE X1 WEEK` | Seeded as `portal/public/data/ctap-bar-schedule.csv` (posted week **Sun 8/30–Sat 9/5/2026**) |
+| Bar weekly schedule | `CTAP BAR SCHEDULE X1 WEEK` | Stale Drive sheet (still has Karlee/Ashley). Live Shift seat is the **posted paper week** in `portal/public/data/ctap-bar-schedule.csv` |
 | Bar schedule (older) | `CTAP BAR SCHEDULE` | Same wide CSV shape; parser covers it |
 | How operators post a week | `HOW TO INPUT WEEKLY SCHEDULES` | Tokens: Open / OPEN (first cut) / Close / RO; departments Bar Crew vs Kitchen; Quick Assign |
 | Kitchen / drivers | `CTAP KITCHEN SCHEDULE`, `CTAP DRIVER SCHEDULE` | Same template, not filled for this week — seats stay Bar-first |
@@ -24,7 +24,7 @@ Honest gap list (liquor guide, food order, kitchen/driver, Zs, Gmail): `docs/age
 
 ## Shift logic we inherited from Drive (not 7shifts)
 
-Ashley / Karlee still build the week in a Google Sheet, download CSV, upload into Never 86'd. Paper tokens:
+Live week is the posted paper grid, not the Drive Google Sheet. Karlee and Ashley are gone. Paper tokens:
 
 - **Open** — starts at open
 - **OPEN** — first person cut when it slows ("O" on paper)
