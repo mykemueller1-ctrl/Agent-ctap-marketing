@@ -7,7 +7,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "portal": "vite --config portal/vite.config.ts --host 0.0.0.0 --port 5173",
-    "build": "vite build --config portal/vite.config.ts",
+    "build": "vite build --config portal/vite.config.ts && cp portal/dist/index.html portal/dist/404.html && touch portal/dist/.nojekyll",
     "preview": "vite preview --config portal/vite.config.ts --host 0.0.0.0 --port 5173",
     "demo": "tsx scripts/demo-pdq-parse.ts",
     "nightly": "tsx scripts/nightly-loop.ts"

@@ -706,14 +706,14 @@ function isoToSlash(iso: string): string {
 async function boot(): Promise<void> {
   const [barCsv, kitchenCsv, driverCsv, invoiceJson, salesJson, buyJson, calendarJson, menuJson] =
     await Promise.all([
-      fetch("/data/ctap-bar-schedule.csv").then(r => r.text()),
-      fetch("/data/ctap-kitchen-schedule.csv").then(r => r.text()),
-      fetch("/data/ctap-driver-schedule.csv").then(r => r.text()),
-      fetch("/data/ctap-invoice-week.json").then(r => r.json() as Promise<InvoiceWeekSeed>),
-      fetch("/data/ctap-sales.json").then(r => r.json() as Promise<SalesSeed>),
-      fetch("/data/ctap-buy.json").then(r => r.json() as Promise<BuySeed>),
-      fetch("/data/ctap-calendar.json").then(r => r.json() as Promise<CalendarSeed>),
-      fetch("/data/ctap-menu.json").then(r => r.json() as Promise<MenuSeed>),
+      fetch("./data/ctap-bar-schedule.csv").then(r => r.text()),
+      fetch("./data/ctap-kitchen-schedule.csv").then(r => r.text()),
+      fetch("./data/ctap-driver-schedule.csv").then(r => r.text()),
+      fetch("./data/ctap-invoice-week.json").then(r => r.json() as Promise<InvoiceWeekSeed>),
+      fetch("./data/ctap-sales.json").then(r => r.json() as Promise<SalesSeed>),
+      fetch("./data/ctap-buy.json").then(r => r.json() as Promise<BuySeed>),
+      fetch("./data/ctap-calendar.json").then(r => r.json() as Promise<CalendarSeed>),
+      fetch("./data/ctap-menu.json").then(r => r.json() as Promise<MenuSeed>),
     ]);
   barWeek = parseWideScheduleCsv(barCsv, "Bar Crew");
   kitchenWeek = parseWideScheduleCsv(kitchenCsv, "Kitchen");
