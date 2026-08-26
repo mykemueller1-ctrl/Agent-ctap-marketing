@@ -6,8 +6,10 @@
  * Agents route leaks to a person + role. They do not invent a second brand.
  *
  * LOCKED managers: operator confirmed Mon Aug 24, 2026.
- * Crew names from PDQ Z-report cashier lines (Sep–Oct 2025) are ESTIMATED
- * until the operator confirms who is still on the floor.
+ * LOCKED crew presence: operator confirmed Wed Aug 26, 2026 —
+ *   Jessica Gailey, Che Lyftogt, Gavin Noore, Moe Thomas, Sally Hart, Bryson Cook.
+ * Jessica + Che PDQ job Bartender is VERIFIED.
+ * Gavin / Moe / Sally / Bryson job titles remain ESTIMATED from old PDQ cashier lines.
  */
 
 export const COMMUNITY_LAB = {
@@ -52,9 +54,13 @@ export type LabPerson = {
   name: string;
   roleId: string;
   status: FloorStatus;
+  /** Presence on/off the floor. */
   sourceTag: SourceTag;
+  /** Job title confidence. Presence can be verified while role is still estimated. */
+  roleSourceTag: SourceTag;
   notes: string;
   email?: string | null;
+  confirmedOn?: string;
 };
 
 export const COMMUNITY_ROLES: LabRole[] = [
@@ -235,6 +241,7 @@ export const COMMUNITY_PEOPLE: LabPerson[] = [
     roleId: "owner",
     status: "owner",
     sourceTag: "VERIFIED",
+    roleSourceTag: "VERIFIED",
     notes: "Owner. Not in the weekly Hy-Vee email loop.",
     email: "myke@n86.app",
   },
@@ -244,6 +251,7 @@ export const COMMUNITY_PEOPLE: LabPerson[] = [
     roleId: "foh_manager",
     status: "on_floor",
     sourceTag: "VERIFIED",
+    roleSourceTag: "VERIFIED",
     notes:
       "Wife. Bar FOH manager. Same manager job as Tom, front house. PDQ job often prints Ctap Manger.",
     email: null,
@@ -254,6 +262,7 @@ export const COMMUNITY_PEOPLE: LabPerson[] = [
     roleId: "boh_manager",
     status: "on_floor",
     sourceTag: "VERIFIED",
+    roleSourceTag: "VERIFIED",
     notes:
       "BOH manager. Same manager job as Kenzy, back house. PDQ cashier line has printed Thomas Dorothy.",
     email: null,
@@ -264,6 +273,7 @@ export const COMMUNITY_PEOPLE: LabPerson[] = [
     roleId: "foh_manager",
     status: "not_on_floor",
     sourceTag: "VERIFIED",
+    roleSourceTag: "VERIFIED",
     notes: "Not on the floor. Lease draft guarantor only.",
   },
   {
@@ -272,6 +282,7 @@ export const COMMUNITY_PEOPLE: LabPerson[] = [
     roleId: "foh_manager",
     status: "not_on_floor",
     sourceTag: "VERIFIED",
+    roleSourceTag: "VERIFIED",
     notes: "Not on the floor. Lease draft guarantor only.",
   },
   {
@@ -279,48 +290,60 @@ export const COMMUNITY_PEOPLE: LabPerson[] = [
     name: "Jessica Gailey",
     roleId: "bartender",
     status: "on_floor",
-    sourceTag: "ESTIMATED",
-    notes: "PDQ bartender / cashier, Sep 2025. Confirm still on floor.",
+    sourceTag: "VERIFIED",
+    roleSourceTag: "VERIFIED",
+    confirmedOn: "2026-08-26",
+    notes: "Operator confirmed still on floor. PDQ job Bartender.",
   },
   {
     id: "che",
     name: "Che Lyftogt",
     roleId: "bartender",
     status: "on_floor",
-    sourceTag: "ESTIMATED",
-    notes: "PDQ bartender / cashier, Sep 2025. Confirm still on floor.",
+    sourceTag: "VERIFIED",
+    roleSourceTag: "VERIFIED",
+    confirmedOn: "2026-08-26",
+    notes: "Operator confirmed still on floor. PDQ job Bartender.",
   },
   {
     id: "gavin",
     name: "Gavin Noore",
     roleId: "server",
     status: "on_floor",
-    sourceTag: "ESTIMATED",
-    notes: "PDQ cashier, Sep 2025. House not on the Z. Confirm role.",
+    sourceTag: "VERIFIED",
+    roleSourceTag: "ESTIMATED",
+    confirmedOn: "2026-08-26",
+    notes: "Operator confirmed still on floor. PDQ cashier — job title still estimated.",
   },
   {
     id: "moe",
     name: "Moe Thomas",
     roleId: "server",
     status: "on_floor",
-    sourceTag: "ESTIMATED",
-    notes: "PDQ cashier, Sep 2025. Confirm role and house.",
+    sourceTag: "VERIFIED",
+    roleSourceTag: "ESTIMATED",
+    confirmedOn: "2026-08-26",
+    notes: "Operator confirmed still on floor. PDQ cashier — job title still estimated.",
   },
   {
     id: "sally",
     name: "Sally Hart",
     roleId: "server",
     status: "on_floor",
-    sourceTag: "ESTIMATED",
-    notes: "PDQ cashier, Sep 20 2025. Confirm still on floor.",
+    sourceTag: "VERIFIED",
+    roleSourceTag: "ESTIMATED",
+    confirmedOn: "2026-08-26",
+    notes: "Operator confirmed still on floor. PDQ cashier — job title still estimated.",
   },
   {
     id: "bryson",
     name: "Bryson Cook",
     roleId: "extra",
     status: "on_floor",
-    sourceTag: "ESTIMATED",
-    notes: "PDQ cashier + payouts Sep–Oct 2025. Confirm role and house.",
+    sourceTag: "VERIFIED",
+    roleSourceTag: "ESTIMATED",
+    confirmedOn: "2026-08-26",
+    notes: "Operator confirmed still on floor. PDQ cashier + payouts — job title still estimated.",
   },
 ];
 
@@ -372,13 +395,24 @@ export function personOnFloor(): LabPerson[] {
   );
 }
 
+/** Crew on the floor, excluding Kenzy / Tom. */
+export function floorCrew(): LabPerson[] {
+  return COMMUNITY_PEOPLE.filter(
+    p =>
+      p.status === "on_floor" &&
+      p.roleId !== "foh_manager" &&
+      p.roleId !== "boh_manager"
+  );
+}
+
 export function roleById(roleId: string): LabRole | undefined {
   return COMMUNITY_ROLES.find(r => r.id === roleId);
 }
 
 /**
  * One leak → one owner. Pattern, not verdict.
- * Managers are VERIFIED. Crew routing is ESTIMATED.
+ * Managers are VERIFIED. Crew presence is VERIFIED.
+ * Action Shift still routes to Kenzy / Tom / Myke, not to crew.
  */
 export function actionOwnerForLeak(domain: LeakDomain): {
   person: LabPerson;
@@ -416,13 +450,17 @@ export function actionOwnerForLeak(domain: LeakDomain): {
   }
 }
 
+function personCardLine(p: LabPerson): string {
+  const role = roleById(p.roleId);
+  const title = role?.title ?? p.roleId;
+  if (p.roleSourceTag !== p.sourceTag) {
+    return `- ${p.name} — ${title} [presence ${p.sourceTag}, job ${p.roleSourceTag}]`;
+  }
+  return `- ${p.name} — ${title} [${p.sourceTag}]`;
+}
+
 export function communityLabCard(): string {
-  const floor = personOnFloor()
-    .map(p => {
-      const role = roleById(p.roleId);
-      return `- ${p.name} — ${role?.title ?? p.roleId} [${p.sourceTag}]`;
-    })
-    .join("\n");
+  const floor = personOnFloor().map(personCardLine).join("\n");
   return [
     `${COMMUNITY_LAB.storeName} (${COMMUNITY_LAB.id})`,
     `Public brand: ${COMMUNITY_LAB.publicBrand}. Mechanic: ${COMMUNITY_LAB.mechanic}.`,
@@ -434,5 +472,6 @@ export function communityLabCard(): string {
     "",
     "Do not put Karlee Sturtz or Ashley Holding on the floor.",
     "Kenzy = bar/front. Tom = kitchen/back. Same manager job, opposite houses.",
+    "Crew presence locked 2026-08-26. Gavin / Moe / Sally / Bryson job titles still estimated.",
   ].join("\n");
 }

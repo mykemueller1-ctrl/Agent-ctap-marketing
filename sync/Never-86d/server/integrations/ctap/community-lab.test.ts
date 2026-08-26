@@ -6,6 +6,7 @@ import {
   CTAP_PEOPLE,
   actionOwnerForLeak,
   communityLabCard,
+  floorCrew,
   personOnFloor,
 } from "./community-lab";
 
@@ -59,5 +60,35 @@ describe("Community Lab", () => {
     expect(card).toMatch(/Kenzy Thompson/);
     expect(card).toMatch(/Tom Dorothy/);
     expect(card).toMatch(/Do not put Karlee/);
+    expect(card).toMatch(/Jessica Gailey — Bartender \[VERIFIED\]/);
+    expect(card).toMatch(/Gavin Noore — Server \[presence VERIFIED, job ESTIMATED\]/);
+  });
+
+  it("locks the six crew as still on the floor (operator 2026-08-26)", () => {
+    const names = floorCrew().map(p => p.name);
+    expect(names).toEqual([
+      "Jessica Gailey",
+      "Che Lyftogt",
+      "Gavin Noore",
+      "Moe Thomas",
+      "Sally Hart",
+      "Bryson Cook",
+    ]);
+    for (const p of floorCrew()) {
+      expect(p.sourceTag).toBe("VERIFIED");
+      expect(p.confirmedOn).toBe("2026-08-26");
+      expect(p.status).toBe("on_floor");
+    }
+    const jessica = COMMUNITY_PEOPLE.find(p => p.id === "jessica");
+    const che = COMMUNITY_PEOPLE.find(p => p.id === "che");
+    expect(jessica?.roleId).toBe("bartender");
+    expect(jessica?.roleSourceTag).toBe("VERIFIED");
+    expect(che?.roleId).toBe("bartender");
+    expect(che?.roleSourceTag).toBe("VERIFIED");
+    for (const id of ["gavin", "moe", "sally", "bryson"]) {
+      expect(COMMUNITY_PEOPLE.find(p => p.id === id)?.roleSourceTag).toBe(
+        "ESTIMATED"
+      );
+    }
   });
 });
