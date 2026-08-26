@@ -1,7 +1,7 @@
 {
   "asOf": "2026-08-24",
   "mailbox": "communitypizza2026@gmail.com",
-  "nextHuman": "Mychael \"Myke\" Mueller: Unentered or $0 cash is not a shortage. Need expected cash and a matching deposit.",
+  "nextHuman": "Mychael \"Myke\" Mueller: Food and beer/liquor invoices are both missing. Cannot close cost %. That is Myke's book, not a manager duel.",
   "steps": [
     {
       "id": "gmail",
@@ -19,7 +19,7 @@
       "id": "close",
       "title": "Close looks wrong",
       "status": "hold",
-      "detail": "Mychael \"Myke\" Mueller: Unentered or $0 cash is not a shortage. Need expected cash and a matching deposit. Tom Dorothy: Food sales are on the Z. Food invoices are not. Cannot close food %. Kenzy Thompson: Beer sales are on the Z. Beer invoices are not. Cannot close beer %."
+      "detail": "Tom Dorothy: Food sales are on the Z. Food invoices are not. Cannot close food %. Kenzy Thompson: Beer sales are on the Z. Beer invoices are not. Cannot close beer %. Kenzy Thompson: Liquor sales are on the Z. Liquor invoices are not. Cannot close liquor %."
     },
     {
       "id": "buy",
@@ -54,12 +54,6 @@
   "kenzyDraftSigns": true,
   "close": [
     {
-      "kind": "missing_evidence",
-      "owner": "Mychael \"Myke\" Mueller",
-      "domain": "cash",
-      "reason": "Unentered or $0 cash is not a shortage. Need expected cash and a matching deposit."
-    },
-    {
       "kind": "cannot_close",
       "owner": "Tom Dorothy",
       "domain": "food",
@@ -82,6 +76,12 @@
       "owner": "Mychael \"Myke\" Mueller",
       "domain": "labor",
       "reason": "Labor 30.8% vs rail <28%. Pattern, not verdict."
+    },
+    {
+      "kind": "cannot_close",
+      "owner": "Mychael \"Myke\" Mueller",
+      "domain": "prime",
+      "reason": "Food and beer/liquor invoices are both missing. Cannot close cost %. That is Myke's book, not a manager duel."
     }
   ]
 }

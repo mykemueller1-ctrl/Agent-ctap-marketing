@@ -409,7 +409,12 @@ export function roleById(roleId: string): LabRole | undefined {
   return COMMUNITY_ROLES.find(r => r.id === roleId);
 }
 
-export { closeLooksWrong, closeLooksWrongCard, CLOSE_RAILS } from "./close-looks-wrong";
+export {
+  closeLooksWrong,
+  closeLooksWrongCard,
+  closeNextHuman,
+  CLOSE_RAILS,
+} from "./close-looks-wrong";
 
 /**
  * One leak → one owner. Pattern, not verdict.

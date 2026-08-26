@@ -53,6 +53,7 @@ describe("parsePdqZReportText — multiline PDQ Z-report layout", () => {
     });
     expect(parsed.voids).toEqual({ qty: 0, amount: "0.00" });
     expect(parsed.cash.expectedCash).toBe("1600.93");
+    expect(parsed.cash.actualDeposit).toBe("1600.00");
     expect(parsed.cash.creditCards).toBe("2092.32");
     expect(parsed.cash.payOuts).toBe("212.72");
     expect(parsed.confidence).toBeGreaterThanOrEqual(0.9);
@@ -77,6 +78,8 @@ describe("parsePdqZReportText — multiline PDQ Z-report layout", () => {
     });
     expect(parsed.labor.headcount).toBe(19);
     expect(parsed.labor.total).toBe("1335.70");
+    expect(parsed.cash.expectedCash).toBe("1560.80");
+    expect(parsed.cash.actualDeposit).toBe("1530.00");
     expect(parsed.confidence).toBeGreaterThanOrEqual(0.9);
   });
 

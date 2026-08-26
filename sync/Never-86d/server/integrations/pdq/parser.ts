@@ -41,6 +41,7 @@ export type ParsedPdqZReport = {
   discounts: ParsedCountAmount & { pct?: MoneyString };
   cash: {
     expectedCash?: MoneyString;
+    actualDeposit?: MoneyString;
     creditCards?: MoneyString;
     creditCardTips?: MoneyString;
     payOuts?: MoneyString;
@@ -139,6 +140,35 @@ function sectionBetween(
     }
   }
   return rest.slice(0, Math.min(endAt, 2500));
+}
+
+/**
+ * PDQ Shift Deposit table:
+ *   Total:
+ *   $1,600.93   expected
+ *   $1,600.00   actual
+ *   ($0.93)     over/under
+ * Do not take the first money after the "Actual Deposit" header — that is
+ * still the expected column on row 1.
+ */
+function parseShiftDeposit(text: string): {
+  expectedDeposit?: MoneyString;
+  actualDeposit?: MoneyString;
+} {
+  const section = sectionBetween(text, "Shift Deposit", [
+    "Sales Summary",
+    "Transaction Breakdown",
+    "Labor Summary",
+  ]);
+  if (!section) return {};
+  const total = section.match(
+    /(?:^|\n)\s*Total:\s*(?:\n\s*)+(\(?-?\$?\d[\d,]*\.\d{2}\)?)(?:\s*(?:\n\s*)+(\(?-?\$?\d[\d,]*\.\d{2}\)?))?/i
+  );
+  if (!total) return {};
+  return {
+    expectedDeposit: money(total[1]),
+    actualDeposit: money(total[2]),
+  };
 }
 
 /**
@@ -389,6 +419,7 @@ export function parsePdqZReportText(rawText: string): ParsedPdqZReport {
         "Expected Cash",
         "Cash Due",
       ]),
+      actualDeposit: parseShiftDeposit(text).actualDeposit,
       creditCards: firstMoneyAfter(totalsBlock, [
         "Credit Cards",
         "Credit Card",

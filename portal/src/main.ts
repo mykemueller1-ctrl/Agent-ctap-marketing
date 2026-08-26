@@ -38,6 +38,7 @@ import {
   money,
   pctLabel,
   rollup,
+  type CloseSeed,
   type SalesInsight,
   type SalesSeed,
   type ZDay,
@@ -63,6 +64,7 @@ let kitchenWeek: ParsedSchedule;
 let driverWeek: ParsedSchedule;
 let invoiceWeek: InvoiceWeekSeed;
 let sales: SalesSeed;
+let closeCard: CloseSeed | null = null;
 let buy: BuySeed;
 let calendar: CalendarSeed;
 let menu: MenuSeed;
@@ -126,7 +128,7 @@ function render(): void {
     assignments: allAssignments(),
   });
   const invoiceInsights = buildInvoiceInsights(invoiceWeek, sales.invoiceWeekHasZ);
-  const salesInsights = buildSalesInsights(sales);
+  const salesInsights = buildSalesInsights(sales, closeCard);
   const menuInsights = buildMenuInsights(menu);
   const buyInsights = buildBuyInsights(buy);
   const calendarInsights = buildCalendarInsights(calendar);
@@ -156,7 +158,7 @@ function render(): void {
 
     <nav class="seats">
       ${seatButton("shift", "Seat 01", "Shift", dept === "bar" ? "Paper 8/30–9/5" : "Stale template")}
-      ${seatButton("sales", "Seat 02", "Sales", sales.invoiceWeekHasZ ? "Live" : "Z hole · menu proposed")}
+      ${seatButton("sales", "Seat 02", "Sales", closeCard ? "Morning close" : sales.invoiceWeekHasZ ? "Live" : "Z hole · menu proposed")}
       ${seatButton("buy", "Seat 03", "Buy", "Kenzy one-tap")}
       ${seatButton("invoices", "Seat 04", "Invoices", "32 Drive links")}
       ${seatButton("calendar", "Seat 05", "Calendar", "Smash $11.99 · Thu pizza")}
@@ -208,10 +210,13 @@ function heroCopy(
   }
   if (seat === "sales") {
     return {
-      kicker: "Remembered from last week — Sales",
+      kicker: closeCard
+        ? `Morning close — ${closeCard.businessDate}`
+        : "Remembered from last week — Sales",
       title: salesNext?.title ?? "Sales denominator is the Z-report.",
-      detail:
-        "Drive still has no Aug 16–22 Z-reports. Menu price move is PROPOSED, not in POS. Showing 7/15–7/16/2026 and the Sept 2025 week.",
+      detail: closeCard
+        ? `Last Z in this tree is ${closeCard.businessDate}. Drive has no PDQ after 8/24. ${closeCard.calls.find(c => c.domain === "prime")?.nightProof ?? "Same-day invoices close cost %."}`
+        : "Drive still has no Aug 16–22 Z-reports. Menu price move is PROPOSED, not in POS. Showing 7/15–7/16/2026 and the Sept 2025 week.",
     };
   }
   const week = currentWeek();
@@ -494,6 +499,16 @@ function loopStrip(): string {
     invoicePhotos: invoiceWeek.photoCount,
     gmailConnected: false,
     ocrConfigured: invoiceWeek.ocrLive,
+    closeCalls: closeCard?.calls.map(c => ({
+      kind: c.kind,
+      domain: c.domain,
+      ownerId: c.ownerId,
+      ownerName: c.owner,
+      sourceTag: "UNVERIFIED" as const,
+      reason: c.reason,
+      nightProof: c.nightProof,
+      cannot: c.cannot,
+    })),
   });
   return `<div class="loop">${report.steps
     .map(
@@ -707,7 +722,7 @@ function isoToSlash(iso: string): string {
 }
 
 async function boot(): Promise<void> {
-  const [barCsv, kitchenCsv, driverCsv, invoiceJson, salesJson, buyJson, calendarJson, menuJson] =
+  const [barCsv, kitchenCsv, driverCsv, invoiceJson, salesJson, buyJson, calendarJson, menuJson, closeJson] =
     await Promise.all([
       fetch("./data/ctap-bar-schedule.csv").then(r => r.text()),
       fetch("./data/ctap-kitchen-schedule.csv").then(r => r.text()),
@@ -717,6 +732,9 @@ async function boot(): Promise<void> {
       fetch("./data/ctap-buy.json").then(r => r.json() as Promise<BuySeed>),
       fetch("./data/ctap-calendar.json").then(r => r.json() as Promise<CalendarSeed>),
       fetch("./data/ctap-menu.json").then(r => r.json() as Promise<MenuSeed>),
+      fetch("./data/ctap-close.json").then(r =>
+        r.ok ? (r.json() as Promise<CloseSeed>) : null
+      ),
     ]);
   barWeek = parseWideScheduleCsv(barCsv, "Bar Crew");
   kitchenWeek = parseWideScheduleCsv(kitchenCsv, "Kitchen");
@@ -726,6 +744,7 @@ async function boot(): Promise<void> {
   buy = buyJson;
   calendar = calendarJson;
   menu = menuJson;
+  closeCard = closeJson;
   selectedDate = barWeek.dates[0] ?? "";
   selectedZ = sales.recentZ[0]?.date ?? "";
   render();

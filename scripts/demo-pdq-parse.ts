@@ -21,6 +21,7 @@ import {
   humesRoutingSwitchEmail,
   vendorOrderOwner,
 } from "../sync/Never-86d/server/integrations/ctap/intake";
+import { morningCloseFromText } from "../sync/Never-86d/server/integrations/ctap/morning-close";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const fixture = join(
@@ -94,11 +95,18 @@ function main(): void {
   console.log(`  to: ${switchEmail.to}`);
   console.log(`  subject: ${switchEmail.subject}`);
 
+  console.log("\n=== Morning close card ===");
+  const { artifact } = morningCloseFromText(rawText, fixture);
+  console.log(artifact.card);
+  console.log(`Next human: ${artifact.nextHuman}`);
+
   const ok =
     parsed.businessDate === "2026-07-16" &&
     parsed.grandTotal === "4645.04" &&
     parsed.needsReview === false &&
-    row?.totalQty === 168;
+    row?.totalQty === 168 &&
+    /Myke/.test(artifact.nextHuman) &&
+    parsed.cash.actualDeposit === "1600.00";
   console.log(`\nDemo self-check: ${ok ? "PASS" : "FAIL"}`);
   if (!ok) process.exit(1);
 }

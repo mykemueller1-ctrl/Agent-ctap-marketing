@@ -36,7 +36,8 @@ describe("nightly CTAP loop", () => {
     expect(report.steps.find(s => s.id === "buy")?.status).toBe("ready");
     expect(report.steps.find(s => s.id === "close")?.status).toBe("hold");
     expect(report.nextHuman).not.toMatch(/Connect Gmail/i);
-    expect(report.nextHuman).toMatch(/Tom Dorothy|Kenzy Thompson|Myke/);
+    expect(report.nextHuman).toMatch(/Myke/);
+    expect(report.nextHuman).toMatch(/both missing/);
     expect(report.steps.find(s => s.id === "calendar")?.detail).toMatch(
       /Smash Burger \$11\.99/
     );

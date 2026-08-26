@@ -4,6 +4,7 @@
  */
 
 import type { CloseCall } from "../integrations/ctap/close-looks-wrong";
+import { closeNextHuman } from "../integrations/ctap/close-looks-wrong";
 
 export type LoopStatus = "ready" | "blocked" | "hold" | "sent";
 
@@ -101,10 +102,9 @@ export function buildNightlyReport(
     },
   ];
 
-  const firstClose = closeCalls[0];
   const hold = steps.find(step => step.status === "hold" && step.id !== "close");
-  const nextHuman = firstClose
-    ? `${firstClose.ownerName}: ${firstClose.reason}`
+  const nextHuman = closeCalls.length
+    ? closeNextHuman(closeCalls)
     : hold
       ? hold.detail
       : "Nothing this desk can finish. Humans only approve sends.";

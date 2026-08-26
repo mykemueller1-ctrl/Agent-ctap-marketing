@@ -5,8 +5,10 @@ import { describe, expect, it } from "vitest";
 import {
   LABOR_TARGET,
   buildSalesInsights,
+  closeInsights,
   pct,
   rollup,
+  type CloseSeed,
   type SalesSeed,
 } from "./salesWeek";
 
@@ -43,5 +45,31 @@ describe("sales seat — last week vs last Z nights", () => {
     expect(week.grandTotal).toBeCloseTo(40274.06, 2);
     expect(pct(week.labor, week.grandTotal)).toBeLessThan(0.29);
     expect(pct(week.labor, week.grandTotal)).toBeGreaterThan(0.27);
+  });
+
+  it("leads Sales with the morning close card when one exists", () => {
+    const close: CloseSeed = {
+      businessDate: "2026-07-16",
+      source: "test",
+      nextHuman:
+        'Mychael "Myke" Mueller: Food and beer/liquor invoices are both missing. Cannot close cost %. That is Myke\'s book, not a manager duel.',
+      card: "card",
+      calls: [
+        {
+          kind: "cannot_close",
+          owner: 'Mychael "Myke" Mueller',
+          ownerId: "myke",
+          domain: "prime",
+          reason: "Food and beer/liquor invoices are both missing.",
+          nightProof: "Same-day invoices.",
+          cannot: "Hand Kenzy and Tom competing close-the-% tickets for one night.",
+        },
+      ],
+    };
+    const insights = buildSalesInsights(seed, close);
+    expect(insights[0]?.title).toMatch(/Morning close 2026-07-16/);
+    expect(insights[0]?.title).toMatch(/Myke/);
+    expect(insights.some(i => i.kind === "gap")).toBe(true);
+    expect(closeInsights(null)).toEqual([]);
   });
 });

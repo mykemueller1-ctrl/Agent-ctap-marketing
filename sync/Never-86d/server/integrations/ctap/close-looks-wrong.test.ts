@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { closeLooksWrong, closeLooksWrongCard } from "./close-looks-wrong";
+import { closeLooksWrong, closeLooksWrongCard, closeNextHuman } from "./close-looks-wrong";
 
 describe("closeLooksWrong", () => {
   it("treats a missing mix line as Missing Evidence, not $0", () => {
@@ -114,6 +114,10 @@ describe("closeLooksWrong", () => {
     const food = calls.find(c => c.domain === "food" && c.kind === "cannot_close");
     expect(food?.ownerId).toBe("tom");
     expect(food?.cannot).toMatch(/sales alone/);
+    const prime = calls.find(c => c.domain === "prime" && c.kind === "cannot_close");
+    expect(prime?.ownerId).toBe("myke");
+    expect(closeNextHuman(calls)).toMatch(/Myke/);
+    expect(closeNextHuman(calls)).toMatch(/both missing/);
   });
 
   it("prints a card morning parse can paste", () => {

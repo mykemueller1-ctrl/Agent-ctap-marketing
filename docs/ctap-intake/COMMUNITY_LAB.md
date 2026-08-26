@@ -40,7 +40,7 @@ Action Shift routing in code: liquor/beer/FOH labor → Kenzy. Food/BOH labor �
 
 ## When a close looks wrong
 
-Morning Z parse uses `closeLooksWrong()` (`sync/Never-86d/server/integrations/ctap/close-looks-wrong.ts`). Logic, not clicks.
+Morning Z parse: `npm run close`. Uses `closeLooksWrong()` (`sync/Never-86d/server/integrations/ctap/close-looks-wrong.ts`). Logic, not clicks. Reads actual deposit off the Z. Missing food + beer/liquor invoices escalate to Myke, not a Kenzy/Tom duel.
 
 1. **Missing line ≠ $0.** Blank food / beer / liquor / pop / labor is Missing Evidence. Do not pad.
 2. **Blank or $0 cash is not a shortage.** Need expected cash and a matching deposit.

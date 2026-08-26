@@ -4,22 +4,18 @@
  *   npm run nightly
  *
  * Parses the last PDQ fixture, takes the Buy send/hold call, checks the
- * September library, and writes portal/public/data/ctap-nightly.json.
- * Does not send mail.
+ * September library, and writes portal/public/data/ctap-nightly.json plus
+ * ctap-close.json. Does not send mail.
  */
 import { writeFileSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { parsePdqZReportText } from "../sync/Never-86d/server/integrations/pdq/parser";
+import { morningCloseFromText } from "../sync/Never-86d/server/integrations/ctap/morning-close";
 import {
   CTAP_OPS_MAILBOX,
   CTAP_PEOPLE,
   vendorOrderOwner,
 } from "../sync/Never-86d/server/integrations/ctap/intake";
-import {
-  closeLooksWrong,
-  closeSliceFromPdq,
-} from "../sync/Never-86d/server/integrations/ctap/close-looks-wrong";
 import { kenzyHyveeEmail, liquorQtyLines } from "../sync/Never-86d/server/integrations/ctap/hyvee-one-click";
 import { DEFAULT_RECURRING_LIBRARY } from "../sync/Never-86d/server/calendar/library";
 import { parseTicketDate } from "../sync/Never-86d/server/integrations/evidence/week-window";
@@ -35,11 +31,12 @@ const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..");
 
 function main(): void {
-  const zText = readFileSync(
-    join(root, "sync/Never-86d/server/integrations/pdq/fixtures/zreport-2026-07-16.txt"),
-    "utf8"
+  const zRel = "sync/Never-86d/server/integrations/pdq/fixtures/zreport-2026-07-16.txt";
+  const zPath = join(root, zRel);
+  const { parsed, artifact, calls: closeCalls } = morningCloseFromText(
+    readFileSync(zPath, "utf8"),
+    zRel
   );
-  const parsed = parsePdqZReportText(zText);
   const laborPct = Number(parsed.labor.pct ?? 0);
 
   const buy = JSON.parse(
@@ -54,7 +51,6 @@ function main(): void {
 
   const smash = smashBurger(calendar);
   const pizza = thursdayPizza(calendar);
-  const closeCalls = closeLooksWrong(closeSliceFromPdq(parsed));
   const report = buildNightlyReport({
     pdq: {
       businessDate: parsed.businessDate ?? "unknown",
@@ -104,9 +100,9 @@ function main(): void {
     fridayBeerDate: parseTicketDate("Friday, Aug 21, 2026"),
     kenzyDraftSigns: draft.body.includes("Kenzy Thompson") && !/Myke/.test(draft.body),
     mailbox: CTAP_OPS_MAILBOX,
-    close: closeCalls.map(c => ({
+    close: artifact.calls.map(c => ({
       kind: c.kind,
-      owner: c.ownerName,
+      owner: c.owner,
       domain: c.domain,
       reason: c.reason,
     })),
@@ -114,6 +110,8 @@ function main(): void {
 
   const dest = join(root, "portal/public/data/ctap-nightly.json");
   writeFileSync(dest, `${JSON.stringify(out, null, 2)}\n`);
+  const closeDest = join(root, "portal/public/data/ctap-close.json");
+  writeFileSync(closeDest, `${JSON.stringify(artifact, null, 2)}\n`);
 
   console.log("=== Nightly CTAP loop ===");
   console.log(`Mailbox: ${out.mailbox}`);
@@ -126,6 +124,7 @@ function main(): void {
   }
   console.log(`\nNext human: ${report.nextHuman}`);
   console.log(`Wrote ${dest}`);
+  console.log(`Wrote ${closeDest}`);
 
   const ok =
     parsed.grandTotal === "4645.04" &&

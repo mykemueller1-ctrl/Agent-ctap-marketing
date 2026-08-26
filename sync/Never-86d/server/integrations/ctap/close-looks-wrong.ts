@@ -305,6 +305,26 @@ export function closeLooksWrong(slice: CloseSlice): CloseCall[] {
     });
   }
 
+  const invoiceHouses = new Set<"tom" | "kenzy">();
+  for (const c of out) {
+    if (c.kind !== "cannot_close") continue;
+    if (c.domain === "food") invoiceHouses.add("tom");
+    if (c.domain === "beer" || c.domain === "liquor") invoiceHouses.add("kenzy");
+  }
+  if (invoiceHouses.size >= 2) {
+    push({
+      kind: "cannot_close",
+      domain: "prime",
+      ownerId: "myke",
+      ownerName: ownerName("myke"),
+      sourceTag: "UNVERIFIED",
+      reason:
+        "Food and beer/liquor invoices are both missing. Cannot close cost %. That is Myke's book, not a manager duel.",
+      nightProof: "Same business date: Tom food invoices + Kenzy beer/liquor invoices.",
+      cannot: "Hand Kenzy and Tom competing close-the-% tickets for one night.",
+    });
+  }
+
   return out;
 }
 
@@ -325,7 +345,7 @@ export function closeSliceFromPdq(parsed: {
     pop: { amount?: string };
   };
   labor: { total?: string };
-  cash?: { expectedCash?: string };
+  cash?: { expectedCash?: string; actualDeposit?: string };
 }): CloseSlice {
   return {
     businessDate: parsed.businessDate ?? "unknown",
@@ -336,7 +356,7 @@ export function closeSliceFromPdq(parsed: {
     popSales: moneyToNumber(parsed.categorySales.pop.amount),
     laborDollars: moneyToNumber(parsed.labor.total),
     expectedCash: moneyToNumber(parsed.cash?.expectedCash),
-    enteredDeposit: null,
+    enteredDeposit: moneyToNumber(parsed.cash?.actualDeposit),
     foodCogs: null,
     beerCogs: null,
     liquorCogs: null,
@@ -355,4 +375,49 @@ export function closeLooksWrongCard(slice: CloseSlice): string {
         `- [${c.kind}] ${c.ownerName} · ${c.domain}: ${c.reason} Proof: ${c.nightProof} Cannot: ${c.cannot}`
     ),
   ].join("\n");
+}
+
+/** Next human is the two-house / prime call when it exists. Not a Gmail click. */
+export function closeNextHuman(calls: CloseCall[]): string {
+  if (!calls.length) {
+    return "Nothing to flag on this slice. Still pattern, not a clean bill of health.";
+  }
+  const prime = calls.find(c => c.domain === "prime");
+  const pick = prime ?? calls.find(c => c.kind === "pattern") ?? calls[0];
+  return `${pick.ownerName}: ${pick.reason}`;
+}
+
+export type CloseArtifact = {
+  businessDate: string;
+  source: string;
+  nextHuman: string;
+  card: string;
+  calls: Array<{
+    kind: CloseKind;
+    owner: string;
+    ownerId: CloseCall["ownerId"];
+    domain: CloseCall["domain"];
+    reason: string;
+    nightProof: string;
+    cannot: string;
+  }>;
+};
+
+export function toCloseArtifact(slice: CloseSlice, source: string): CloseArtifact {
+  const calls = closeLooksWrong(slice);
+  return {
+    businessDate: slice.businessDate,
+    source,
+    nextHuman: closeNextHuman(calls),
+    card: closeLooksWrongCard(slice),
+    calls: calls.map(c => ({
+      kind: c.kind,
+      owner: c.ownerName,
+      ownerId: c.ownerId,
+      domain: c.domain,
+      reason: c.reason,
+      nightProof: c.nightProof,
+      cannot: c.cannot,
+    })),
+  };
 }
