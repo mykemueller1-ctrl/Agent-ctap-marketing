@@ -1,3 +1,5 @@
+import { closeLooksWrong } from "../../sync/Never-86d/server/integrations/ctap/close-looks-wrong";
+
 export const LABOR_TARGET = 0.28;
 export const FOOD_COST_TARGET = 0.3;
 export const BEER_COST_TARGET = 0.21;
@@ -96,28 +98,32 @@ export function buildSalesInsights(seed: SalesSeed): SalesInsight[] {
   }
 
   for (const day of seed.recentZ) {
-    const laborShare = pct(day.labor, day.grandTotal);
-    if (laborShare > LABOR_TARGET) {
+    const calls = closeLooksWrong({
+      businessDate: day.date,
+      sales: day.grandTotal,
+      foodSales: day.foodSales,
+      beerSales: day.beerSales,
+      liquorSales: day.liquorSales,
+      laborDollars: day.labor,
+      expectedCash: day.expectedCash,
+      enteredDeposit: day.actualDeposit,
+      foodCogs: null,
+      beerCogs: null,
+      liquorCogs: null,
+    });
+    for (const call of calls) {
+      const kind: SalesInsight["kind"] =
+        call.domain === "cash" && call.kind === "pattern"
+          ? "cash-short"
+          : call.domain === "labor" && call.kind === "pattern"
+            ? "labor-over"
+            : call.kind === "pattern"
+              ? "pattern"
+              : "gap";
       insights.push({
-        kind: "labor-over",
-        title: `${day.label} labor ${pctLabel(day.labor, day.grandTotal)} — over the 28% target`,
-        detail: `${money(day.labor)} labor on ${money(day.grandTotal)} sales. Cost % still needs invoices; this number is from the Z alone.`,
-      });
-    } else {
-      insights.push({
-        kind: "labor-ok",
-        title: `${day.label} labor ${pctLabel(day.labor, day.grandTotal)} — under 28%`,
-        detail: `${money(day.labor)} labor on ${money(day.grandTotal)} sales.`,
-      });
-    }
-    if (
-      day.actualDeposit != null &&
-      day.expectedCash - day.actualDeposit > 5
-    ) {
-      insights.push({
-        kind: "cash-short",
-        title: `${day.label} deposit short ${money(day.expectedCash - day.actualDeposit)}`,
-        detail: `Expected ${money(day.expectedCash)}, actual ${money(day.actualDeposit)}.`,
+        kind,
+        title: `${day.label} — ${call.ownerName}: ${call.reason}`,
+        detail: `${call.nightProof} Cannot: ${call.cannot}`,
       });
     }
   }

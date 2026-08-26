@@ -16,6 +16,10 @@ import {
   CTAP_PEOPLE,
   vendorOrderOwner,
 } from "../sync/Never-86d/server/integrations/ctap/intake";
+import {
+  closeLooksWrong,
+  closeSliceFromPdq,
+} from "../sync/Never-86d/server/integrations/ctap/close-looks-wrong";
 import { kenzyHyveeEmail, liquorQtyLines } from "../sync/Never-86d/server/integrations/ctap/hyvee-one-click";
 import { DEFAULT_RECURRING_LIBRARY } from "../sync/Never-86d/server/calendar/library";
 import { parseTicketDate } from "../sync/Never-86d/server/integrations/evidence/week-window";
@@ -50,6 +54,7 @@ function main(): void {
 
   const smash = smashBurger(calendar);
   const pizza = thursdayPizza(calendar);
+  const closeCalls = closeLooksWrong(closeSliceFromPdq(parsed));
   const report = buildNightlyReport({
     pdq: {
       businessDate: parsed.businessDate ?? "unknown",
@@ -71,6 +76,7 @@ function main(): void {
     invoicePhotos: 32,
     gmailConnected: false,
     ocrConfigured: false,
+    closeCalls,
   });
 
   const draft = kenzyHyveeEmail({
@@ -98,6 +104,12 @@ function main(): void {
     fridayBeerDate: parseTicketDate("Friday, Aug 21, 2026"),
     kenzyDraftSigns: draft.body.includes("Kenzy Thompson") && !/Myke/.test(draft.body),
     mailbox: CTAP_OPS_MAILBOX,
+    close: closeCalls.map(c => ({
+      kind: c.kind,
+      owner: c.ownerName,
+      domain: c.domain,
+      reason: c.reason,
+    })),
   };
 
   const dest = join(root, "portal/public/data/ctap-nightly.json");

@@ -1,7 +1,9 @@
 /**
  * Nightly CTAP loop — what this computer can actually run tonight.
- * Gmail and Document AI stay blocked until Myke connects them on desktop.
+ * Gmail / OCR / Pages are machine-local. Do not make those the next human.
  */
+
+import type { CloseCall } from "../integrations/ctap/close-looks-wrong";
 
 export type LoopStatus = "ready" | "blocked" | "hold" | "sent";
 
@@ -24,6 +26,7 @@ export type NightlyInput = {
   invoicePhotos: number;
   gmailConnected: boolean;
   ocrConfigured: boolean;
+  closeCalls?: CloseCall[];
 };
 
 export type NightlyReport = {
@@ -37,6 +40,7 @@ export function buildNightlyReport(
   input: NightlyInput,
   asOf = "2026-08-24"
 ): NightlyReport {
+  const closeCalls = input.closeCalls ?? [];
   const steps: LoopStep[] = [
     {
       id: "gmail",
@@ -44,15 +48,34 @@ export function buildNightlyReport(
       status: input.gmailConnected ? "ready" : "blocked",
       detail: input.gmailConnected
         ? "Gmail MCP connected as communitypizza2026@gmail.com."
-        : "Gmail MCP needsAuth. Connect in Cursor Desktop as communitypizza2026@gmail.com. This VM cannot finish Google login.",
+        : "Gmail is machine-local. This desk cannot connect it. Morning parse uses the Z we already have.",
     },
     {
       id: "pdq",
       title: "Parse last PDQ Z",
       status: input.pdq ? "ready" : "blocked",
       detail: input.pdq
-        ? `${input.pdq.businessDate} grand $${input.pdq.grandTotal}, labor ${input.pdq.laborPct.toFixed(1)}%. No Aug 16–22 Zs in Drive.`
-        : "No Z fixture. Gmail is where nightly PDQs land.",
+        ? `${input.pdq.businessDate} grand $${input.pdq.grandTotal}, labor ${input.pdq.laborPct.toFixed(1)}%.`
+        : "No Z on this close. Missing Evidence, not $0 sales.",
+    },
+    {
+      id: "close",
+      title: "Close looks wrong",
+      status: closeCalls.length
+        ? closeCalls.some(c => c.kind === "pattern")
+          ? "hold"
+          : "blocked"
+        : input.pdq
+          ? "ready"
+          : "blocked",
+      detail: closeCalls.length
+        ? closeCalls
+            .slice(0, 3)
+            .map(c => `${c.ownerName}: ${c.reason}`)
+            .join(" ")
+        : input.pdq
+          ? "Nothing to flag on this slice. Still pattern, not a clean bill of health."
+          : "No Z, so no close call.",
     },
     {
       id: "buy",
@@ -74,19 +97,17 @@ export function buildNightlyReport(
       id: "invoices",
       title: "Book 8/16–8/22 photos",
       status: input.ocrConfigured ? "ready" : "blocked",
-      detail: `${input.invoicePhotos} HEICs in Drive. Document AI ${
-        input.ocrConfigured ? "is configured" : "secrets are not in this repo"
-      }.`,
+      detail: `${input.invoicePhotos} HEICs in Drive. OCR is machine-local. Cost % waits on invoices + Z for the same day.`,
     },
   ];
 
-  const gmail = steps.find(step => step.id === "gmail" && step.status === "blocked");
-  const blocked = steps.filter(step => step.status === "blocked");
-  const nextHuman = gmail
-    ? "Connect Gmail in Cursor Desktop as communitypizza2026@gmail.com — then the nightly PDQ/PFG/Humes pull can run."
-    : blocked.length
-      ? blocked[0]!.detail
-      : "No blocked steps. Humans only approve sends.";
+  const firstClose = closeCalls[0];
+  const hold = steps.find(step => step.status === "hold" && step.id !== "close");
+  const nextHuman = firstClose
+    ? `${firstClose.ownerName}: ${firstClose.reason}`
+    : hold
+      ? hold.detail
+      : "Nothing this desk can finish. Humans only approve sends.";
 
   return {
     asOf,

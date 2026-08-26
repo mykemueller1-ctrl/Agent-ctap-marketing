@@ -124,4 +124,22 @@ describe("closeLooksWrong", () => {
     expect(card).toMatch(/No sales denominator/);
     expect(card).toMatch(/Myke/);
   });
+
+  it("flags a deposit gap only when both cash numbers are on the close", () => {
+    const calls = closeLooksWrong({
+      businessDate: "2026-07-15",
+      sales: 5738.03,
+      foodSales: 3256.26,
+      beerSales: 865.5,
+      liquorSales: 583.5,
+      popSales: 400,
+      laborDollars: 1335.7,
+      expectedCash: 1560.8,
+      enteredDeposit: 1530,
+    });
+    const cash = calls.find(c => c.domain === "cash");
+    expect(cash?.kind).toBe("pattern");
+    expect(cash?.reason).toMatch(/short/);
+    expect(cash?.cannot).toMatch(/one number/);
+  });
 });

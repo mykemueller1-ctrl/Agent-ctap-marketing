@@ -1,8 +1,23 @@
 import { describe, expect, it } from "vitest";
+import { closeLooksWrong } from "../integrations/ctap/close-looks-wrong";
 import { buildNightlyReport } from "./nightly";
 
 describe("nightly CTAP loop", () => {
-  it("is ready on Buy/calendar and blocked on Gmail + OCR", () => {
+  it("leads with close-looks-wrong, not a Gmail click", () => {
+    const closeCalls = closeLooksWrong({
+      businessDate: "2026-07-16",
+      sales: 4645.04,
+      foodSales: 2789.39,
+      beerSales: 712,
+      liquorSales: 642,
+      popSales: 400,
+      laborDollars: 1429.94,
+      expectedCash: 1600.93,
+      enteredDeposit: 1600,
+      foodCogs: null,
+      beerCogs: null,
+      liquorCogs: null,
+    });
     const report = buildNightlyReport({
       pdq: { businessDate: "2026-07-16", grandTotal: "4645.04", laborPct: 30.8 },
       buy: { sendCount: 18, holdCount: 39, combined: 3172.87, mykeInLoop: false },
@@ -15,13 +30,15 @@ describe("nightly CTAP loop", () => {
       invoicePhotos: 32,
       gmailConnected: false,
       ocrConfigured: false,
+      closeCalls,
     });
     expect(report.mailbox).toBe("communitypizza2026@gmail.com");
     expect(report.steps.find(s => s.id === "buy")?.status).toBe("ready");
-    expect(report.steps.find(s => s.id === "gmail")?.status).toBe("blocked");
-    expect(report.steps.find(s => s.id === "invoices")?.status).toBe("blocked");
-    expect(report.steps.find(s => s.id === "calendar")?.status).toBe("hold");
-    expect(report.nextHuman).toMatch(/Connect Gmail/);
-    expect(report.steps.find(s => s.id === "calendar")?.detail).toMatch(/Smash Burger \$11\.99/);
+    expect(report.steps.find(s => s.id === "close")?.status).toBe("hold");
+    expect(report.nextHuman).not.toMatch(/Connect Gmail/i);
+    expect(report.nextHuman).toMatch(/Tom Dorothy|Kenzy Thompson|Myke/);
+    expect(report.steps.find(s => s.id === "calendar")?.detail).toMatch(
+      /Smash Burger \$11\.99/
+    );
   });
 });
