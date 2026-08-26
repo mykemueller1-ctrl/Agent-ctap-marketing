@@ -14,11 +14,11 @@ MCP: `https://www.never86.ai/api/mcp` → `get_operator_system` first, then this
 - Karlee Sturtz and Ashley Holding are not on the floor.
 - Floor crew still there: Jessica, Che, Gavin, Moe, Sally, Bryson (Wed 8/26).
 - Hy-Vee 8/24 sent. Humes / Sysco / PFG mailbox switches sent. Do not re-send.
-- Liquor sheet has Licor 43 Crème Brûlée + Config SEND. Script saved. Trigger still needs Google phone Yes as communitypizza.
+- Liquor sheet has Licor 43 Crème Brûlée + Config SEND. Script saved.
 
-**Not yet in this agent**
-- No PDQ Z-report in Drive after 8/24. Gmail MCP is not connected, so Tue Humes PDF cannot be confirmed from here.
-- Kenzy / Tom emails unknown. Hy-Vee Wine order-to email unknown (Config B1 empty).
+**Not in this agent**
+- Gmail and GitHub Pages are machine-local. This run cannot flip them.
+- No PDQ Z-report in Drive after 8/24 from here.
 
 ## Roles (AI-native)
 
@@ -38,6 +38,20 @@ One leak → one owner. Pattern, not verdict.
 
 Action Shift routing in code: liquor/beer/FOH labor → Kenzy. Food/BOH labor → Tom. Prime / 3P / blended labor → Myke.
 
+## When a close looks wrong
+
+Morning Z parse uses `closeLooksWrong()` (`sync/Never-86d/server/integrations/ctap/close-looks-wrong.ts`). Logic, not clicks.
+
+1. **Missing line ≠ $0.** Blank food / beer / liquor / pop / labor is Missing Evidence. Do not pad.
+2. **Blank or $0 cash is not a shortage.** Need expected cash and a matching deposit.
+3. **Cannot close a cost % on sales alone.** Z is the denominator. Invoices are the numerator. Same business date.
+4. **One rail → that house.** Food → Tom. Beer / liquor → Kenzy. Labor / prime / 3P → Myke.
+5. **Two rails or two houses → Myke.** Do not give Kenzy and Tom competing verdicts for one night.
+6. **Verbal yes does not close.** Night proof is a Z, an invoice, or a deposit — not “yeah that looks right.”
+7. **Pattern, not verdict.** One night does not rewrite the order guide or cut a body.
+
+Large Pizza already rolls into Food. Action Shift is the prior complete day, not today.
+
 ## Crew on the floor (presence locked Wed 8/26)
 
 | Person | House | Job | Job confidence |
@@ -50,12 +64,3 @@ Action Shift routing in code: liquor/beer/FOH labor → Kenzy. Food/BOH labor �
 | Bryson Cook | back | Extra | ESTIMATED from old PDQ cashier + payouts |
 
 PDQ prints **Ctap Manger** and **Thomas Dorothy**. That is Kenzy / Tom, not a third manager. Action Shift still routes leaks to Kenzy / Tom / Myke, not to crew.
-
-## What still blocks tomorrow’s finish line
-
-1. **Connect Gmail** in Cursor desktop as `communitypizza2026@gmail.com`. Without that I cannot see nightly PDQ or Tuesday Humes.
-2. Kenzy email + Tom email (or “they use communitypizza”).
-3. Hy-Vee Wine order email → Config B1.
-4. Google Yes on the phone when I retry Kenzy’s SEND trigger as communitypizza.
-
-Optional later: PDQ job titles for Gavin / Moe / Sally / Bryson. Presence is locked. Do not reopen Karlee / Ashley.

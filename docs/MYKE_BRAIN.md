@@ -11,7 +11,7 @@ This is the operating loop. Agents execute it. Humans only approve sends.
 **Public wedge:** https://www.never86.ai/audit  
 **Lab:** Community Lab (`docs/ctap-intake/COMMUNITY_LAB.md`) — store overlay on Never 86'd. Kenzy front, Tom back, Myke owner.  
 **People (managers locked 8/24; crew presence locked 8/26, operator confirmed):** Kenzy Thompson (wife, **bar FOH manager** — bar orders / beer + liquor, drink specials, staffing out front) · Tom Dorothy (**BOH manager** — same job in back: food orders, kitchen specials, BOH staffing). Karlee and Ashley are not on the floor. Floor crew still there: Jessica Gailey, Che Lyftogt (bartenders) · Gavin Noore, Moe Thomas, Sally Hart, Bryson Cook (job titles still estimated).  
-**Logic doc:** `docs/ctap-intake/CTAP_OPERATOR_LOGIC.md` (paste into Google Docs on communitypizza — Drive write is 403 from this agent)
+**Logic when a close looks wrong:** `docs/ctap-intake/COMMUNITY_LAB.md` — missing ≠ $0, cash blank ≠ shortage, one rail → Kenzy/Tom, two houses → Myke, verbal yes does not close.
 
 ---
 
