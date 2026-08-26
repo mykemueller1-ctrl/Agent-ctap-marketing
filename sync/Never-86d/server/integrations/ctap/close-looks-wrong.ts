@@ -148,7 +148,26 @@ export function closeLooksWrong(slice: CloseSlice): CloseCall[] {
   const cashBlank = missing(slice.expectedCash) || missing(slice.enteredDeposit);
   const cashZero =
     slice.expectedCash === 0 || slice.enteredDeposit === 0;
-  if (cashBlank || cashZero) {
+  const cashBothOn =
+    typeof slice.expectedCash === "number" &&
+    typeof slice.enteredDeposit === "number" &&
+    slice.expectedCash !== 0 &&
+    slice.enteredDeposit !== 0;
+  if (cashBothOn) {
+    const delta = slice.expectedCash! - slice.enteredDeposit!;
+    if (Math.abs(delta) > 5) {
+      push({
+        kind: "pattern",
+        domain: "cash",
+        ownerId: "myke",
+        ownerName: ownerName("myke"),
+        sourceTag: "ESTIMATED",
+        reason: `Deposit ${delta > 0 ? "short" : "over"} $${Math.abs(Math.round(delta * 100) / 100)} vs expected cash. Pattern, not till theft.`,
+        nightProof: "Expected cash from the Z and the deposit record for that day.",
+        cannot: "Call it a shortage from one number. Need both.",
+      });
+    }
+  } else if (cashBlank || cashZero) {
     push({
       kind: "missing_evidence",
       domain: "cash",
@@ -287,6 +306,41 @@ export function closeLooksWrong(slice: CloseSlice): CloseCall[] {
   }
 
   return out;
+}
+
+export function moneyToNumber(raw?: string | null): number | null {
+  if (raw == null || raw === "") return null;
+  const n = Number(String(raw).replace(/[$,()\s]/g, ""));
+  return Number.isFinite(n) ? n : null;
+}
+
+/** Map a parsed PDQ Z onto a close slice. Invoices are not on the Z. */
+export function closeSliceFromPdq(parsed: {
+  businessDate?: string;
+  grandTotal?: string;
+  categorySales: {
+    food: { amount?: string };
+    beer: { amount?: string };
+    liquor: { amount?: string };
+    pop: { amount?: string };
+  };
+  labor: { total?: string };
+  cash?: { expectedCash?: string };
+}): CloseSlice {
+  return {
+    businessDate: parsed.businessDate ?? "unknown",
+    sales: moneyToNumber(parsed.grandTotal),
+    foodSales: moneyToNumber(parsed.categorySales.food.amount),
+    beerSales: moneyToNumber(parsed.categorySales.beer.amount),
+    liquorSales: moneyToNumber(parsed.categorySales.liquor.amount),
+    popSales: moneyToNumber(parsed.categorySales.pop.amount),
+    laborDollars: moneyToNumber(parsed.labor.total),
+    expectedCash: moneyToNumber(parsed.cash?.expectedCash),
+    enteredDeposit: null,
+    foodCogs: null,
+    beerCogs: null,
+    liquorCogs: null,
+  };
 }
 
 export function closeLooksWrongCard(slice: CloseSlice): string {
