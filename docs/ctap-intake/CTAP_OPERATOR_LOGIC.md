@@ -16,7 +16,6 @@ Same manager job, two houses. Locked — operator confirmed Mon Aug 24, 2026. Do
 - **Kenzy Thompson** — wife, **bar FOH manager**. Front of house: **bar orders** (beer + liquor), **drink specials**, **staffing out front**. One-tap Hy-Vee. Myke out of the liquor email loop.
 - **Tom Dorothy** — **BOH manager**. Same job in back: **food vendor orders** (Sysco, PFG, Northern Lights, Sawyer), **kitchen specials**, **staffing BOH**.
 - Karlee Sturtz and Ashley Holding — **not on the floor.**
-- Canonical role book + Action Shift owners: `docs/ctap-intake/COMMUNITY_LAB.md`
 
 ## Rails (do not blend beer + liquor)
 - Food cost under 30% of food sales

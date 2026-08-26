@@ -18,6 +18,11 @@ export const CTAP_HUMES_MAILBOX_SWITCH = {
   to: "accountspayable@humesdist.com",
 } as const;
 
+/**
+ * Living-lab people. Source of truth is Community Lab.
+ * Karlee Sturtz and Ashley Holding are not on the floor.
+ * Crew presence locked Wed Aug 26, 2026.
+ */
 export { CTAP_PEOPLE } from "./community-lab";
 
 export type CtapVendorCadence = {

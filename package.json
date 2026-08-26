@@ -2,16 +2,21 @@
   "name": "agent-ctap-marketing",
   "private": true,
   "type": "module",
-  "description": "Myke's CTAP / Never 86'd ops brain: PDQ, photo invoices, mailbox routing, hunter bots. sync/Never-86d is a cherry-pick source for the private Never-86d repo.",
+  "description": "One tree for Community Tap & Pizza / Never 86'd: owner portal, PDQ, photo invoices, mailbox routing, calendar, hunter bots.",
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest",
-    "demo": "tsx scripts/demo-pdq-parse.ts"
+    "portal": "vite --config portal/vite.config.ts --host 0.0.0.0 --port 5173",
+    "build": "vite build --config portal/vite.config.ts",
+    "preview": "vite preview --config portal/vite.config.ts --host 0.0.0.0 --port 5173",
+    "demo": "tsx scripts/demo-pdq-parse.ts",
+    "nightly": "tsx scripts/nightly-loop.ts"
   },
   "devDependencies": {
     "@types/node": "^24.7.0",
     "tsx": "^4.19.2",
     "typescript": "5.9.3",
+    "vite": "^6.3.5",
     "vitest": "^2.1.4"
   }
 }

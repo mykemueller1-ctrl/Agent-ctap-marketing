@@ -47,6 +47,8 @@ export default defineConfig({
   test: {
     include: [
       "sync/**/*.test.ts",
+      "portal/src/**/*.test.ts",
+      "docs/gtm/hunter-bots/**/*.test.mjs",
     ],
     environment: "node",
   },

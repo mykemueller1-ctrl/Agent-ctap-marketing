@@ -16,8 +16,10 @@ import {
 } from "../sync/Never-86d/server/integrations/pdq/parser";
 import {
   CTAP_OPS_MAILBOX,
+  CTAP_PEOPLE,
   CTAP_VENDOR_CADENCE,
   humesRoutingSwitchEmail,
+  vendorOrderOwner,
 } from "../sync/Never-86d/server/integrations/ctap/intake";
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -83,6 +85,9 @@ function main(): void {
   console.log(`Ops mailbox: ${CTAP_OPS_MAILBOX}`);
   console.log(
     `Vendors tracked: ${CTAP_VENDOR_CADENCE.map(v => v.vendorKey).join(", ")}`
+  );
+  console.log(
+    `FOH ${CTAP_PEOPLE.foh.name} · BOH ${CTAP_PEOPLE.boh.name} · Hy-Vee owner ${vendorOrderOwner("hyvee_wine")}`
   );
   const switchEmail = humesRoutingSwitchEmail();
   console.log("\nHumes mailbox-switch email draft:");

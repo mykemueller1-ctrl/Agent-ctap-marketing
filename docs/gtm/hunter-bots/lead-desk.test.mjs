@@ -1,5 +1,4 @@
-import { describe, it } from "node:test";
-import assert from "node:assert/strict";
+import { describe, expect, it } from "vitest";
 import { keepForDesk, scoreLead } from "./lead-desk.mjs";
 
 describe("hunter lead desk", () => {
@@ -10,10 +9,10 @@ describe("hunter lead desk", () => {
       unitsGuess: "1",
       text: "I own a pizza shop and DoorDash commission plus ads ate the whole week. Payout doesn't match.",
     });
-    assert.equal(scored.icpFit, true);
-    assert.ok(scored.score >= 60);
-    assert.equal(scored.fileToAsk, "3p_statement");
-    assert.match(scored.hook, /never86\.ai\/audit/);
+    expect(scored.icpFit).toBe(true);
+    expect(scored.score).toBeGreaterThanOrEqual(60);
+    expect(scored.fileToAsk).toBe("3p_statement");
+    expect(scored.hook).toMatch(/never86\.ai\/audit/);
   });
 
   it("drops dasher / consumer threads", () => {
@@ -22,8 +21,8 @@ describe("hunter lead desk", () => {
       url: "https://reddit.com/r/doordash/1",
       text: "Dasher here, they cut my base pay again",
     });
-    assert.equal(scored.icpFit, false);
-    assert.equal(scored.score, 0);
+    expect(scored.icpFit).toBe(false);
+    expect(scored.score).toBe(0);
   });
 
   it("drops 40-unit enterprise noise", () => {
@@ -33,8 +32,8 @@ describe("hunter lead desk", () => {
       unitsGuess: "too-big",
       text: "Our 40 locations and DoorDash enterprise contract",
     });
-    assert.equal(scored.dropReason, "too-big");
-    assert.equal(scored.icpFit, false);
+    expect(scored.dropReason).toBe("too-big");
+    expect(scored.icpFit).toBe(false);
   });
 
   it("keepForDesk only returns ICP fits", () => {
@@ -51,7 +50,7 @@ describe("hunter lead desk", () => {
         text: "Food was cold, one star",
       },
     ]);
-    assert.equal(kept.length, 1);
-    assert.equal(kept[0].url, "u1");
+    expect(kept).toHaveLength(1);
+    expect(kept[0].url).toBe("u1");
   });
 });

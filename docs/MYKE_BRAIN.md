@@ -1,5 +1,7 @@
 # Myke brain — CTAP + Never 86'd workflows
 
+**One working tree:** `docs/agent-memory/CTAP_One_Tree.md`. Ignore the split chat PRs.
+
 This is the operating loop. Agents execute it. Humans only approve sends.
 
 **ICP:** 1–3 unit owner-operator. Floor + books. Burnt on SaaS. One file, no demo. Specimen = CTAP.
@@ -19,7 +21,7 @@ This is the operating loop. Agents execute it. Humans only approve sends.
 3. One Action Shift for the **prior complete business day** (not today).
 
 ## Every Monday morning (Iowa)
-1. **Hy-Vee Wine** — Kenzy one-tap on the liquor sheet (`docs/ctap-intake/hyvee-one-click/`). Live sheet now has Crème Brûlée row + Config SEND box + script saved. Trigger still needs Google phone Yes (2FA). **Mon 8/24 already SENT — do not re-send.**
+1. **Hy-Vee Wine** — Kenzy fills qty on the Google Sheet and checks SEND. Apps Script emails Hy-Vee from communitypizza. **Myke is out.** **Mon 8/24 SENT** (Kenzy text, 33 lines, Crème Brûlée 2) — historical, do not re-send. Live path: `docs/ctap-intake/hyvee-one-click/`. Crème Brûlée row is on the live sheet (par 3, qty 0 this week). Trigger still needs Google phone Yes (2FA).
 2. **Humes / Sysco / PFG AP** — mailbox switches **SENT 8/24 from `communitypizza2026@gmail.com`.** Do not re-send. Next: invoices land in that inbox, not `myke@n86.app`.
 3. **Gronk Hunter** — grok.com/connectors → Never86 MCP → paste `docs/gtm/hunter-bots/grok-first-hunt.md`. Keep score ≥ 60. Max 3 human-approved replies. No auto-post.
 4. Beer order path: Sunday night for **Tuesday** Humes / Fort Dodge Distributing (Kenzy).
@@ -34,7 +36,7 @@ Window this week: **Sun 8/16 – Sat 8/22** (see `week-window.ts`).
 | Northern Lights | 2–8× | **Tom** / BOH. already on communitypizza |
 | Sawyer Meats | Mon/Wed/Fri (~2–3×) | photo OCR — **Tom** / BOH |
 | Humes | Tue/Fri | email PDF — **Kenzy** / FOH beer → **must land communitypizza** |
-| Hy-Vee Wine | Sun/Mon order, Mon delivery | outbound email — **Kenzy** / FOH liquor |
+| Hy-Vee Wine | Sun/Mon order, Mon delivery | Kenzy one-tap outbound from communitypizza |
 | PDQ | nightly | email PDF |
 
 Truth: handwritten totals beat printed. Strike-throughs dropped. Out-of-year tickets out of the book.
@@ -48,6 +50,10 @@ Food <30% · Beer <21% · Liquor <20% · Labor <28%. Prime cost = COGS + labor. 
 Free 3P audit → free Action Shift (1 store / 1 login) → paid seats → Command only if they leave 1–3 units.
 
 Issue still open on never86: **#118 self-serve one-store activation**.
+
+## Recurring library (locked this week)
+- **Tuesday Smash Burger $11.99** BOGO second with side.
+- **Thursday medium pizza $17.99 all day — GOES UP Thursday, never Wednesday.**
 
 ## What this computer cannot do until MCP attaches
 - Send Gmail (Humes / Hy-Vee / PFG pull)

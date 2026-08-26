@@ -12,23 +12,24 @@ function skipItem(product: string): boolean {
   );
 }
 
-/** PFS delivery invoice: qty unit size brand sku description price extension */
+/** PFS delivery invoice: [order] [ship] unit size brand sku description price extension */
 function parsePfsLines(text: string): ParsedLineItem[] {
   const items: ParsedLineItem[] = [];
   for (const line of normalizeLines(text)) {
     const match = line.match(
-      /^(\d+(?:\.\d+)?)\s+(CS|EA|SCS|LB)\s+\S+\s+\S+\s+(\S+)\s+(.+?)\s+\$?([\d,]+\.\d{2})\s+\$?([\d,]+\.\d{2})$/i
+      /^(\d+(?:\.\d+)?)(?:\s+(\d+(?:\.\d+)?))?\s+(CS|EA|SCS|LB)\s+\S+\s+\S+\s+(\S+)\s+(.+?)\s+\$?([\d,]+\.\d{2})\s+\$?([\d,]+\.\d{2})$/i
     );
     if (!match) continue;
-    const product = match[4].replace(/\s+\d+\s+1\s+(EA|OZ).*$/i, "").trim();
+    const product = match[5].replace(/\s+\d+\s+1\s+(EA|OZ|LB|GAL).*$/i, "").trim();
     if (skipItem(product)) continue;
+    const shipQty = match[2] ?? match[1];
     items.push({
-      sku: match[3],
+      sku: match[4],
       product,
-      quantity: Number.parseFloat(match[1]),
-      unit: match[2].toUpperCase(),
-      unitPrice: money(match[5]),
-      total: money(match[6]),
+      quantity: Number.parseFloat(shipQty),
+      unit: match[3].toUpperCase(),
+      unitPrice: money(match[6]),
+      total: money(match[7]),
     });
   }
   return items;
@@ -165,6 +166,9 @@ function parseGroceryLines(text: string): ParsedLineItem[] {
   return items;
 }
 
+const WEEKDAY_NAMED_DATE =
+  /(?:Mon(?:day)?|Tue(?:sday)?|Wed(?:nesday)?|Thu(?:rsday)?|Fri(?:day)?|Sat(?:urday)?|Sun(?:day)?),?\s+((?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:t(?:ember)?)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+\d{1,2},?\s+\d{4})/i;
+
 function headerFields(text: string) {
   return {
     invoiceNumber: first(
@@ -176,13 +180,15 @@ function headerFields(text: string) {
     ),
     businessDate: first(
       [
+        WEEKDAY_NAMED_DATE,
         /(?:invoice|delivery|print)?\s*date\s*:?\s*(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})/i,
         /\b(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})\b/,
       ],
       text
     ),
     continued: /continued|cont\.?\s*on page/i.test(text),
-    lastPage: /last page|page\s+\d+\s+of\s+\d+|page 1 of 1/i.test(text),
+    lastPage:
+      /last page|page\s+\d+\s+of\s+\d+|page 1 of 1|pay this amount/i.test(text),
     handwrittenTotal: money(
       first(
         [
@@ -323,9 +329,30 @@ export const pdqPayoutParser: DocumentParser = {
     return vendorMatch("pdq_payout", vendorKey, text);
   },
   parse(text, vendorKey) {
-    const amount = money(first([/amount\s*:?\s*\$?([\d,]+\.\d{2})/i], text));
+    const printed = money(first([/amount\s*:?\s*\$?([\d,]+\.\d{2})/i], text));
+    const paidOut = money(first([/\$?([\d,]+\.\d{2})\s*paid\s*out/i], text));
+    const priorPaid = money(
+      first([/\$?([\d,]+\.\d{2})\s+PAID\b(?!\s*out)/i], text)
+    );
+    const hours = first([/(\d+(?:\.\d+)?)\s*hrs?\b/i], text);
+    const rateTimes = text.match(
+      /(\d+\.\d{2})\s*[x×]\s*(\d+(?:\.\d+)?)/i
+    );
+    const amount = paidOut ?? printed;
     const account = first([/account\s*name\s*:?\s*(.+)$/im], text);
     const description = first([/description\s*:?\s*(.+)$/im], text);
+    const warnings: string[] = [];
+    if (hours && rateTimes) {
+      warnings.push(`Labor slip: ${hours} hrs × ${rateTimes[1]}`);
+    }
+    if (priorPaid) {
+      warnings.push(`Previous payout ${priorPaid} noted on slip`);
+    }
+    if (paidOut) {
+      warnings.push("Handwritten total overrides printed total");
+    }
+    const laborProduct =
+      hours && rateTimes ? `Labor ${hours} hrs × ${rateTimes[1]}` : undefined;
     return finishParse({
       parserId: "pdq-payout",
       parserVersion: "pdq-payout-v1",
@@ -333,14 +360,22 @@ export const pdqPayoutParser: DocumentParser = {
       vendorKey: detectVendorKey(text, vendorKey) ?? "pdq_payout",
       invoiceNumber: first([/account\s*number\s*:?\s*(\d+)/i], text),
       businessDate: first(
-        [/(\d{1,2}\/\d{1,2}\/\d{4})\s+\d{1,2}:\d{2}/],
+        [
+          /(\d{1,2}\/\d{1,2}\/\d{4})\s+\d{1,2}:\d{2}/,
+          /(\d{1,2}-\d{1,2}-\d{4})/,
+          /(\d{1,2}\/\d{1,2}\/\d{4})/,
+        ],
         text
       ),
       totalAmount: amount,
-      printedTotal: amount,
+      printedTotal: printed,
+      handwrittenTotal: paidOut,
       items: account
         ? [{ product: `${account}${description ? ` / ${description}` : ""}`, total: amount }]
-        : [],
+        : laborProduct
+          ? [{ product: laborProduct, total: amount }]
+          : [],
+      warnings,
       rawText: text,
     });
   },

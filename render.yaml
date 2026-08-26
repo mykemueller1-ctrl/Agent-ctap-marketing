@@ -1,0 +1,24 @@
+# Never 86'd — CTAP owner portal on Render
+#
+# Static cockpit. No server. Frozen Drive JSON in portal/public/data.
+# Apply: https://dashboard.render.com/blueprint/new?repo=https://github.com/mykemueller1-ctrl/Agent-ctap-marketing
+#
+# Render MCP in this agent can list workspaces only after Myke confirms
+# which workspace to use. Do not guess.
+
+services:
+  - type: web
+    name: ctap-owner-portal
+    runtime: static
+    plan: free
+    buildCommand: npm ci && npm run build
+    staticPublishPath: portal/dist
+    autoDeployTrigger: commit
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: DENY

@@ -1,7 +1,7 @@
 import type { VendorKey } from "./types";
 
 const FINGERPRINTS: Array<{ vendorKey: VendorKey; test: RegExp }> = [
-  { vendorKey: "pdq_payout", test: /\bpay\s*out\b/i },
+  { vendorKey: "pdq_payout", test: /\bpay\s*out\b|payee\s*sign/i },
   { vendorKey: "hyvee_wine", test: /hy-?vee\s+wine|wine\s*&\s*spirits/i },
   { vendorKey: "hyvee_grocery", test: /hy-?vee|employee owned/i },
   { vendorKey: "performance_foods", test: /performance\s+food/i },
