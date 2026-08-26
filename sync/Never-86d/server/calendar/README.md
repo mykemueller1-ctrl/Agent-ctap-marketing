@@ -36,6 +36,7 @@ Source of truth is the current payroll Mike Mueller sent to Mary Oleson (`cfmapa
 
 House SOPs (FOH, bar, kitchen, bounce, checklists) live in `sync/Never-86d/server/handbook/`.
 
+
 ## Intelligence
 
 Not just a calendar generator. `special_performance` feeds plan → execute → measure → learn → recommend (example: Apple Cider Mimosas back next September from last year's gross profit and Sunday brunch mix).

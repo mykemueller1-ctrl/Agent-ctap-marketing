@@ -1,0 +1,49 @@
+{
+  "asOf": "2026-08-24",
+  "mailbox": "communitypizza2026@gmail.com",
+  "nextHuman": "Connect Gmail in Cursor Desktop as communitypizza2026@gmail.com — then the nightly PDQ/PFG/Humes pull can run.",
+  "steps": [
+    {
+      "id": "gmail",
+      "title": "Pull PDQ / PFG / Humes from Gmail",
+      "status": "blocked",
+      "detail": "Gmail MCP needsAuth. Connect in Cursor Desktop as communitypizza2026@gmail.com. This VM cannot finish Google login."
+    },
+    {
+      "id": "pdq",
+      "title": "Parse last PDQ Z",
+      "status": "ready",
+      "detail": "2026-07-16 grand $4645.04, labor 34.0%. No Aug 16–22 Zs in Drive."
+    },
+    {
+      "id": "buy",
+      "title": "Kenzy Hy-Vee one-tap",
+      "status": "ready",
+      "detail": "Send 23 volume/keg lines, hold 34. Par-fill $3172.87 is not the send. Kenzy checks SEND on the sheet. Myke is out."
+    },
+    {
+      "id": "calendar",
+      "title": "September calendar library",
+      "status": "hold",
+      "detail": "Smash Burger $11.99. Pizza GOES UP Thursday. Drink not approved. Tom food still blank. Do not email Humes."
+    },
+    {
+      "id": "invoices",
+      "title": "Book 8/16–8/22 photos",
+      "status": "blocked",
+      "detail": "32 HEICs in Drive. Document AI secrets are not in this repo."
+    }
+  ],
+  "people": {
+    "foh": "Kenzy Thompson",
+    "boh": "Tom Dorothy",
+    "hyveeOwner": "kenzy",
+    "foodOwner": "tom"
+  },
+  "library": {
+    "smash": "11.99",
+    "pizzaDay": "thursday"
+  },
+  "fridayBeerDate": "2026-08-21",
+  "kenzyDraftSigns": true
+}

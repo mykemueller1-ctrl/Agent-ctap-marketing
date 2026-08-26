@@ -4,6 +4,7 @@ import type {
   ParsedDocument,
   ParsedLineItem,
 } from "./types";
+import { VENDOR_PARSERS } from "./vendor-parsers";
 
 function money(value: string | undefined): string | undefined {
   if (!value) return undefined;
@@ -143,7 +144,11 @@ export const zReportStubParser: DocumentParser = {
   },
 };
 
-const PARSERS: DocumentParser[] = [zReportStubParser, genericInvoiceParser];
+const PARSERS: DocumentParser[] = [
+  zReportStubParser,
+  ...VENDOR_PARSERS,
+  genericInvoiceParser,
+];
 
 export function createParserFactory(parsers: DocumentParser[] = PARSERS) {
   return {
