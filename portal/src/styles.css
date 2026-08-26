@@ -262,7 +262,8 @@ body {
 .insight.gap,
 .insight.sales-gap,
 .insight.labor-over,
-.insight.cash-short {
+.insight.cash-short,
+.insight.close {
   border-left: 3px solid var(--red);
 }
 .insight.photos,

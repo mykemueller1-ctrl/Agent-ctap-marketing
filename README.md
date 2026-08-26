@@ -16,6 +16,7 @@ npm test
 npm run portal   # owner seat at http://localhost:5173
 npm run build    # static files in portal/dist (Render)
 npm run nightly  # loop this computer can run without Gmail
+npm run close    # morning Z parse → close card (logic, not clicks)
 npm run demo     # PDQ Z-report fixture (7/16)
 ```
 

@@ -17,7 +17,7 @@ This is the operating loop. Agents execute it. Humans only approve sends.
 
 ## Every night
 1. PDQ Z-report PDF lands in Gmail/Drive.
-2. Parse with `pdq-z-report-v2`. **Large Pizza rolls into Food.**
+2. Parse with `pdq-z-report-v2`. **Large Pizza rolls into Food.** `npm run close` is the morning card.
 3. One Action Shift for the **prior complete business day** (not today).
 
 ## Every Monday morning (Iowa)

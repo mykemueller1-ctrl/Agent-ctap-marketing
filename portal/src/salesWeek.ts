@@ -1,4 +1,7 @@
-import { closeLooksWrong } from "../../sync/Never-86d/server/integrations/ctap/close-looks-wrong";
+import {
+  closeLooksWrong,
+  type CloseArtifact,
+} from "../../sync/Never-86d/server/integrations/ctap/close-looks-wrong";
 
 export const LABOR_TARGET = 0.28;
 export const FOOD_COST_TARGET = 0.3;
@@ -86,8 +89,37 @@ export function rollup(days: ZDay[]) {
   );
 }
 
-export function buildSalesInsights(seed: SalesSeed): SalesInsight[] {
-  const insights: SalesInsight[] = [];
+export type CloseSeed = CloseArtifact;
+
+export function closeInsights(close: CloseSeed | null | undefined): SalesInsight[] {
+  if (!close) return [];
+  const cash = close.calls.some(c => c.domain === "cash" && c.kind === "pattern");
+  const labor = close.calls.some(c => c.domain === "labor" && c.kind === "pattern");
+  const kind: SalesInsight["kind"] = cash
+    ? "cash-short"
+    : labor
+      ? "labor-over"
+      : close.calls.length
+        ? "gap"
+        : "pattern";
+  return [
+    {
+      kind,
+      title: `Morning close ${close.businessDate} — ${close.nextHuman}`,
+      detail:
+        close.calls
+          .slice(0, 3)
+          .map(c => `${c.owner}: ${c.reason}`)
+          .join(" ") || close.card,
+    },
+  ];
+}
+
+export function buildSalesInsights(
+  seed: SalesSeed,
+  close?: CloseSeed | null
+): SalesInsight[] {
+  const insights: SalesInsight[] = [...closeInsights(close)];
   if (!seed.invoiceWeekHasZ) {
     insights.push({
       kind: "gap",
