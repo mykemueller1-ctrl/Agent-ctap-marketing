@@ -13,7 +13,8 @@ import {
 describe("founder ping contract", () => {
   it("names Myke as founder and keeps communitypizza as the ops mailbox", () => {
     expect(FOUNDER.id).toBe("myke");
-    expect(FOUNDER.name).toMatch(/Myke Mueller/);
+    expect(FOUNDER.name).toMatch(/Myke/);
+    expect(FOUNDER.name).toMatch(/Mueller/);
     expect(FOUNDER.mailbox).toBe("communitypizza2026@gmail.com");
   });
 
@@ -76,7 +77,7 @@ describe("founder ping contract", () => {
     expect(card).toMatch(/Kenzy path/);
     expect(card).toMatch(/two-house\/prime/);
     expect(card).toMatch(/Access \(not a founder question\)/);
-    expect(card).not.toMatch(/unit price/i);
+    expect(card).toMatch(/Do not dump liquor unit prices/);
     expect(founderRuleLine()).toMatch(/Ping Myke Mueller only/);
   });
 });

@@ -2,6 +2,7 @@
   "asOf": "2026-08-24",
   "mailbox": "communitypizza2026@gmail.com",
   "nextHuman": "Mychael \"Myke\" Mueller: Food and beer/liquor invoices are both missing. Cannot close cost %. That is Myke's book, not a manager duel.",
+  "founderRule": "Agents keep working. Ping Myke Mueller only for founder judgment or a send he must approve.",
   "steps": [
     {
       "id": "gmail",
