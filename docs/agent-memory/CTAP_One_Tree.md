@@ -29,9 +29,9 @@ This is the working copy. Split-chat draft PRs are leftovers. Form new work **in
 ## Live owner seats
 
 1. **Shift** — posted paper week Sun 8/30–Sat 9/5. Drive Google Sheet is stale (Karlee/Ashley).
-2. **Sales** — Morning close card from last Z (`npm run close`). 7/15–7/16/2026 Zs + Sept 2025 weekly folder. No Aug 16–22 Zs in Drive.
+2. **Sales** — Morning close card from last parsed Z (`npm run close`). Live week **8/23–8/29**. Drive has no **8/29** Z. 7/15–7/16/2026 + Sept 2025 weekly folder are history.
 3. **Buy** — liquor/beer qty-to-order from the 8/23 Drive sheet. **Kenzy one-tap Hy-Vee. Myke out.** Config B1 Hy-Vee email still blank, SEND off. Crème Brûlée row on live sheet (par 3, qty 0).
-4. **Invoices** — 32 HEICs in `8-16 thru 8-22` with Drive file IDs. Each chip opens the photo. Not OCR'd.
+4. **Invoices** — Live book 8/23–8/29 (no folder in Drive). 32 HEICs in `8-16 thru 8-22` are **last week**. Not OCR'd.
 5. **Calendar** — September DRAFT. Smash Burger **$11.99** Tuesday. Medium pizza **GOES UP Thursday $17.99**. Tom food still blank. Humes unsent.
 
 **Sales also shows the proposed menu move** from `CTAP_Updated_Menu.docx` (not in POS). Smash plate $14.99 ≠ Tuesday BOGO $11.99.

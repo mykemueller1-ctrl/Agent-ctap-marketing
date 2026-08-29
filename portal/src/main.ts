@@ -205,7 +205,7 @@ function heroCopy(
       kicker: "Remembered from last week — Invoices",
       title: invoiceNext?.title ?? "Last week's invoice photos are in Drive.",
       detail:
-        "Food order list is the 32 HEICs. Each chip opens Drive. No Sysco/NL standing guide. Photos stay photo_ocr — Document AI is not live.",
+        "Live book is Sun 8/23–Sat 8/29. The 32 HEICs are last week (8/16–8/22). No invoice folder for this week in Drive. Photos stay photo_ocr.",
     };
   }
   if (seat === "sales") {
@@ -215,8 +215,8 @@ function heroCopy(
         : "Remembered from last week — Sales",
       title: salesNext?.title ?? "Sales denominator is the Z-report.",
       detail: closeCard
-        ? `Last Z in this tree is ${closeCard.businessDate}. Drive has no PDQ after 8/24. ${closeCard.calls.find(c => c.domain === "prime")?.nightProof ?? "Same-day invoices close cost %."}`
-        : "Drive still has no Aug 16–22 Z-reports. Menu price move is PROPOSED, not in POS. Showing 7/15–7/16/2026 and the Sept 2025 week.",
+        ? `Last parsed Z in this tree is ${closeCard.businessDate}. Today is 8/29 — Drive still has no 8/29 Z. ${closeCard.calls.find(c => c.domain === "prime")?.nightProof ?? "Same-day invoices close cost %."}`
+        : "Live week is 8/23–8/29. Drive has no 8/29 Z. Menu price move is PROPOSED, not in POS. Showing 7/15–7/16/2026 and the Sept 2025 week.",
     };
   }
   const week = currentWeek();
@@ -389,7 +389,7 @@ function salesLayout(
         ${insights.map(salesInsightCard).join("")}
         ${menuInsights.map(i => `<div class="insight ${i.kind}"><b>${i.title}</b><span>${i.detail}</span></div>`).join("")}
         <h2 style="margin-top:18px">Targets</h2>
-        <div class="meta">Labor &lt;28% of sales (from Z). Food &lt;30% · beer &lt;21% · liquor &lt;20% need invoice OCR — cannot close 8/16–8/22 yet.</div>
+        <div class="meta">Labor &lt;28% of sales (from Z). Food &lt;30% · beer &lt;21% · liquor &lt;20% need same-week invoices + the 8/29 Z. Cannot close 8/23–8/29 yet.</div>
       </aside>
       <section class="panel">
         <h2>Z nights in Drive</h2>

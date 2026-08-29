@@ -33,8 +33,8 @@ Two different holes: **in Drive but not in the portal**, vs **not in Drive at al
 - No waitstaff checklist, kitchen protocol, or "Ashley Nightly Beer & Liquor Order Guide" under this mailbox (those lived on Chase / older pulls, not here).
 
 **Sales / cost close**
-- No Z-reports for **8/16–8/22** (invoice week).
-- No Z after **7/16/2026**. Last full weekly folder is **9/14–9/20/2025**.
+- No Z-reports for the **live week 8/23–8/29**. Need the **8/29** Z. 8/16–8/22 is last week's photo book.
+- No Z after **7/16/2026** in this Drive. Last full weekly folder is **9/14–9/20/2025**.
 - No Hourly Sales, Void/Promo, or Menu Mix PDFs in this Drive right now.
 - No on-hand bottle/keg **count** (the liquor sheet is par + qty to order, not a walk).
 - No waste / comps / paper-chemicals log (the weekly numbers guide describes it; nobody is filling it).
@@ -47,7 +47,7 @@ Two different holes: **in Drive but not in the portal**, vs **not in Drive at al
 ## What *is* live in the owner portal
 
 - **Shift** — bar week 8/30–9/5.
-- **Sales** — 7/15–7/16/2026 Zs + the Sept 2025 weekly pattern + the 8/16–8/22 Z hole + proposed menu (not in POS).
+- **Sales** — live week **8/23–8/29** (no 8/29 Z in Drive) + 7/15–7/16/2026 + Sept 2025 pattern + proposed menu (not in POS).
 - **Buy** — liquor/beer qty-to-order from the 8/23 Drive sheet. Kenzy one-tap. Config B1 still blank. No unit prices in git.
 - **Invoices** — 32-photo week with Drive links. Totals not booked.
 - **Calendar** — September DRAFT seat. Smash $11.99 · Thursday pizza locked. Tom food blank. Humes unsent.
@@ -56,5 +56,5 @@ Two different holes: **in Drive but not in the portal**, vs **not in Drive at al
 
 1. Food order guide (Sysco / NL / Performance / Sawyer par + SKU) — or say "the photos *are* the list, turn OCR on."
 2. Posted **kitchen** and **driver** weeks (same CSV shape as bar).
-3. This week's **Z-reports** (Aug 16–22).
+3. This week's **Z-reports** — starting with **8/29**.
 4. Connect **Gmail** so PDQ dailies and digital vendor PDFs stop being a hole.

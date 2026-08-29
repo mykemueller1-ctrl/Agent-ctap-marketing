@@ -98,9 +98,9 @@ export function buildNightlyReport(
     },
     {
       id: "invoices",
-      title: "Book 8/16–8/22 photos",
+      title: "Book 8/23–8/29 (today 8/29)",
       status: input.ocrConfigured ? "ready" : "blocked",
-      detail: `${input.invoicePhotos} HEICs in Drive. OCR is machine-local. Cost % waits on invoices + Z for the same day.`,
+      detail: `Live week Sun 8/23–Sat 8/29. ${input.invoicePhotos} HEICs are last week (8/16–8/22). No 8/29 Z in Drive. OCR is machine-local.`,
     },
   ];
 

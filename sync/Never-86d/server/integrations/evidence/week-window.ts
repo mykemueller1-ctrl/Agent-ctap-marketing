@@ -5,11 +5,39 @@ export type DateWindow = {
   end: string;
 };
 
-/** Sunday 8/16/2026 through Saturday 8/22/2026, inclusive. */
+/** Saturday 8/29/2026 — live book is this Sun–Sat, not last week's photos. */
+export const CTAP_AS_OF = "2026-08-29";
+
+/** Prior photo drop. 32 HEICs. Not "this week." */
 export const CTAP_WEEK_2026_08_16: DateWindow = {
   start: "2026-08-16",
   end: "2026-08-22",
 };
+
+export function addDays(iso: string, days: number): string {
+  const [y, m, d] = iso.split("-").map(Number);
+  const dt = new Date(Date.UTC(y, m - 1, d + days));
+  return dt.toISOString().slice(0, 10);
+}
+
+/** Iowa week is Sunday–Saturday. */
+export function sundayOfWeek(iso: string): string {
+  const [y, m, d] = iso.split("-").map(Number);
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  dt.setUTCDate(dt.getUTCDate() - dt.getUTCDay());
+  return dt.toISOString().slice(0, 10);
+}
+
+export function weekWindowFor(iso: string): DateWindow {
+  const start = sundayOfWeek(iso);
+  return { start, end: addDays(start, 6) };
+}
+
+/** Live week: Sunday 8/23 through Saturday 8/29/2026. */
+export const CTAP_LIVE_WEEK: DateWindow = weekWindowFor(CTAP_AS_OF);
+
+/** Default book = live week. Pass CTAP_WEEK_2026_08_16 to book last week's photos. */
+export const CTAP_INVOICE_WEEK: DateWindow = CTAP_LIVE_WEEK;
 
 function pad(value: number): string {
   return String(value).padStart(2, "0");
@@ -66,7 +94,7 @@ export function isDateInWindow(
 
 export function ticketInWindow(
   businessDate: string | undefined,
-  window: DateWindow = CTAP_WEEK_2026_08_16
+  window: DateWindow = CTAP_LIVE_WEEK
 ): boolean {
   return isDateInWindow(parseTicketDate(businessDate), window);
 }
@@ -74,7 +102,7 @@ export function ticketInWindow(
 export function applyWeekWindow(
   truth: TruthDocument,
   parsed: ParsedDocument,
-  window: DateWindow = CTAP_WEEK_2026_08_16
+  window: DateWindow = CTAP_LIVE_WEEK
 ): TruthDocument {
   const iso = parseTicketDate(parsed.businessDate);
   const inWindow = isDateInWindow(iso, window);

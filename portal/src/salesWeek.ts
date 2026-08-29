@@ -125,7 +125,7 @@ export function buildSalesInsights(
       kind: "gap",
       title: `No Z-reports for ${seed.invoiceWeekStart} → ${seed.invoiceWeekEnd}`,
       detail:
-        "Last week's invoice photos are in Drive. Sales denominator is not. Drop the Aug Z PDFs the same way the Sept 2025 weekly folder was filed.",
+        "Live week is Sun 8/23–Sat 8/29. Need the 8/29 Z (and the rest of this week). 8/16–8/22 is last week's photo book, not today.",
     });
   }
 

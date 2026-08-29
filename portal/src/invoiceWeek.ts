@@ -1,5 +1,7 @@
 import {
   CTAP_INVOICE_WEEK,
+  CTAP_WEEK_2026_08_16,
+  addDays,
   ticketInWindow,
   type DateWindow,
 } from "./weekWindow";
@@ -12,6 +14,9 @@ export type InvoiceSheetRow = {
 export type InvoiceWeekSeed = {
   weekStart: string;
   weekEnd: string;
+  asOf?: string;
+  priorPhotoWeekStart?: string;
+  priorPhotoWeekEnd?: string;
   driveFolderId: string;
   driveFolderTitle: string;
   photoCount: number;
@@ -52,11 +57,7 @@ const WEEKDAYS = [
   "Saturday",
 ];
 
-export function addDays(iso: string, days: number): string {
-  const [y, m, d] = iso.split("-").map(Number);
-  const dt = new Date(Date.UTC(y, m - 1, d + days));
-  return dt.toISOString().slice(0, 10);
-}
+export { addDays };
 
 export function sheetRowsForWeek(
   weekStart: string,
@@ -118,14 +119,14 @@ export function buildInvoiceInsights(
   insights.push({
     kind: "window",
     title: `Book ${window.start} → ${window.end} only`,
-    detail: seed.outOfBook.join(" · "),
+    detail: `${seed.outOfBook.join(" · ")} Last week's photos (${seed.priorPhotoWeekStart ?? CTAP_WEEK_2026_08_16.start}–${seed.priorPhotoWeekEnd ?? CTAP_WEEK_2026_08_16.end}) stay in that book, not this one.`,
   });
   if (!salesHasZForWeek) {
     insights.push({
       kind: "sales-gap",
       title: "Cannot close this week's cost %",
       detail:
-        "Invoices (numerator) are photographed. Z-reports (sales denominator) for this week are not in Drive yet.",
+        "Live week is Sun 8/23–Sat 8/29. Drive has no 8/29 Z and no invoice folder for this week. Last week's 32 HEICs are 8/16–8/22, not today.",
     });
   }
   return insights;
@@ -134,14 +135,14 @@ export function buildInvoiceInsights(
 export function exampleTicketsBooked(window: DateWindow = CTAP_INVOICE_WEEK) {
   return {
     inWeek: [
-      ticketInWindow("8/16/2026", window),
-      ticketInWindow("8/22/2026", window),
-      ticketInWindow("Friday, Aug 21, 2026", window),
+      ticketInWindow("8/23/2026", window),
+      ticketInWindow("8/29/2026", window),
+      ticketInWindow("Friday, Aug 28, 2026", window),
     ],
     outOfBook: [
+      ticketInWindow("8/16/2026", window),
+      ticketInWindow("8/22/2026", window),
       ticketInWindow("8/11/2026", window),
-      ticketInWindow("8/12/2023", window),
-      ticketInWindow("8/17/24", window),
     ],
   };
 }

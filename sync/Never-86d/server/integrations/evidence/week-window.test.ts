@@ -12,11 +12,15 @@ import {
   SAWYER_LAYOUT,
 } from "./fixtures/layouts";
 import {
+  CTAP_AS_OF,
+  CTAP_LIVE_WEEK,
   CTAP_WEEK_2026_08_16,
   applyWeekWindow,
   parseTicketDate,
   sumBooked,
+  sundayOfWeek,
   ticketInWindow,
+  weekWindowFor,
 } from "./week-window";
 
 function truthFor(text: string, vendorKey: string) {
@@ -45,12 +49,27 @@ describe("8/16–8/22 week window", () => {
     expect(parseTicketDate("8/11/2026")).toBe("2026-08-11");
     expect(parseTicketDate("Friday, Aug 21, 2026")).toBe("2026-08-21");
     expect(parseTicketDate("Aug 21, 2026")).toBe("2026-08-21");
-    expect(ticketInWindow("08/17/2026")).toBe(true);
-    expect(ticketInWindow("08/22/2026")).toBe(true);
-    expect(ticketInWindow("08/16/2026")).toBe(true);
-    expect(ticketInWindow("8/11/2026")).toBe(false);
-    expect(ticketInWindow("8/17/24")).toBe(false);
-    expect(ticketInWindow("08/12/2023")).toBe(false);
+    expect(ticketInWindow("08/17/2026", CTAP_WEEK_2026_08_16)).toBe(true);
+    expect(ticketInWindow("08/22/2026", CTAP_WEEK_2026_08_16)).toBe(true);
+    expect(ticketInWindow("08/16/2026", CTAP_WEEK_2026_08_16)).toBe(true);
+    expect(ticketInWindow("8/11/2026", CTAP_WEEK_2026_08_16)).toBe(false);
+    expect(ticketInWindow("8/17/24", CTAP_WEEK_2026_08_16)).toBe(false);
+    expect(ticketInWindow("08/12/2023", CTAP_WEEK_2026_08_16)).toBe(false);
+  });
+
+  it("defaults the live book to the week ending Saturday 8/29", () => {
+    expect(CTAP_AS_OF).toBe("2026-08-29");
+    expect(sundayOfWeek("2026-08-29")).toBe("2026-08-23");
+    expect(weekWindowFor("2026-08-29")).toEqual({
+      start: "2026-08-23",
+      end: "2026-08-29",
+    });
+    expect(CTAP_LIVE_WEEK).toEqual({ start: "2026-08-23", end: "2026-08-29" });
+    expect(ticketInWindow("8/23/2026")).toBe(true);
+    expect(ticketInWindow("8/29/2026")).toBe(true);
+    expect(ticketInWindow("Friday, Aug 28, 2026")).toBe(true);
+    expect(ticketInWindow("8/16/2026")).toBe(false);
+    expect(ticketInWindow("8/22/2026")).toBe(false);
   });
 
   it("excludes payout/grocery before 8/16 and a 2024 meat ticket from the book", () => {

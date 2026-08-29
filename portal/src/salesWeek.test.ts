@@ -20,9 +20,10 @@ const seed = JSON.parse(
 ) as SalesSeed;
 
 describe("sales seat — last week vs last Z nights", () => {
-  it("knows 8/16–8/22 has invoice photos and no Z", () => {
+  it("knows the live week is 8/23–8/29 and Drive has no 8/29 Z", () => {
     expect(seed.invoiceWeekHasZ).toBe(false);
-    expect(seed.invoiceWeekStart).toBe("2026-08-16");
+    expect(seed.invoiceWeekStart).toBe("2026-08-23");
+    expect(seed.invoiceWeekEnd).toBe("2026-08-29");
     const insights = buildSalesInsights(seed);
     expect(insights[0]?.kind).toBe("gap");
   });

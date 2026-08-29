@@ -12,10 +12,10 @@
 | Bar schedule (older) | `CTAP BAR SCHEDULE` | Same wide CSV shape; parser covers it |
 | How operators post a week | `HOW TO INPUT WEEKLY SCHEDULES` | Tokens: Open / OPEN (first cut) / Close / RO; departments Bar Crew vs Kitchen; Quick Assign |
 | Kitchen / drivers | `CTAP KITCHEN SCHEDULE`, `CTAP DRIVER SCHEDULE` | Same template, not filled for this week — seats stay Bar-first |
-| Last-week invoice photos | folder `8-16 thru 8-22` (`1DxZBAfexSBRn1hJLRmAHl28vP_Jr2AyP`) | **Invoices** seat — 32 HEIC `IMG_6700`–`IMG_6731`, route `photo_ocr`, book 8/16–8/22 only |
+| Last-week invoice photos | folder `8-16 thru 8-22` (`1DxZBAfexSBRn1hJLRmAHl28vP_Jr2AyP`) | **Invoices** seat — 32 HEIC last week only. Live book is **8/23–8/29**. |
 | Weekly invoice SOP | `Invoice Sheet for the week` | Mon Sawyer · Tue NL + Performance · Wed Sawyer · Thu Food · Fri NL + Performance + Sawyers |
 | Last complete sales week | folder `Ctap Weekly sales 9-14-25 to 9-20-25` | **Sales** seat — pattern for a 7-day Z drop |
-| Most recent Z nights | `7-15-2026` / `7-16-2026 ZReport_Summary Community Pizza.pdf` | **Sales** seat — last real Z days (8/16–8/22 Zs are missing) |
+| Most recent Z nights | `7-15-2026` / `7-16-2026 ZReport_Summary Community Pizza.pdf` | **Sales** seat — last parsed Zs. Live week needs the **8/29** Z. |
 | Liquor / beer order | `CTAP BAR ORDERING DOCS` / `CTAP LIQUOR _ BEER ORDERING SHEET BLANK` | Next seat (**Buy**) — par vs quantity to order, over/under budget |
 | Menu | `CTAP_Updated_Menu.docx` | Pricing context for sales/food cost later |
 

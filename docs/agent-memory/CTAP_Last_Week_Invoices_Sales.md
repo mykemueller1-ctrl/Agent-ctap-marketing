@@ -1,8 +1,9 @@
 # Last week — photos, OCR chat, invoices, sales, Drive SOPs
 
 **Locked in:** 2026-08-24  
+**As of:** Saturday **2026-08-29** — live book is Sun **8/23–Sat 8/29**. This file is last week's photo drop.  
 **Owner mailbox:** `communitypizza2026@gmail.com`  
-**Week this book is about:** Sunday **2026-08-16** through Saturday **2026-08-22**.
+**Week this photo book is about:** Sunday **2026-08-16** through Saturday **2026-08-22**.
 
 This is the memory Myke pointed at: the invoice photos from the course / OCR chats, the invoice + sales chats from last week, and the SOPs that live in Drive (not in git).
 

@@ -1,6 +1,9 @@
 {
-  "weekStart": "2026-08-16",
-  "weekEnd": "2026-08-22",
+  "weekStart": "2026-08-23",
+  "weekEnd": "2026-08-29",
+  "asOf": "2026-08-29",
+  "priorPhotoWeekStart": "2026-08-16",
+  "priorPhotoWeekEnd": "2026-08-22",
   "driveFolderId": "1DxZBAfexSBRn1hJLRmAHl28vP_Jr2AyP",
   "driveFolderTitle": "8-16 thru 8-22",
   "photoCount": 32,

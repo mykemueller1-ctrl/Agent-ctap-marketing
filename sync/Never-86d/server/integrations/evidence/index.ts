@@ -55,10 +55,15 @@ export {
 } from "./synthetic-pdf";
 export { REVIEW_CONFIDENCE_FLOOR, buildTruth } from "./truth-engine";
 export {
+  CTAP_AS_OF,
+  CTAP_INVOICE_WEEK,
+  CTAP_LIVE_WEEK,
   CTAP_WEEK_2026_08_16,
   applyWeekWindow,
   parseTicketDate,
   sumBooked,
+  sundayOfWeek,
   ticketInWindow,
+  weekWindowFor,
 } from "./week-window";
 export type { DateWindow } from "./week-window";

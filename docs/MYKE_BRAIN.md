@@ -27,7 +27,7 @@ This is the operating loop. Agents execute it with standing permission (`AGENTS.
 4. Beer order path: Sunday night for **Tuesday** Humes / Fort Dodge Distributing (Kenzy).
 
 ## Vendor book (photo + email)
-Window this week: **Sun 8/16 – Sat 8/22** (see `week-window.ts`).
+Window this week: **Sun 8/23 – Sat 8/29** (today is **8/29**). Last week's photo book 8/16–8/22 stays history. See `week-window.ts`.
 
 | Vendor | Cadence | Mode |
 |---|---|---|

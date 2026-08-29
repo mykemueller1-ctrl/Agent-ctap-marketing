@@ -22,14 +22,17 @@ const seed = JSON.parse(
   )
 ) as InvoiceWeekSeed;
 
-describe("last-week invoice booking window", () => {
-  it("books 8/16–8/22 including Friday named dates, drops 8/11 and old years", () => {
-    expect(ticketInWindow("8/16/2026")).toBe(true);
-    expect(ticketInWindow("8/22/2026")).toBe(true);
-    expect(ticketInWindow("Friday, Aug 21, 2026")).toBe(true);
+describe("live invoice booking window", () => {
+  it("books Sun 8/23–Sat 8/29 and keeps last week's photos out of this book", () => {
+    expect(seed.weekStart).toBe("2026-08-23");
+    expect(seed.weekEnd).toBe("2026-08-29");
+    expect(seed.asOf).toBe("2026-08-29");
+    expect(ticketInWindow("8/23/2026")).toBe(true);
+    expect(ticketInWindow("8/29/2026")).toBe(true);
+    expect(ticketInWindow("Friday, Aug 28, 2026")).toBe(true);
+    expect(ticketInWindow("8/16/2026")).toBe(false);
+    expect(ticketInWindow("8/22/2026")).toBe(false);
     expect(ticketInWindow("8/11/2026")).toBe(false);
-    expect(ticketInWindow("8/12/2023")).toBe(false);
-    expect(ticketInWindow("8/17/24")).toBe(false);
     const sample = exampleTicketsBooked();
     expect(sample.inWeek.every(Boolean)).toBe(true);
     expect(sample.outOfBook.every(v => v === false)).toBe(true);
