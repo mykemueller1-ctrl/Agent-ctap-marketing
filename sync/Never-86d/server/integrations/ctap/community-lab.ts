@@ -480,5 +480,6 @@ export function communityLabCard(): string {
     "Do not put Karlee Sturtz or Ashley Holding on the floor.",
     "Kenzy = bar/front. Tom = kitchen/back. Same manager job, opposite houses.",
     "Crew presence locked 2026-08-26. Gavin / Moe / Sally / Bryson job titles still estimated.",
+    "Agents work without asking. Ping Myke Mueller only for founder judgment or vertical expertise.",
   ].join("\n");
 }

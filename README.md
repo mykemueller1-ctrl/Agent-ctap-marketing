@@ -4,6 +4,7 @@ Working memory for **Community Tap & Pizza** and Never 86'd **1–3 unit** intak
 
 **Start here:** `docs/agent-memory/CTAP_One_Tree.md`  
 **Daily loop:** `docs/MYKE_BRAIN.md`  
+**Agent contract:** `AGENTS.md` (skills in `.cursor/skills/`) — work without asking; ping Myke only for founder judgment.  
 **Community Lab (roles / Action Shift owners):** `docs/ctap-intake/COMMUNITY_LAB.md`
 
 `sync/Never-86d/` is a cherry-pick source for the private workers app.

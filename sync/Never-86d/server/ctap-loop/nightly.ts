@@ -5,6 +5,7 @@
 
 import type { CloseCall } from "../integrations/ctap/close-looks-wrong";
 import { closeNextHuman } from "../integrations/ctap/close-looks-wrong";
+import { founderRuleLine } from "../integrations/ctap/founder-ping";
 
 export type LoopStatus = "ready" | "blocked" | "hold" | "sent";
 
@@ -34,6 +35,7 @@ export type NightlyReport = {
   asOf: string;
   mailbox: string;
   nextHuman: string;
+  founderRule: string;
   steps: LoopStep[];
 };
 
@@ -107,12 +109,13 @@ export function buildNightlyReport(
     ? closeNextHuman(closeCalls)
     : hold
       ? hold.detail
-      : "Nothing this desk can finish. Humans only approve sends.";
+      : founderRuleLine();
 
   return {
     asOf,
     mailbox: "communitypizza2026@gmail.com",
     nextHuman,
+    founderRule: founderRuleLine(),
     steps,
   };
 }

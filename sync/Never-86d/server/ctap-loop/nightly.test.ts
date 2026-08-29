@@ -38,8 +38,27 @@ describe("nightly CTAP loop", () => {
     expect(report.nextHuman).not.toMatch(/Connect Gmail/i);
     expect(report.nextHuman).toMatch(/Myke/);
     expect(report.nextHuman).toMatch(/both missing/);
+    expect(report.founderRule).toMatch(/Ping Myke Mueller only/);
     expect(report.steps.find(s => s.id === "calendar")?.detail).toMatch(
       /Smash Burger \$11\.99/
     );
+  });
+
+  it("does not invent a human when the close is quiet — agents keep working", () => {
+    const report = buildNightlyReport({
+      pdq: { businessDate: "2026-07-16", grandTotal: "4645.04", laborPct: 30.8 },
+      buy: { sendCount: 18, holdCount: 39, combined: 3172.87, mykeInLoop: false },
+      calendar: {
+        smashPrice: "11.99",
+        pizzaDay: "Thursday",
+        drinkApproved: true,
+        foodNamed: true,
+      },
+      invoicePhotos: 32,
+      gmailConnected: true,
+      ocrConfigured: true,
+    });
+    expect(report.nextHuman).toMatch(/Ping Myke Mueller only/);
+    expect(report.nextHuman).not.toMatch(/Connect Gmail/i);
   });
 });

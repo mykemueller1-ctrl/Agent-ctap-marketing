@@ -62,6 +62,7 @@ describe("Community Lab", () => {
     expect(card).toMatch(/Do not put Karlee/);
     expect(card).toMatch(/Jessica Gailey — Bartender \[VERIFIED\]/);
     expect(card).toMatch(/Gavin Noore — Server \[presence VERIFIED, job ESTIMATED\]/);
+    expect(card).toMatch(/Ping Myke Mueller only/);
   });
 
   it("locks the six crew as still on the floor (operator 2026-08-26)", () => {

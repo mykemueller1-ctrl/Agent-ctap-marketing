@@ -7,6 +7,8 @@
 
 This is the working copy. Split-chat draft PRs are leftovers. Form new work **into this tree**.
 
+**Autonomy:** `AGENTS.md` · `.cursor/skills/` · `sync/Never-86d/server/integrations/ctap/founder-ping.ts`. Agents work without asking. Ping Myke only for human logic and vertical expertise.
+
 ## Where each chat landed
 
 | Chat / PR | What it was | Now |

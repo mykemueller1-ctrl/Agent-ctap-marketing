@@ -2,7 +2,7 @@
 
 **One working tree:** `docs/agent-memory/CTAP_One_Tree.md`. Ignore the split chat PRs.
 
-This is the operating loop. Agents execute it. Humans only approve sends.
+This is the operating loop. Agents execute it with standing permission (`AGENTS.md`, `founder-ping.ts`). Ping Myke Mueller only for founder judgment or a send he must approve. Kenzy's Hy-Vee SEND is her tap. Access holes are setup actions, not questions.
 
 **ICP:** 1–3 unit owner-operator. Floor + books. Burnt on SaaS. One file, no demo. Specimen = CTAP.
 

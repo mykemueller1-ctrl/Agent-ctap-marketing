@@ -4,7 +4,8 @@ This is the living lab. Public brand is **Never 86'd**. The mechanic is **Action
 
 Code: `sync/Never-86d/server/integrations/ctap/community-lab.ts`  
 Mailbox: `communitypizza2026@gmail.com`  
-MCP: `https://www.never86.ai/api/mcp` → `get_operator_system` first, then this overlay.
+MCP: `https://www.never86.ai/api/mcp` → `get_operator_system` first, then this overlay.  
+Autonomy: `AGENTS.md` — agents work without asking. Ping Myke only for founder judgment.
 
 ## Where we are (Wed 8/26, Iowa night)
 

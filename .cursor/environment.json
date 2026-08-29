@@ -1,0 +1,17 @@
+{
+  "name": "CTAP one tree",
+  "install": "npm ci",
+  "terminals": [
+    {
+      "name": "owner-portal",
+      "command": "npm run portal",
+      "description": "Never 86'd owner cockpit on 0.0.0.0:5173. Standing autonomy — do not ask to start it."
+    }
+  ],
+  "ports": [
+    {
+      "name": "owner-portal",
+      "port": 5173
+    }
+  ]
+}

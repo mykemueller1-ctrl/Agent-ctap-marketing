@@ -510,7 +510,7 @@ function loopStrip(): string {
       cannot: c.cannot,
     })),
   });
-  return `<div class="loop">${report.steps
+  return `<div class="loop" title="${report.founderRule}">${report.steps
     .map(
       step =>
         `<span class="${step.status}" title="${step.detail}">${step.title}</span>`
