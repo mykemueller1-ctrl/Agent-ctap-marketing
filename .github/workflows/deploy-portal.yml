@@ -7,8 +7,6 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 concurrency:
   group: pages
@@ -32,19 +30,3 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: portal/dist
           force_orphan: true
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: portal/dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    # Pages API 404s until the repo Settings → Pages source is on.
-    # Build still publishes gh-pages. Flip that switch once; this job then goes live.
-    continue-on-error: true
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
