@@ -17,5 +17,8 @@ Mailbox / Drive owner: `communitypizza2026@gmail.com`.
 
 Standing computer permission is on. Use this VM's desktop when a dashboard session exists **here**. Never commit API keys.
 
-Blueprint: https://dashboard.render.com/blueprint/new?repo=https://github.com/mykemueller1-ctrl/Agent-ctap-marketing  
+Public cockpit: GitHub Pages from `main` (`actions/deploy-pages`) plus `gh-pages` branch.  
+https://mykemueller1-ctrl.github.io/Agent-ctap-marketing/
+
+Render Blueprint if Myke wants onrender.com: https://dashboard.render.com/blueprint/new?repo=https://github.com/mykemueller1-ctrl/Agent-ctap-marketing  
 Build `npm ci && npm run build` · publish `portal/dist` · branch `main`.
