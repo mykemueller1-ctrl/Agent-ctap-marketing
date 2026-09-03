@@ -1,0 +1,53 @@
+{
+  "businessDate": "2026-07-16",
+  "source": "sync/Never-86d/server/integrations/pdq/fixtures/zreport-2026-07-16.txt",
+  "nextHuman": "Mychael \"Myke\" Mueller: Food and beer/liquor invoices are both missing. Cannot close cost %. That is Myke's book, not a manager duel.",
+  "card": "2026-07-16 — close looks wrong (5)\n- [cannot_close] Tom Dorothy · food: Food sales are on the Z. Food invoices are not. Cannot close food %. Proof: Tom's food vendor photos/PDFs for that business date. Cannot: Close food cost on sales alone.\n- [cannot_close] Kenzy Thompson · beer: Beer sales are on the Z. Beer invoices are not. Cannot close beer %. Proof: Humes PDF in communitypizza for that week. Cannot: Close beer cost on sales alone.\n- [cannot_close] Kenzy Thompson · liquor: Liquor sales are on the Z. Liquor invoices are not. Cannot close liquor %. Proof: Hy-Vee invoice / Kenzy sheet qty for that week. Cannot: Close liquor cost on sales alone.\n- [pattern] Mychael \"Myke\" Mueller · labor: Labor 30.8% vs rail <28%. Pattern, not verdict. Proof: Z labor dollars plus who was posted that night (FOH Kenzy, BOH Tom). Cannot: Cut a body from one night's %.\n- [cannot_close] Mychael \"Myke\" Mueller · prime: Food and beer/liquor invoices are both missing. Cannot close cost %. That is Myke's book, not a manager duel. Proof: Same business date: Tom food invoices + Kenzy beer/liquor invoices. Cannot: Hand Kenzy and Tom competing close-the-% tickets for one night.",
+  "calls": [
+    {
+      "kind": "cannot_close",
+      "owner": "Tom Dorothy",
+      "ownerId": "tom",
+      "domain": "food",
+      "reason": "Food sales are on the Z. Food invoices are not. Cannot close food %.",
+      "nightProof": "Tom's food vendor photos/PDFs for that business date.",
+      "cannot": "Close food cost on sales alone."
+    },
+    {
+      "kind": "cannot_close",
+      "owner": "Kenzy Thompson",
+      "ownerId": "kenzy",
+      "domain": "beer",
+      "reason": "Beer sales are on the Z. Beer invoices are not. Cannot close beer %.",
+      "nightProof": "Humes PDF in communitypizza for that week.",
+      "cannot": "Close beer cost on sales alone."
+    },
+    {
+      "kind": "cannot_close",
+      "owner": "Kenzy Thompson",
+      "ownerId": "kenzy",
+      "domain": "liquor",
+      "reason": "Liquor sales are on the Z. Liquor invoices are not. Cannot close liquor %.",
+      "nightProof": "Hy-Vee invoice / Kenzy sheet qty for that week.",
+      "cannot": "Close liquor cost on sales alone."
+    },
+    {
+      "kind": "pattern",
+      "owner": "Mychael \"Myke\" Mueller",
+      "ownerId": "myke",
+      "domain": "labor",
+      "reason": "Labor 30.8% vs rail <28%. Pattern, not verdict.",
+      "nightProof": "Z labor dollars plus who was posted that night (FOH Kenzy, BOH Tom).",
+      "cannot": "Cut a body from one night's %."
+    },
+    {
+      "kind": "cannot_close",
+      "owner": "Mychael \"Myke\" Mueller",
+      "ownerId": "myke",
+      "domain": "prime",
+      "reason": "Food and beer/liquor invoices are both missing. Cannot close cost %. That is Myke's book, not a manager duel.",
+      "nightProof": "Same business date: Tom food invoices + Kenzy beer/liquor invoices.",
+      "cannot": "Hand Kenzy and Tom competing close-the-% tickets for one night."
+    }
+  ]
+}

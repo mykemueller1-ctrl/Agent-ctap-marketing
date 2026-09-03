@@ -1,0 +1,55 @@
+{
+  "monthKey": "2026-09",
+  "monthLabel": "September 2026",
+  "status": "DRAFT",
+  "humesRule": "Only Myke can release the Humes email. Status is DRAFT. Do not send.",
+  "drink": {
+    "name": "Apple Cider Mimosas",
+    "owner": "Kenzy",
+    "approved": false
+  },
+  "food": {
+    "name": null,
+    "owner": "Tom",
+    "approved": false
+  },
+  "weekly": [
+    { "day": "Sunday", "name": "NFL / game-day" },
+    { "day": "Monday", "name": "Monday food/drink specials" },
+    {
+      "day": "Tuesday",
+      "name": "Smash Burger",
+      "price": "11.99",
+      "poster": true
+    },
+    { "day": "Wednesday", "name": "Wednesday specials" },
+    {
+      "day": "Thursday",
+      "name": "Any Medium Pizza",
+      "price": "17.99",
+      "locked": true,
+      "goesUp": true,
+      "poster": true
+    },
+    { "day": "Friday", "name": "Half-rack ribs", "price": "17.99", "poster": true },
+    { "day": "Friday", "name": "$6.99 appetizer flash", "price": "6.99" },
+    { "day": "Saturday", "name": "College football / Iowa game-day" }
+  ],
+  "events": [
+    {
+      "name": "Stadium Drive",
+      "date": "2026-09-25",
+      "status": "AWAITING_CONFIRMATION"
+    }
+  ],
+  "football": {
+    "planningOnly": true,
+    "promosCreated": false,
+    "games": [
+      {
+        "label": "NFL — Eagles vs. Cowboys — 7:00 PM",
+        "date": "2026-09-13"
+      }
+    ]
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "asOf": "2026-08-24",
+  "mailbox": "communitypizza2026@gmail.com",
+  "nextHuman": "Mychael \"Myke\" Mueller: Food and beer/liquor invoices are both missing. Cannot close cost %. That is Myke's book, not a manager duel.",
+  "founderRule": "Agents keep working. Ping Myke Mueller only for founder judgment or a send he must approve.",
+  "steps": [
+    {
+      "id": "gmail",
+      "title": "Pull PDQ / PFG / Humes from Gmail",
+      "status": "blocked",
+      "detail": "Gmail is machine-local. This desk cannot connect it. Morning parse uses the Z we already have."
+    },
+    {
+      "id": "pdq",
+      "title": "Parse last PDQ Z",
+      "status": "ready",
+      "detail": "2026-07-16 grand $4645.04, labor 34.0%."
+    },
+    {
+      "id": "close",
+      "title": "Close looks wrong",
+      "status": "hold",
+      "detail": "Tom Dorothy: Food sales are on the Z. Food invoices are not. Cannot close food %. Kenzy Thompson: Beer sales are on the Z. Beer invoices are not. Cannot close beer %. Kenzy Thompson: Liquor sales are on the Z. Liquor invoices are not. Cannot close liquor %."
+    },
+    {
+      "id": "buy",
+      "title": "Kenzy Hy-Vee one-tap",
+      "status": "ready",
+      "detail": "Send 23 volume/keg lines, hold 34. Par-fill $3172.87 is not the send. Kenzy checks SEND on the sheet. Myke is out."
+    },
+    {
+      "id": "calendar",
+      "title": "September calendar library",
+      "status": "hold",
+      "detail": "Smash Burger $11.99. Pizza GOES UP Thursday. Drink not approved. Tom food still blank. Do not email Humes."
+    },
+    {
+      "id": "invoices",
+      "title": "Book 8/23–8/29 (today 8/29)",
+      "status": "blocked",
+      "detail": "Live week Sun 8/23–Sat 8/29. 32 HEICs are last week (8/16–8/22). No 8/29 Z in Drive. OCR is machine-local."
+    }
+  ],
+  "people": {
+    "foh": "Kenzy Thompson",
+    "boh": "Tom Dorothy",
+    "hyveeOwner": "kenzy",
+    "foodOwner": "tom"
+  },
+  "library": {
+    "smash": "11.99",
+    "pizzaDay": "thursday"
+  },
+  "fridayBeerDate": "2026-08-21",
+  "kenzyDraftSigns": true,
+  "close": [
+    {
+      "kind": "cannot_close",
+      "owner": "Tom Dorothy",
+      "domain": "food",
+      "reason": "Food sales are on the Z. Food invoices are not. Cannot close food %."
+    },
+    {
+      "kind": "cannot_close",
+      "owner": "Kenzy Thompson",
+      "domain": "beer",
+      "reason": "Beer sales are on the Z. Beer invoices are not. Cannot close beer %."
+    },
+    {
+      "kind": "cannot_close",
+      "owner": "Kenzy Thompson",
+      "domain": "liquor",
+      "reason": "Liquor sales are on the Z. Liquor invoices are not. Cannot close liquor %."
+    },
+    {
+      "kind": "pattern",
+      "owner": "Mychael \"Myke\" Mueller",
+      "domain": "labor",
+      "reason": "Labor 30.8% vs rail <28%. Pattern, not verdict."
+    },
+    {
+      "kind": "cannot_close",
+      "owner": "Mychael \"Myke\" Mueller",
+      "domain": "prime",
+      "reason": "Food and beer/liquor invoices are both missing. Cannot close cost %. That is Myke's book, not a manager duel."
+    }
+  ]
+}
