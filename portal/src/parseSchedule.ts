@@ -212,8 +212,12 @@ export function parseWideScheduleCsv(
           : hoursBetween(startTok.clock, endTok.clock),
         incomplete:
           !flags.requestedOff &&
+          !flags.firstCut &&
           ((Boolean(station) && !hasTimes) ||
-            (hasTimes && (!startTok.clock || !endTok.clock) && !flags.closes && !flags.opens)),
+            (hasTimes &&
+              (!startTok.clock || !endTok.clock) &&
+              !flags.closes &&
+              !flags.opens)),
       });
     }
   }
@@ -332,7 +336,11 @@ export function buildInsights(parsed: ParsedSchedule): ShiftInsight[] {
 export function displayWindow(a: Assignment): string {
   if (a.flags.requestedOff) return "RO";
   const start = a.flags.opens && a.start === OPEN_CLOCK ? "Open" : formatClock(a.start);
-  const end = a.flags.closes && a.end === CLOSE_CLOCK ? "Close" : formatClock(a.end);
+  const end = a.flags.closes && a.end === CLOSE_CLOCK
+    ? "Close"
+    : a.flags.firstCut && !a.end
+      ? "OPEN"
+      : formatClock(a.end);
   if (!start && !end) return "—";
   return `${start ?? "?"}–${end ?? "?"}`;
 }

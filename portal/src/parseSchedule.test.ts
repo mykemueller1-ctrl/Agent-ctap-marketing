@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import {
   buildInsights,
+  displayWindow,
   parseWideScheduleCsv,
 } from "./parseSchedule";
 
@@ -54,6 +55,13 @@ describe("parseWideScheduleCsv — posted paper week 8/30–9/5", () => {
     expect(kenzyFri?.end).toBe("24:00");
     expect(kenzyFri?.flags.closes).toBe(true);
 
+    const kenzyTue = parsed.assignments.find(
+      a => a.employee === "Kenzy Thompson" && a.date === "2026-09-01"
+    );
+    expect(kenzyTue?.flags.firstCut).toBe(true);
+    expect(kenzyTue?.incomplete).toBe(false);
+    expect(displayWindow(kenzyTue!)).toBe("5:00 PM–OPEN");
+
     expect(
       parsed.assignments.some(
         a => a.employee === "Jessica Gailey" && a.date === "2026-09-04"
@@ -78,6 +86,11 @@ describe("parseWideScheduleCsv — posted paper week 8/30–9/5", () => {
         i => i.kind === "requested-off" && i.date === "2026-09-05" && /Sydney/i.test(i.title)
       )
     ).toBe(true);
+    expect(
+      insights.some(
+        i => i.kind === "incomplete" && /Kenzy|Kaillee|Araya|Lauren|Kaylee|Jeri/i.test(i.title)
+      )
+    ).toBe(false);
   });
 });
 
